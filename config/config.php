@@ -7,26 +7,26 @@ class Database {
     private $connection;
 
     public function __construct() {
-        $this->connect();
+        $this->connect();  // Automatically connect when an instance is created
     }
 
     private function connect() {
-         // Create a new mysqli instance and attempt to connect to the database
-         $this->connection = new mysqli($this->host, $this->username, $this->password, $this->database);
+        // Create a new mysqli instance and attempt to connect to the database
+        $this->connection = new mysqli($this->host, $this->username, $this->password, $this->database);
 
-         // Check the connection errors
-         if ($this->connection->connect_error){
-            die('Connection Failed: ' .$this->connection->connect_error);
-         }
+        // Check if there's a connection error
+        if ($this->connection->connect_error) {
+            die('Connection Failed: ' . $this->connection->connect_error);
+        }
     }
 
-    public function getConnection(){
-        return $this->connection;
+    public function getConnection() {
+        return $this->connection;  // Return the connection instance
     }
 
     public function __destruct() {
         // Close the connection when the object is destroyed
-        if($this->connect()) {
+        if ($this->connection) {
             $this->connection->close();
         }
     }

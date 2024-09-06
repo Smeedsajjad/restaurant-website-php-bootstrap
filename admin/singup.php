@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Signup</title>
     <meta property="og:image" content="assets/images/social-image.png" />
     <meta name="format-detection" content="telephone=no" />
 
@@ -16,24 +17,12 @@
     <link href="assets/styles/nav/bootstrap-select.min.css" rel="stylesheet" />
     <link href="assets/styles/nav/style.css" rel="stylesheet" />
     <link href="assets/styles/nav/LineIcons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/bootstrap-5.3.3-dist/css/bootstrap.min.css">
 
-    <!-- <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    /> -->
-  </head>
-  <body>
-    
-    <div id="preloader">
-      <div class="sk-three-bounce">
-        <div class="sk-child sk-bounce1"></div>
-        <div class="sk-child sk-bounce2"></div>
-        <div class="sk-child sk-bounce3"></div>
-      </div>
-    </div>
-    <!--*******************
-        Preloader end
-    ********************-->
+</head>
+
+<body>
+<?php include './partials/preloader.php' ?>
 
     <!--**********************************
         Main wrapper start
@@ -46,28 +35,28 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-									<div class="text-center mb-3">
-										<a href="index.html"><img src="./assets/images/logo-full.png" alt=""></a>
-									</div>
+                                    <div class="text-center mb-3">
+                                        <a href="index.php"><img src="./assets/images/logo-full.png" alt=""></a>
+                                    </div>
                                     <h4 class="text-center mb-4">Sign up your account</h4>
-                                    <form action="index.html">
+                                    <form id="singupForm">
                                         <div class="form-group">
                                             <label class="mb-1"><strong>Username</strong></label>
-                                            <input type="text" class="form-control" placeholder="username">
+                                            <input name="username" type="text" class="form-control" placeholder="username">
                                         </div>
                                         <div class="form-group">
                                             <label class="mb-1"><strong>Email</strong></label>
-                                            <input type="email" class="form-control" placeholder="hello@example.com">
+                                            <input name="email" type="email" class="form-control" value="admin@example.com" placeholder="hello@example.com">
                                         </div>
-                                       <div class="form-group position-relative">
+                                        <div class="form-group position-relative">
                                             <label class="mb-1"><strong>Password</strong></label>
-											<input type="password" id="dz-password" class="form-control" value="123456">
-											<span class="show-pass eye">
-											
-												<i class="fa fa-eye-slash"></i>
-												<i class="fa fa-eye"></i>
-											
-											</span>
+                                            <input name="password" type="password" id="dz-password" class="form-control" value="12345678">
+                                            <span class="show-pass eye">
+
+                                                <i class="fa fa-eye-slash"></i>
+                                                <i class="fa fa-eye"></i>
+
+                                            </span>
                                         </div>
                                         <div class="text-center mt-4">
                                             <button type="submit" class="btn btn-primary btn-block">Sign me up</button>
@@ -87,10 +76,32 @@
     <!--**********************************
         Main wrapper end
     ***********************************-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
 
-    <!--**********************************
-        Scripts
-    ***********************************-->
+document.getElementById('singupForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    fetch('php/register.php', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            if (data.success) {
+                window.location.href = './login.php';
+            }
+        })
+        .catch(error => console.error('Error:', error));
+});
+
+
+    </script>
+    <script src="../assets/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- Required vendors -->
     <script src="assets/js/nav/global.min.js"></script>
     <script src="assets/js/nav/bootstrap-select.min.js"></script>
@@ -103,5 +114,6 @@
 
     <!-- Dashboard 1 -->
     <script src="assets/js/nav/dashboard-1.js"></script>
-  </body>
+</body>
+
 </html>

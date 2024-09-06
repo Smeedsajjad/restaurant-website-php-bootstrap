@@ -7,7 +7,9 @@ A dynamic restaurant website built with PHP, Bootstrap, HTML, CSS, and JavaScrip
 │
 ├── /admin/                # Admin panel related files
 │   ├── /assets/           # CSS, JS, images for admin
+│   ├── /classes/          # includes (admin, etc)
 │   ├── /partials/         # Common includes (header, footer, sidebar)
+│   ├── /php/              # includes form action (singup, etc)
 │   ├── /views/            # Admin views (pages)
 │   ├── add-product.php    # Page to add a product
 │   ├── edit-product.php   # Page to edit a product

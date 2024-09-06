@@ -8,6 +8,11 @@ $db = new Database();
 // Get the database connection
 $connection = $db->getConnection();
 
+if (!isset($_SESSION['admin_id']) && !isset($_SESSION['admin_email'])) {
+  header("Location: login.php");
+  exit();
+}
+
 ?>
 
 
@@ -47,13 +52,27 @@ $connection = $db->getConnection();
     <!--**********************************
             Header start
         ***********************************-->
-        <?php include 'partials/header.php' ?>
-        <?php include 'partials/navbar.php' ?>
+    <?php include 'partials/header.php' ?>
+    <?php include 'partials/navbar.php' ?>
 
     <!--**********************************
             Content body start
         ***********************************-->
     <div class="content-body">
+      <div class="row">
+        <h2>Welcome, Admin!</h2>
+        <p>You are logged in as:
+          <?php
+          if (isset($_SESSION['admin_email'])) {
+            echo $_SESSION['admin_email'];
+          } elseif (isset($_COOKIE['admin_email'])) {
+            echo $_COOKIE['admin_email'];
+          }
+          ?>
+        </p>
+
+        <a href="logout.php">Logout</a>
+      </div>
       <!-- row -->
       <div class="container-fluid">
         <div class="row">
