@@ -1,34 +1,27 @@
 <?php
-class Database {
-    private $host = 'localhost';
-    private $username = 'root';
-    private $database = 'restaurant';
-    private $password = '';
-    private $connection;
+class Database
+{
+    private $host = "localhost";
+    private $db_name = "restaurant";
+    private $username = "root";
+    private $password = "";
+    public $conn;
 
-    public function __construct() {
-        $this->connect();  // Automatically connect when an instance is created
-    }
+    public function getConnection()
+    {
+        $this->conn = null;
 
-    private function connect() {
-        // Create a new mysqli instance and attempt to connect to the database
-        $this->connection = new mysqli($this->host, $this->username, $this->password, $this->database);
+        try {
+            $this->conn = new mysqli($this->host, $this->username, $this->password, $this->db_name);
 
-        // Check if there's a connection error
-        if ($this->connection->connect_error) {
-            die('Connection Failed: ' . $this->connection->connect_error);
+            // Check for connection errors
+            if ($this->conn->connect_error) {
+                throw new Exception("Connection failed: " . $this->conn->connect_error);
+            }
+        } catch (Exception $e) {
+            echo "Connection error: " . $e->getMessage();
         }
-    }
 
-    public function getConnection() {
-        return $this->connection;  // Return the connection instance
-    }
-
-    public function __destruct() {
-        // Close the connection when the object is destroyed
-        if ($this->connection) {
-            $this->connection->close();
-        }
+        return $this->conn;
     }
 }
-?>

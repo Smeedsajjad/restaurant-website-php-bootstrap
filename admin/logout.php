@@ -1,11 +1,11 @@
 <?php
-
 session_start();
+session_unset();
 session_destroy();
 
-setcookie('admin_email', '', time() - 3600, "/");
+// Delete the cookies by setting their expiration to a past date
+setcookie("remember_token", "", time() - 3600, "/");
 
 header("Location: login.php");
-exit;
-
+exit();
 ?>

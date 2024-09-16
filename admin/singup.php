@@ -39,7 +39,7 @@
                                         <a href="index.php"><img src="./assets/images/logo-full.png" alt=""></a>
                                     </div>
                                     <h4 class="text-center mb-4">Sign up your account</h4>
-                                    <form id="singupForm">
+                                    <form method="post" action="./php/register.php" >
                                         <div class="form-group">
                                             <label class="mb-1"><strong>Username</strong></label>
                                             <input name="username" type="text" class="form-control" placeholder="username">
@@ -77,29 +77,6 @@
         Main wrapper end
     ***********************************-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-
-document.getElementById('singupForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const formData = new FormData(this);
-
-    fetch('php/register.php', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message);
-            if (data.success) {
-                window.location.href = './login.php';
-            }
-        })
-        .catch(error => console.error('Error:', error));
-});
-
-
-    </script>
     <script src="../assets/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Required vendors -->

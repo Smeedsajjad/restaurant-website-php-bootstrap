@@ -22,10 +22,6 @@
 
 <body>
 
-    <?php
-    // include './partials/preloader.php' 
-    ?>
-
     <!--**********************************
         Main wrapper start
     ***********************************-->
@@ -45,12 +41,7 @@
                                         <a href="index.html"><img src="./assets/images/logo-full.png" alt=""></a>
                                     </div>
                                     <h4 class="text-center mb-4">Sign in your account</h4>
-                                    <?php if (isset($_GET['error'])): ?>
-                                        <div class="alert alert-danger">
-                                            <?php echo htmlspecialchars($_GET['error']); ?>
-                                        </div>
-                                    <?php endif; ?>
-                                    <form action="login.php" method="post">
+                                    <form action="./php/login.php" method="post">
                                         <div class="form-group">
                                             <label class="mb-1"><strong>Email</strong></label>
                                             <input name="email" type="email" class="form-control" required>
@@ -75,7 +66,7 @@
                                         </div>
                                     </form>
                                     <div class="new-account mt-3">
-                                        <p>Don't have an account? <a class="text-primary" href="/">Sign up</a></p>
+                                        <p>Don't have an account? <a class="text-primary" href="./singup.php">Sign up</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -88,46 +79,7 @@
     <!--**********************************
         Main wrapper end
     ***********************************-->
-    <?php
-    // Start output buffering
-    ob_start();
-
-    include './php/admin.php';
-
-    // Enable error reporting
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-
-    // Check if the form was submitted
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-
-        $database = new Database();
-        $admin = new Admin($database);
-
-        $response = $admin->login($email, $password);
-
-        if ($response['success']) {
-            // Set a cookie or session
-            // setcookie('admin_logged_in', true, time() + (86400 * 30), "/"); // 30 days expiration
-
-            // Redirect to the index page
-            header('Location: index.php');
-            // exit(); // Ensure no further code is executed
-        } else {
-            // Redirect back to the login page with an error message
-            header(urlencode($response['message']));
-            exit(); // Ensure no further code is executed
-        }
-    }
-
-    // End output buffering and flush the buffer
-    ob_end_flush();
-    ?>
-
-
+   
     <!--**********************************
         Scripts
     ***********************************-->

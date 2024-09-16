@@ -1,36 +1,28 @@
 <?php
-require_once './admin.php';
+session_start();
+require_once '../../config/config.php';
+require_once '../classes/Admin.php';
 
-// Enable error reporting
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// Create a new Database object and get the connection
+$database = new Database();
+$conn = $database->getConnection();
 
-// Check if the form was submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+// Initialize the Admin class
+$admin = new Admin($conn);
 
-    $database = new Database();
-    $admin = new Admin($database);
+// Check if the login form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the login form data
+    $admin->email = $_POST['email'];
+    $admin->password = $_POST['password'];
+    $remember_me = isset($_POST['remember_me']) ? true : false;
 
-    $response = $admin->login($email, $password);
+    // Call the login function
+    $login_response = $admin->login($remember_me);
 
-    if ($response['success']) {
-        // Set a cookie or session
-        setcookie('admin_logged_in', true, time() + (86400 * 30), "/"); // 30 days expiration
-        
-        // Redirect to the index page
-        header('Location: index.php');
-        exit();
-    } else {
-        // Redirect back to the login page with an error message
-        header('Location: login.php?error=' . urlencode($response['message']));
-        exit();
+    // If login failed, display error message
+    if ($login_response !== true) {
+        echo $login_response;
     }
-} else {
-    // Redirect to login page if not a POST request
-    header('Location: login.php');
-    exit();
 }
 ?>

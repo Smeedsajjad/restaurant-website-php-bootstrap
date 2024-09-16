@@ -1,21 +1,48 @@
 <?php
-// Include the Database class
-require_once '../config/config.php';
+session_start();
 
-// Create an instance of the Database class
-$db = new Database();
+// If the user is already logged in, continue to the page
+if (!isset($_SESSION['admin_id'])) {
+    // Check the "remember_token" cookie
+    if (isset($_COOKIE['remember_token'])) {
+        require_once('./classes/Admin.php');
+        require_once('../config/config.php');
+        
+        // Create a new Database object and get the connection
+        $database = new Database();
+        $conn = $database->getConnection();
 
-// Get the database connection
-$connection = $db->getConnection();
+        $remember_token = $_COOKIE['remember_token'];
 
-if (!isset($_SESSION['admin_id']) && !isset($_SESSION['admin_email'])) {
-  header("Location: login.php");
-  exit();
+        // Query the database to find the user with the remember_token
+        $query = "SELECT * FROM admins WHERE remember_token = ? LIMIT 1";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("s", $remember_token);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows === 1) {
+            // Log the user in by setting session variables
+            $admin = $result->fetch_assoc();
+            $_SESSION['admin_id'] = $admin['id'];
+            $_SESSION['admin_username'] = $admin['username'];
+            $_SESSION['admin_email'] = $admin['email'];
+
+            // Redirect to the dashboard
+            header("Location: index.php");
+            exit;
+        } else {
+            // Token invalid, redirect to login page
+            header("Location: login.php");
+            exit;
+        }
+    } else {
+        // No session or remember token, redirect to login page
+        header("Location: login.php");
+        exit;
+    }
 }
-
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,21 +86,7 @@ if (!isset($_SESSION['admin_id']) && !isset($_SESSION['admin_email'])) {
             Content body start
         ***********************************-->
     <div class="content-body">
-      <div class="row">
-        <h2>Welcome, Admin!</h2>
-        <p>You are logged in as:
-          <?php
-          if (isset($_SESSION['admin_email'])) {
-            echo $_SESSION['admin_email'];
-          } elseif (isset($_COOKIE['admin_email'])) {
-            echo $_COOKIE['admin_email'];
-          }
-          ?>
-        </p>
 
-        <a href="logout.php">Logout</a>
-      </div>
-      <!-- row -->
       <div class="container-fluid">
         <div class="row">
           <div class="col-xl-3 col-lg-3 col-sm-6">

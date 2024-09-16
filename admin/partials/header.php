@@ -1,6 +1,7 @@
     <!--**********************************
             Nav header start
         ***********************************-->
+
     <div class="nav-header">
       <a href="../../restaurant-website-php-bootstrap/admin/index.php" class="brand-logo">
         <img class="logo-abbr" src="https://koki.dexignzone.com/xhtml/images/logo.png" alt="" />
@@ -255,7 +256,17 @@
                   data-bs-toggle="dropdown">
                   <div class="header-info">
                     <small>Good Morning</small>
-                    <span>James Sullivan</span>
+                    <span><?php
+                          // echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Admin'; 
+                          ?></span>
+                    <span><?php
+                          if (isset($_SESSION['admin_username'])) {
+                            echo $_SESSION['admin_username'];
+                          } elseif (isset($_COOKIE['admin_username'])) {
+                            echo $_COOKIE['admin_username'];
+                          }
+                          ?></span>
+
                   </div>
                   <img src="https://koki.dexignzone.com/xhtml/images/profile/12.png" width="20" alt="" />
                 </a>
@@ -298,7 +309,17 @@
                     </svg>
                     <span class="ms-2">Inbox </span>
                   </a>
-                  <a href="page-login.html" class="dropdown-item ai-icon">
+                  <?php
+                  // session_start(); // Start the session
+
+                  // Check if the admin is logged in
+                  if (!isset($_SESSION['admin_id'])) {
+                    header("Location: login.php");
+                    exit();
+                  }
+                  ?>
+
+                  <a href="logout.php" class="dropdown-item ai-icon">
                     <svg
                       id="icon-logout"
                       xmlns="http://www.w3.org/2000/svg"
