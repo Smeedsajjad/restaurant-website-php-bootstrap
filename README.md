@@ -1,53 +1,67 @@
-# restaurant-website-php-bootstrap
-
-A dynamic restaurant website built with PHP, Bootstrap, HTML, CSS, and JavaScript, featuring an interactive menu, reservation system, and responsive design for a seamless user experience across all devices.
-
-```plaintext
-/restaurant-website/
+restaurant-website/
 │
-├── /admin/                # Admin panel related files
-│   ├── /assets/           # CSS, JS, images for admin
-│   ├── /classes/          # includes (admin, etc)
-│   ├── /partials/         # Common includes (header, footer, sidebar)
-│   ├── /php/              # includes form action (singup, etc)
-│   ├── /views/            # Admin views (pages)
-│   ├── add-product.php    # Page to add a product
-│   ├── edit-product.php   # Page to edit a product
-│   ├── manage-products.php# Manage products (list, edit, delete)
-│   ├── manage-orders.php  # Manage orders
-│   ├── manage-users.php   # Manage users
-│   ├── dashboard.php      # Admin dashboard
-│   ├── login.php          # Admin login
-│   ├── index.php          # Admin homepage (redirect to dashboard)
-│   └── logout.php         # Admin logout
+├── admin/                  # Admin panel-related files
+│   ├── css/                # Admin-specific CSS
+│   │   └── admin-styles.css
+│   ├── js/                 # Admin-specific JavaScript
+│   │   └── admin-scripts.js
+│   ├── dashboard.php       # Admin dashboard
+│   ├── manage-menu.php     # Admin page to manage restaurant menu
+│   ├── manage-orders.php   # Admin page to view/manage orders
+│   ├── manage-users.php    # Admin page to manage users
+│   └── includes/           # Admin common includes (header, footer, etc.)
+│       ├── header.php
+│       ├── footer.php
+│       └── sidebar.php
 │
-├── /assets/               # CSS, JS, images for frontend
-│   ├── /css/              # Stylesheets
-│   ├── /js/               # JavaScript files
-│   ├── /images/           # Images for the website
-│   └── /fonts/            # Fonts, if any
+├── assets/                 # Static files
+│   ├── css/                # General site CSS
+│   │   └── styles.css      # Main stylesheet for the user panel
+│   ├── images/             # All images used across the website
+│   │   └── logo.png
+│   ├── js/                 # General JavaScript
+│   │   ├── main.js         # Main JS file
+│   │   └── validations.js  # Form validations
+│   └── vendor/             # External libraries (e.g., Bootstrap, jQuery)
+│       ├── bootstrap/
+│       ├── fontawesome/
+│       └── jquery/
 │
-├── /partials/             # Common includes for frontend (header, footer, navbar)
-│   ├── header.php         # Header file (includes navbar)
-│   ├── footer.php         # Footer file
-│   └── sidebar.php        # Sidebar, if used
+├── user/                   # User panel-related files
+│   ├── css/                # User-specific CSS
+│   │   └── user-styles.css
+│   ├── js/                 # User-specific JavaScript
+│   │   └── user-scripts.js
+│   ├── index.php           # User homepage (main page)
+│   ├── menu.php            # Restaurant menu page
+│   ├── cart.php            # Cart page for users
+│   ├── checkout.php        # Checkout page for users
+│   ├── contact.php         # Contact page
+│   └── includes/           # User common includes (header, footer, etc.)
+│       ├── header.php
+│       ├── footer.php
+│       └── navbar.php
 │
-├── /uploads/              # Folder to store uploaded images (product images, etc.)
+├── config/                 # Configuration files
+│   ├── config.php          # Database connection, app constants
+│   └── db.php              # Database connection script
 │
-├── /config/               # Configuration files
-│   ├── config.php         # Database connection and other settings
-│   ├── functions.php      # Common utility functions
+├── functions/              # Helper PHP functions
+│   └── user-functions.php  # User-related PHP functions
+│   └── admin-functions.php # Admin-related PHP functions
 │
-├── /views/                # Frontend views (pages)
-│   ├── home.php           # Home page
-│   ├── menu.php           # Menu page (lists categories and products)
-│   ├── product.php        # Product details page
-│   ├── cart.php           # Shopping cart page
-│   ├── checkout.php       # Checkout page
-│   ├── order-history.php  # Order history for logged-in users
-│   ├── contact.php        # Contact page
-│   ├── register.php       # User registration page
-│   ├── login.php          # User login page
-└── index.php              # Website homepage (redirects to home.php)
-│ ├── order-history.php # Order history for logged-in users │ ├── contact.php # Contact page │ ├── register.php # User registration page │ ├── login.php # User login page └── index.php # Website homepage (redirects to home.php)
-
+├── uploads/                # Folder to store uploaded files (images, etc.)
+│   └── menu-images/
+│
+├── api/                    # API routes for the app (e.g., REST API for AJAX requests)
+│   └── user-api.php        # User-related API routes
+│   └── admin-api.php       # Admin-related API routes
+│
+├── vendor/                 # Composer dependencies (if you use any)
+│
+├── .htaccess               # Apache server settings (if required)
+├── index.php               # Main index file for the website (landing page)
+├── login.php               # Login page for users and admins
+├── register.php            # Registration page for users
+├── logout.php              # Logout script
+└── README.md               # Project documentation
