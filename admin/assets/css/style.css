@@ -1,4 +1,18 @@
+*{
+  box-sizing: border-box;
+}
 body{
+  background-color: #20304c !important;
+  color: #b5b5c3 !important;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #b5b5c3 !important;
+}
+a{
+  text-decoration: none !important;
+}
+.home-section{
   background-color: #20304c;
-  color: #b5b5c3;
+  color: #b3b3b3 !important;
 }
