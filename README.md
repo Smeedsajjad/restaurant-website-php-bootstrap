@@ -1,3 +1,50 @@
+restaurant-website-php-bootstrap/
+├── admin/
+│   ├── index.php
+│   └── views/
+│       └── dashboard.php
+├── assets/
+│   ├── css/
+│       ├── nav.css
+│       └── style.css
+│   └── js/
+│       └── nav.js
+└── vendor/
+    └── bootstrap/
+        ├── css/
+        │   └── bootstrap.min.css
+        └── js/
+            └── bootstrap.min.js
+
+project-root/
+│
+├── assets/
+│   ├── css/
+│   │   ├── style.css        # Global styles
+│   │   └── nav.css          # Navbar-specific styles
+│   ├── images/
+│   │   └── logo.png         # Logo and other images
+│   ├── js/
+│       └── nav.js           # JavaScript for navbar toggling
+│
+├── vendor/
+│   ├── bootstrap/
+│       └── bootstrap.min.css # Bootstrap CSS
+│       └── bootstrap.min.js  # Bootstrap JS
+│
+├── includes/
+│   ├── navbar.php           # Navbar component
+│
+├── pages/
+│   ├── home.php             # Home page content
+│   ├── dashboard.php        # Dashboard content
+│   └── posts.php            # Posts content
+│
+├── index.php                # Entry point for the website
+└── config.php               # Configuration settings (if any)
+
+
+
 restaurant-website/
 │
 ├── admin/                  # Admin panel-related files

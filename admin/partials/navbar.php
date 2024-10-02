@@ -1,27 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive Navbar Toggle</title>
-  <!-- ICONS -->
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="./assets/css/style.css">
-  <link rel="stylesheet" href="./assets/css/nav.css">
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
-  <!-- Make sure to include the Phosphor Icons library -->
-  <link href="https://unpkg.com/phosphor-icons@1.4.1/css/phosphor.css" rel="stylesheet">
-</head>
-
-<body>
   <div class="sidebar">
     <div class="d-flex align-items-center">
       <div class="menu-btn" id="toggleSidebar">
@@ -59,49 +35,45 @@
             </a>
             <ul class="sub-menu">
               <li>
-                <a href="dashboard.html">
+                <a href="index.php">
                   <span class="text">Dashboard</span>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="active">
-            <a href="#">
-              <i class="icon ph-bold ph-file-text"></i>
-              <span class="text">Posts</span>
-            </a>
-          </li>
+
+
           <li>
             <a href="#">
-              <i class="icon ph-bold ph-calendar-blank"></i>
-              <span class="text">Schedules</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="icon ph-bold ph-chart-bar"></i>
-              <span class="text">Income</span>
-              <i class="arrow ph-bold ph-caret-down"></i>
+              <span class="icons">
+                <svg class="dashboard-icon" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <g id="Iconly/Bold/Category" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Category" transform="translate(2.000000, 2.000000)" fill="#200E32" fill-rule="nonzero">
+                      <path d="M5.9199,11.4697 C7.3299,11.4697 8.4599,12.6107 8.4599,14.0307 L8.4599,14.0307 L8.4599,17.4397 C8.4599,18.8497 7.3299,19.9997 5.9199,19.9997 L5.9199,19.9997 L2.5399,19.9997 C1.1399,19.9997 -0.0001,18.8497 -0.0001,17.4397 L-0.0001,17.4397 L-0.0001,14.0307 C-0.0001,12.6107 1.1399,11.4697 2.5399,11.4697 L2.5399,11.4697 Z M17.46,11.4697 C18.86,11.4697 20,12.6107 20,14.0307 L20,14.0307 L20,17.4397 C20,18.8497 18.86,19.9997 17.46,19.9997 L17.46,19.9997 L14.08,19.9997 C12.67,19.9997 11.54,18.8497 11.54,17.4397 L11.54,17.4397 L11.54,14.0307 C11.54,12.6107 12.67,11.4697 14.08,11.4697 L14.08,11.4697 Z M5.9199,-9.32587341e-14 C7.3299,-9.32587341e-14 8.4599,1.15 8.4599,2.561 L8.4599,2.561 L8.4599,5.97 C8.4599,7.39 7.3299,8.53 5.9199,8.53 L5.9199,8.53 L2.5399,8.53 C1.1399,8.53 -0.0001,7.39 -0.0001,5.97 L-0.0001,5.97 L-0.0001,2.561 C-0.0001,1.15 1.1399,-9.32587341e-14 2.5399,-9.32587341e-14 L2.5399,-9.32587341e-14 Z M17.46,-9.32587341e-14 C18.86,-9.32587341e-14 20,1.15 20,2.561 L20,2.561 L20,5.97 C20,7.39 18.86,8.53 17.46,8.53 L17.46,8.53 L14.08,8.53 C12.67,8.53 11.54,7.39 11.54,5.97 L11.54,5.97 L11.54,2.561 C11.54,1.15 12.67,-9.32587341e-14 14.08,-9.32587341e-14 L14.08,-9.32587341e-14 Z"></path>
+                    </g>
+                  </g>
+                </svg>
+              </span>
+              <span class="text">Category</span>
+              <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 256 256">
+                <rect width="256" height="256" fill="none" />
+                <polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+              </svg>
             </a>
             <ul class="sub-menu">
               <li>
-                <a href="#">
-                  <span class="text">Earnings</span>
+                <a href="index.php?page=add-category">
+                  <span class="text">Add Category</span>
                 </a>
               </li>
               <li>
-                <a href="#">
-                  <span class="text">Funds</span>
+                <a href="index.php?page=manage-category">
+                  <span class="text">Manage Categories</span>
                 </a>
               </li>
               <li>
-                <a href="#">
-                  <span class="text">Declines</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <span class="text">Payouts</span>
+                <a href="index.php?page=edit-category">
+                  <span class="text">Edit Category</span>
                 </a>
               </li>
             </ul>
@@ -109,6 +81,7 @@
         </ul>
       </div>
     </div>
+    
     <div class="menu">
       <p class="title">Account</p>
       <ul>
@@ -127,13 +100,3 @@
       </ul>
     </div>
   </div>
-
-  <!-- Add jQuery from a CDN -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- Bootstrap JS -->
-  <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-  <!-- Custom JS -->
-  <script src="./assets/js/nav.js"></script>
-</body>
-
-</html>

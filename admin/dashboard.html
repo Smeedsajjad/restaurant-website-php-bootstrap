@@ -1,145 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive Navbar Toggle</title>
-  <!-- ICONS -->
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="./assets/css/style.css">
-  <link rel="stylesheet" href="./assets/css/nav.css">
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
-  <!-- Make sure to include the Phosphor Icons library -->
-  <link href="https://unpkg.com/phosphor-icons@1.4.1/css/phosphor.css" rel="stylesheet">
-</head>
-
-<body>
-  <div class="sidebar">
-    <div class="d-flex align-items-center">
-      <div class="menu-btn" id="toggleSidebar">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path class="line1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16" />
-          <path class="line2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h8" />
-          <path class="line3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 14h16" />
-          <path class="line4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 18h8" />
-        </svg>
-      </div>
-      <div class="logo-img logo-wrap ms-3">
-        <img src="./assets/images/logo.png" alt="Logo" class="logo-img" />
-      </div>
+<div class="sidebar">
+  <div class="d-flex align-items-center">
+    <div class="menu-btn" id="toggleSidebar">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon h-6 w-6" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path class="line1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16" />
+        <path class="line2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h8" />
+        <path class="line3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 14h16" />
+        <path class="line4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 18h8" />
+      </svg>
     </div>
-
-    <div class="nav">
-      <div class="menu w-100">
-        <ul>
-          <li>
-            <a href="#">
-              <span class="icons">
-                <svg class="dashboard-icon" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <g id="Iconly/Bold/Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="Home" transform="translate(2.500000, 2.000000)" fill-rule="nonzero">
-                      <path d="M6.63477851,18.7733424 L6.63477851,15.7156161 C6.63477851,14.9350667 7.27217143,14.3023065 8.05843544,14.3023065 L10.9326107,14.3023065 C11.310188,14.3023065 11.6723007,14.4512083 11.9392882,14.7162553 C12.2062757,14.9813022 12.3562677,15.3407831 12.3562677,15.7156161 L12.3562677,18.7733424 C12.3538816,19.0978491 12.4820659,19.4098788 12.7123708,19.6401787 C12.9426757,19.8704786 13.2560494,20 13.5829406,20 L15.5438266,20 C16.4596364,20.0023499 17.3387522,19.6428442 17.9871692,19.0008077 C18.6355861,18.3587712 19,17.4869804 19,16.5778238 L19,7.86685918 C19,7.13246047 18.6720694,6.43584231 18.1046183,5.96466895 L11.4340245,0.675869015 C10.2736604,-0.251438297 8.61111277,-0.221497907 7.48539114,0.74697893 L0.967012253,5.96466895 C0.37274068,6.42195254 0.0175522924,7.12063643 0,7.86685918 L0,16.568935 C0,18.4638535 1.54738155,20 3.45617342,20 L5.37229029,20 C6.05122667,20 6.60299723,19.4562152 6.60791706,18.7822311 L6.63477851,18.7733424 Z"></path>
-                    </g>
-                  </g>
-                </svg>
-              </span>
-              <span class="text">Dashboard</span>
-              <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 256 256">
-                <rect width="256" height="256" fill="none" />
-                <polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
-              </svg>
-            </a>
-            <ul class="sub-menu">
-              <li>
-                <a href="dashboard.html">
-                  <span class="text">Dashboard</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="active">
-            <a href="#">
-              <i class="icon ph-bold ph-file-text"></i>
-              <span class="text">Posts</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="icon ph-bold ph-calendar-blank"></i>
-              <span class="text">Schedules</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="icon ph-bold ph-chart-bar"></i>
-              <span class="text">Income</span>
-              <i class="arrow ph-bold ph-caret-down"></i>
-            </a>
-            <ul class="sub-menu">
-              <li>
-                <a href="#">
-                  <span class="text">Earnings</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <span class="text">Funds</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <span class="text">Declines</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <span class="text">Payouts</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+    <div class="logo-img logo-wrap ms-3">
+      <img src="./assets/images/logo.png" alt="Logo" class="logo-img" />
     </div>
-    <div class="menu">
-      <p class="title">Account</p>
+  </div>
+
+  <div class="nav">
+    <div class="menu w-100">
       <ul>
         <li>
           <a href="#">
-            <i class="icon ph-bold ph-info"></i>
-            <span class="text">Help</span>
+            <span class="icons">
+              <svg class="dashboard-icon" width="24px" height="24px" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <g id="Iconly/Bold/Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="Home" transform="translate(2.500000, 2.000000)" fill-rule="nonzero">
+                    <path
+                      d="M6.63477851,18.7733424 L6.63477851,15.7156161 C6.63477851,14.9350667 7.27217143,14.3023065 8.05843544,14.3023065 L10.9326107,14.3023065 C11.310188,14.3023065 11.6723007,14.4512083 11.9392882,14.7162553 C12.2062757,14.9813022 12.3562677,15.3407831 12.3562677,15.7156161 L12.3562677,18.7733424 C12.3538816,19.0978491 12.4820659,19.4098788 12.7123708,19.6401787 C12.9426757,19.8704786 13.2560494,20 13.5829406,20 L15.5438266,20 C16.4596364,20.0023499 17.3387522,19.6428442 17.9871692,19.0008077 C18.6355861,18.3587712 19,17.4869804 19,16.5778238 L19,7.86685918 C19,7.13246047 18.6720694,6.43584231 18.1046183,5.96466895 L11.4340245,0.675869015 C10.2736604,-0.251438297 8.61111277,-0.221497907 7.48539114,0.74697893 L0.967012253,5.96466895 C0.37274068,6.42195254 0.0175522924,7.12063643 0,7.86685918 L0,16.568935 C0,18.4638535 1.54738155,20 3.45617342,20 L5.37229029,20 C6.05122667,20 6.60299723,19.4562152 6.60791706,18.7822311 L6.63477851,18.7733424 Z">
+                    </path>
+                  </g>
+                </g>
+              </svg>
+            </span>
+            <span class="text">Dashboard</span>
+            <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 256 256">
+              <rect width="256" height="256" fill="none" />
+              <polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round"
+                stroke-linejoin="round" stroke-width="16" />
+            </svg>
+          </a>
+          <ul class="sub-menu">
+            <li>
+              <a href="dashboard.html">
+                <span class="text">Dashboard</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="active">
+          <a href="#">
+            <i class="icon ph-bold ph-file-text"></i>
+            <span class="text">Posts</span>
           </a>
         </li>
         <li>
           <a href="#">
-            <i class="icon ph-bold ph-sign-out"></i>
-            <span class="text">Logout</span>
+            <i class="icon ph-bold ph-calendar-blank"></i>
+            <span class="text">Schedules</span>
           </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon ph-bold ph-chart-bar"></i>
+            <span class="text">Income</span>
+            <i class="arrow ph-bold ph-caret-down"></i>
+          </a>
+          <ul class="sub-menu">
+            <li>
+              <a href="#">
+                <span class="text">Earnings</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="text">Funds</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="text">Declines</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="text">Payouts</span>
+              </a>
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
   </div>
-
-  <main>
-    <h1>
-      Main content goes here
-    </h1>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit impedit quo aut earum assumenda ipsa adipisci culpa quia. Consequatur eum eveniet quo facere ea modi corrupti optio voluptatem quia exercitationem?</p>
-  </main>
-  <!-- Add jQuery from a CDN -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- Bootstrap JS -->
-  <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-  <!-- Custom JS -->
-  <script src="./assets/js/nav.js"></script>
-</body>
-
-</html>
+  <div class="menu">
+    <p class="title">Account</p>
+    <ul>
+      <li>
+        <a href="#">
+          <i class="icon ph-bold ph-info"></i>
+          <span class="text">Help</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="icon ph-bold ph-sign-out"></i>
+          <span class="text">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

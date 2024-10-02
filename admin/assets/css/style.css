@@ -1,6 +1,14 @@
 *{
   box-sizing: border-box;
 }
+:root {
+  --body-background: #20304c;
+  --first-color: #0c1a32;
+  --first-color-light: #AFA5D9;
+  --white-color: #b5b5c3;
+  --body-font: 'Nunito', sans-serif;
+  --box-body: #0c1a33;
+}
 body{
   background-color: #20304c !important;
   color: #b5b5c3 !important;
@@ -15,4 +23,7 @@ a{
 .home-section{
   background-color: #20304c;
   color: #b3b3b3 !important;
+}
+.box-body{
+  background-color: var(--box-body) !important;
 }
