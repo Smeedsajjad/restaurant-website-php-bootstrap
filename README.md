@@ -1,5 +1,21 @@
 restaurant-website-php-bootstrap/
 ├── admin/
+│   ├── index.php                 // Main entry point for the admin panel
+│   ├── views/                    // Folder containing all view files
+│   │   ├── dashboard.php         // Dashboard view
+│   │   ├── add-category.php      // Form to add a new category
+│   │   ├── manage-category.php   // Page to manage categories
+│   │   └── edit-category.php     // Page to edit an existing category
+│   ├── assets/                   // Folder for assets like CSS, JS, images
+│   ├── config/                   // Configuration files
+│   ├── partials/                 // Reusable partials (like headers, footers)
+│   ├── php/                      // PHP classes and controllers
+└── index.php                     // Main entry for the website (outside admin)
+
+
+
+/restaurant-website-php-bootstrap/
+├── admin/
 │   ├── index.php
 │   └── views/
 │       └── dashboard.php
@@ -7,14 +23,42 @@ restaurant-website-php-bootstrap/
 │   ├── css/
 │       ├── nav.css
 │       └── style.css
-│   └── js/
-│       └── nav.js
-└── vendor/
-    └── bootstrap/
-        ├── css/
-        │   └── bootstrap.min.css
-        └── js/
-            └── bootstrap.min.js
+├── config/
+│   └── Database.php          # Database connection settings
+├── partials/
+│   └── header.php            # Header partial for the website
+├── php/
+│   ├── Category.php          # Model for category
+│   ├── CategoryController.php # Controller for category operations
+│   └── Menu.php              # Model for menu items
+├── uploads/                  # Directory to store uploaded images
+├── views/
+│   ├── AddCategoryView.php   # Form for adding a new category
+│   └── MenuView.php          # Form for managing menu items
+└── index.php                 # Entry point for the website
+
+restaurant-website-php-bootstrap/
+├── admin/
+│   ├── index.php                  // Main entry point for the admin panel
+│   ├── views/                     // Folder containing all view files
+│   │   ├── dashboard.php          // Dashboard view
+│   │   ├── add-category.php       // Form to add a new category
+│   │   ├── manage-category.php     // Page to manage categories
+│   │   └── edit-category.php      // Page to edit an existing category
+│   ├── assets/                    // Folder for assets like CSS, JS, images
+│   │   ├── css/                   // CSS files
+│   │   │   ├── nav.css
+│   │   │   └── style.css
+│   ├── config/                    // Configuration files
+│   ├── partials/                  // Reusable partials (like headers, footers)
+│   ├── php/                       // PHP classes and controllers
+│   │   ├── CategoryController.php  // Category management logic
+│   │   └── ...                    // Other controllers as needed
+│   ├── uploads/                   // Folder for uploaded images
+│   |── views/                     // Folder for additional views if necessary
+    |── index.php                      // Public entry point for the website
+└── ...                            // Other directories and files as needed
+
 
 project-root/
 │
