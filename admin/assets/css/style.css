@@ -418,3 +418,134 @@ a {
   height: auto; /* Maintain aspect ratio */
   mix-blend-mode: multiply;
 }
+.progress-bar{
+  background-color: #0b5231 !important;
+}
+.menage-cat-card{
+ background-color: var(--first-color) !important; 
+}
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+/* Body settings */
+body {
+    background: #f9f9f9;
+    font-size: 16px;
+    font-family: 'Raleway', sans-serif;
+}
+
+/* Custom card styling */
+.menage-cat-card {
+    margin-top: 20px;
+}
+
+/* Content overlay effect */
+.content {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* Overlay details */
+.content .content-overlay {
+    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    height: 99%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+}
+
+/* Hover effect to show overlay */
+.content:hover .content-overlay {
+    opacity: 1;
+}
+
+/* Image styling */
+.content-image {
+    width: 100%;
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
+}
+
+img {
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* Content details on hover */
+.content-details {
+    position: absolute;
+    text-align: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Fade-in effect */
+.content:hover .content-details {
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+    
+}
+
+.content-details h3 {
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5em;
+    text-transform: uppercase;
+}
+
+.content-details p {
+    color: #fff;
+    font-size: 0.8em;
+}
+
+/* Fade-in from the bottom */
+.fadeIn-bottom {
+    top: 80%;
+}
+/* Zoom effect on hover */
+.content-image {
+  padding: 30px;
+  width: 100%;
+  border-radius: 5px;
+  transition: transform 0.3s ease-in-out; /* Smooth transition for zoom effect */
+}
+
+.content:hover .content-image {
+  transform: scale(1.1);
+}
+/* Default SVG icon styles */
+.card-icon svg {
+  background-color: transparent; /* Default background color */
+  fill: #fff; /* Default icon color */
+  padding: 12px 15px 10px; /* Padding for SVG */
+  border: 2px solid #ffffff; /* White border */
+  color: #ffffff; /* Text color */
+  border-radius: 5px; /* To make the SVG circular */
+  transition: background-color 0.3s ease, fill 0.3s ease; /* Smooth transitions */
+}
+
+/* Hover state for SVG icon */
+.card-icon svg:hover {
+  background-color: #4c95dd; /* Background color on hover */
+  fill: #ffffff; /* Change icon color on hover if needed */
+}
+
+.card-icon > svg {
+  width: 50px; /* Set icon width */
+  height: 50px; /* Set icon height */
+  z-index: auto;
+}

@@ -71,11 +71,6 @@
                   <span class="text">Manage Categories</span>
                 </a>
               </li>
-              <li>
-                <a href="index.php?page=edit-category">
-                  <span class="text">Edit Category</span>
-                </a>
-              </li>
             </ul>
           </li>
         </ul>

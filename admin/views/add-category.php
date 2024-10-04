@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $targetDir = './uploads/categories/';
         $imageName = basename($_FILES['cat_img']['name']);  // Updated to match 'cat_img'
         $targetFilePath = $targetDir . $imageName;
-    
+
         // Move the uploaded file to the target directory
         if (move_uploaded_file($_FILES['cat_img']['tmp_name'], $targetFilePath)) {
             $imagePath = $targetFilePath;  // Save the image path to the database
@@ -28,13 +28,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Error uploading image.";
         }
     }
-    
+
+
     // Call the uploadCategory method
     if ($categoryController->uploadCategory($name, $imagePath)) {
-        echo "Category added successfully!";
-        // Redirect or show success message
+        // Success message in toast with tick icon and progress bar
+        echo "
+    <div class='toast align-items-center text-bg-success position-fixed top-0 end-0 m-3' role='alert' aria-live='assertive' aria-atomic='true' id='successToast' style='min-width: 300px;'>
+        <div class='d-flex'>
+            <div class='toast-body'>
+                                <span>
+                        <img class='me-2 src='./assets/images/done.gif' style='width: 85px;' alt='>
+                    </span>Category added successfully!
+                <div class='progress mt-2'>
+                    <div class='progress-bar bg-light' role='progressbar' style='width: 100%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>
+                </div>
+            </div>
+            <button type='button' class='btn-close me-2 m-auto' data-bs-dismiss='toast' aria-label='Close'></button>
+        </div>
+    </div>
+    ";
     } else {
-        echo "Failed to add category.";
+        // Failure message in toast with cross icon and progress bar
+        echo "
+    <div class='toast align-items-center text-bg-danger position-fixed top-0 end-0 m-3' role='alert' aria-live='assertive' aria-atomic='true' id='errorToast' style='min-width: 300px;'>
+        <div class='d-flex'>
+            <div class='toast-body'>
+                  <span>
+                        <img class='me-2 src='./assets/images/danger.gif' style='width: 85px;' alt='>
+                    </span> Failed to add category.
+                <div class='progress mt-2'>
+                    <div class='progress-bar bg-light' role='progressbar' style='width: 100%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>
+                </div>
+            </div>
+            <button type='button' class='btn-close me-2 m-auto' data-bs-dismiss='toast' aria-label='Close'></button>
+        </div>
+    </div>
+    ";
     }
 }
 ?>
@@ -51,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./assets/css/nav.css"> <!-- Correct path for nav.css -->
     <link rel="stylesheet" href="./assets/css/style.css"> <!-- Correct path for style.css -->
@@ -80,18 +111,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="col-md-12" id="box">
                     <div class="content-header">
                         <div class="d-flex align-items-center">
-                            <div class="me-auto">
-                                <h4 class="page-title">Add/Edit Menu</h4>
-                                <div class="d-inline-block align-items-center">
-                                    <nav>
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
-                                            <li class="breadcrumb-item" aria-current="page">Menu</li>
-                                            <li class="breadcrumb-item active" aria-current="page">Add/Edit</li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                            </div>
+                            <!-- <div class="me-auto">
+                                <h4 class="page-title">Category</h4>
+                                <span>Add</span>
+                            </div> -->
 
                         </div>
                     </div>
@@ -204,34 +227,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     </script>
     <script>
-          // Get the input and image preview container
-    const input = document.getElementById('categoryimg');
-    const imagePreview = document.getElementById('imagePreview');
+        // Get the input and image preview container
+        const input = document.getElementById('categoryimg');
+        const imagePreview = document.getElementById('imagePreview');
 
-    // Add an event listener for when a file is selected
-    input.addEventListener('change', function() {
-        // Clear any previous previews
-        imagePreview.innerHTML = '';
+        // Add an event listener for when a file is selected
+        input.addEventListener('change', function() {
+            // Clear any previous previews
+            imagePreview.innerHTML = '';
 
-        // Check if the user has selected a file
-        const file = this.files[0];
-        if (file) {
-            // Create a new FileReader object
-            const reader = new FileReader();
+            // Check if the user has selected a file
+            const file = this.files[0];
+            if (file) {
+                // Create a new FileReader object
+                const reader = new FileReader();
 
-            // When the file is loaded, create an image element
-            reader.onload = function(event) {
-                const imgElement = document.createElement('img');
-                imgElement.src = event.target.result;
-                imgElement.style.maxWidth = '300px'; // Set a max width for the preview
-                imgElement.style.marginTop = '10px';
-                imagePreview.appendChild(imgElement);
-            };
+                // When the file is loaded, create an image element
+                reader.onload = function(event) {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = event.target.result;
+                    imgElement.style.maxWidth = '300px'; // Set a max width for the preview
+                    imgElement.style.marginTop = '10px';
+                    imagePreview.appendChild(imgElement);
+                };
 
-            // Read the selected file as a DataURL (base64)
-            reader.readAsDataURL(file);
+                // Read the selected file as a DataURL (base64)
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var successToast = document.getElementById('successToast');
+            var errorToast = document.getElementById('errorToast');
+
+            if (successToast) {
+                var toast = new bootstrap.Toast(successToast);
+                toast.show();
+                animateProgressBar(successToast);
+            }
+
+            if (errorToast) {
+                var toast = new bootstrap.Toast(errorToast);
+                toast.show();
+                animateProgressBar(errorToast);
+            }
+        });
+
+        function animateProgressBar(toastElement) {
+            var progressBar = toastElement.querySelector('.progress-bar');
+            var width = 100;
+            var interval = setInterval(function() {
+                if (width <= 0) {
+                    clearInterval(interval);
+                    toastElement.querySelector('.btn-close').click();
+                } else {
+                    width--;
+                    progressBar.style.width = width + "%";
+                }
+            }, 30); // Adjust the interval for faster/slower progress
         }
-    });
+    </script>
+
+
+
 
     </script>
     <!-- Add jQuery from a CDN -->
