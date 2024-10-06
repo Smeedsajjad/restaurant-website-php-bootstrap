@@ -25,7 +25,7 @@ class CategoryController {
     }
 
     public function updateCategory($id, $name, $imagePath) {
-        $stmt = $this->connection->prepare("UPDATE categories SET name = ?, image_path = ? WHERE id = ?");
+        $stmt = $this->connection->prepare("UPDATE categories SET cat_name = ?, cat_img = ? WHERE id = ?");
         $stmt->bind_param("ssi", $name, $imagePath, $id);
         return $stmt->execute();
     }
