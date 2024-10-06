@@ -9,7 +9,7 @@
         </svg>
       </div>
       <div class="logo-img logo-wrap ms-3">
-        <img src="./assets/images/logo.png" alt="Logo" class="logo-img" />
+      <a href="./index.php">  <img src="./assets/images/logo.png" alt="Logo" class="logo-img" /></a>
       </div>
     </div>
 
@@ -73,10 +73,37 @@
               </li>
             </ul>
           </li>
+
+          <li>
+            <a href="#">
+              <span class="icons">
+                <svg class="dashboard-icon" width="24px" height="24px" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path d="M408.921,326.971l38.613-172.991A21.333,21.333,0,0,0,426.714,128H122.335l-1.543-6.945A31.815,31.815,0,0,0,89.552,96H58.667a10.667,10.667,0,0,0,0,21.333H89.552a10.609,10.609,0,0,1,10.417,8.354L157.81,385.98a42.731,42.731,0,1,0,49.768,19.353H341.755A42.642,42.642,0,1,0,378.667,384H179.224l-7.111-32H377.689A32,32,0,0,0,408.921,326.971ZM170.667,445.333a18.667,18.667,0,1,1,18.667-18.667A18.666,18.666,0,0,1,170.667,445.333Zm226.667-18.667A18.667,18.667,0,1,1,378.667,408,18.666,18.666,0,0,1,397.333,426.667Z" />
+                </svg>
+              </span>
+              <span class="text">Products</span>
+              <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 256 256">
+                <rect width="256" height="256" fill="none" />
+                <polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+              </svg>
+            </a>
+            <ul class="sub-menu">
+              <li>
+                <a href="index.php?page=add-products">
+                  <span class="text">Add Products</span>
+                </a>
+              </li>
+              <li>
+                <a href="index.php?page=manage-products">
+                  <span class="text">Manage Products</span>
+                </a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
     </div>
-    
+
     <div class="menu">
       <p class="title">Account</p>
       <ul>

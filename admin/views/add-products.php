@@ -9,74 +9,16 @@ $dbConnection = $database->conn; // Get the connection object
 
 // Pass the database connection to the CategoryController
 $categoryController = new CategoryController($dbConnection);
+$categories = $categoryController->getCategories();
 
-// Check if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['cat_name'];  // Updated to match input name 'cat_name'
-    $imagePath = '';  // Assume you handle image upload separately
-
-    // Handle image upload logic here (e.g., moving the uploaded file to the uploads directory)
-    if (isset($_FILES['cat_img']) && $_FILES['cat_img']['error'] == 0) {  // Updated to match input name 'cat_img'
-        $targetDir = './uploads/categories/';
-        $imageName = basename($_FILES['cat_img']['name']);  // Updated to match 'cat_img'
-        $targetFilePath = $targetDir . $imageName;
-
-        // Move the uploaded file to the target directory
-        if (move_uploaded_file($_FILES['cat_img']['tmp_name'], $targetFilePath)) {
-            $imagePath = $targetFilePath;  // Save the image path to the database
-        } else {
-            echo "Error uploading image.";
-        }
-    }
-
-
-    // Call the uploadCategory method
-    if ($categoryController->uploadCategory($name, $imagePath)) {
-        // Success message in toast with tick icon and progress bar
-        echo "
-        <div class='toast align-items-center text-bg-success position-fixed top-0 end-0 m-3' role='alert' aria-live='assertive' aria-atomic='true' id='successToast' style='min-width: 300px;'>
-            <div class='d-flex'>
-                <div class='toast-body'>
-                    <span>
-                        <img class='me-2' src='./assets/images/done.gif' style='width: 85px;' alt=''>
-                    </span>Category added successfully!
-                    <div class='progress mt-2'>
-                        <div class='progress-bar bg-light' role='progressbar' style='width: 100%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>
-                    </div>
-                </div>
-                <button type='button' class='btn-close me-2 m-auto' data-bs-dismiss='toast' aria-label='Close'></button>
-            </div>
-        </div>
-        ";
-    } else {
-        // Deletion failed
-        // Failure message in toast with cross icon and progress bar
-        echo "
-        <div class='toast align-items-center text-bg-danger position-fixed top-0 end-0 m-3' role='alert' aria-live='assertive' aria-atomic='true' id='errorToast' style='min-width: 300px;'>
-            <div class='d-flex'>
-                <div class='toast-body'>
-                    <span>
-                        <img class='me-2' src='./assets/images/danger.gif' style='width: 85px;' alt=''>
-                    </span> Failed to add category.
-                    <div class='progress mt-2'>
-                        <div class='progress-bar bg-light' role='progressbar' style='width: 100%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>
-                    </div>
-                </div>
-                <button type='button' class='btn-close me-2 m-auto' data-bs-dismiss='toast' aria-label='Close'></button>
-            </div>
-        </div>
-        ";
-    }
-}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Add Products</title>
     <link rel="stylesheet" href="./assets/css/_header.scss">
     <!-- ICONS -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -112,40 +54,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="col-md-12" id="box">
                     <div class="content-header">
                         <div class="d-flex align-items-center">
-                            <!-- <div class="me-auto">
-                                <h4 class="page-title">Category</h4>
+                            <div class="me-auto">
+                                <h4 class="page-title">Products</h4>
                                 <span>Add</span>
-                            </div> -->
-
+                            </div>
                         </div>
                     </div>
                     <div class="box-body p-3">
-                        <form method="post" action="index.php?page=add-category" enctype="multipart/form-data">
+                        <form method="post" action="index.php?page=add-products" enctype="multipart/form-data">
                             <div class="row">
-                                <div class="col-md-12 mb-3">
-                                    <label for="categoryname" class="form-label">Name</label>
-                                    <input name="cat_name" list="categories" placeholder="Category Name" type="text" class="form-control my-input" id="categoryname" aria-describedby="emailHelp" required>
-                                    <datalist id="categories">
-                                        <option value="Pizza">
-                                        <option value="Burger">
-                                        <option value="Pasta">
-                                        <option value="Colddrinks">
-                                        <option value="Salad">
-                                        <option value="Desserts">
-                                        <option value="Sandwiches">
-                                        <option value="Grill">
-                                        <option value="Seafood">
-                                    </datalist>
+                                <div class="col-md-6 mb-3">
+                                    <label for="productName" class="form-label">Name</label>
+                                    <input name="name" type="text" class="form-control my-input" id="productName" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="productPrice" class="form-label">Price</label>
+                                    <input name="price" type="number" min="0" step="0.01" class="form-control my-input" id="productPrice" required>
                                 </div>
                                 <div class="col-md-12 mb-3">
-                                    <label for="categoryimg" class="form-label">Upload Category Image</label>
-                                    <input name="cat_img" type="file" class="form-control my-input" id="categoryimg" aria-describedby="emailHelp" required accept="image/*" required>
-                                    <div id="imagePreview" style="margin-top: 15px;
-                               ">
-                                    </div>
+                                    <label for="productDesc" class="form-label">Description</label>
+                                    <textarea name="desc" class="form-control my-input" id="productDesc" rows="3"></textarea>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="productCategory" class="form-label">Category</label>
+                                    <select name="category_id" class="form-control my-input" id="productCategory" required>
+                                        <option value="">Select a category</option>
+                                        <!-- PHP code to populate categories from database -->
+                                        <?php foreach ($categories as $category): ?>
+                                            <option value="<?php echo htmlspecialchars($category['id']); ?>">
+                                                <?php echo htmlspecialchars($category['cat_name']); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="productAvailability" class="form-label">Availability</label>
+                                    <select name="is_available" class="form-control my-input" id="productAvailability">
+                                        <option value="1">Available</option>
+                                        <option value="0">Not Available</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="productIngredients" class="form-label">Ingredients</label>
+                                    <textarea name="ingredients" class="form-control my-input" id="productIngredients" rows="2"></textarea>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="productAllergies" class="form-label">Allergies</label>
+                                    <textarea name="Allergies" class="form-control my-input" id="productAllergies" rows="2"></textarea>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="productImages" class="form-label">Upload Product Images</label>
+                                    <input name="images" type="file" class="form-control my-input" id="productImages" aria-describedby="emailHelp" required accept="image/*" multiple>
+                                    <div id="imagePreview" style="margin-top: 15px;"></div>
                                 </div>
                                 <div class="m-1">
-                                    <button class="submit">
+                                    <button class="submit" type="submit">
                                         <div class="outline"></div>
                                         <div class="state state--default">
                                             <div class="icon">
@@ -217,7 +180,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         </div>
                                     </button>
                                 </div>
-
                         </form>
                     </div>
                 </div>
@@ -226,34 +188,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </main>
 
 
-    </script>
     <script>
-        // Get the input and image preview container
-        const input = document.getElementById('categoryimg');
+        // Image preview script
+        const input = document.getElementById('productImages');
         const imagePreview = document.getElementById('imagePreview');
 
-        // Add an event listener for when a file is selected
         input.addEventListener('change', function() {
-            // Clear any previous previews
             imagePreview.innerHTML = '';
-
-            // Check if the user has selected a file
-            const file = this.files[0];
-            if (file) {
-                // Create a new FileReader object
-                const reader = new FileReader();
-
-                // When the file is loaded, create an image element
-                reader.onload = function(event) {
-                    const imgElement = document.createElement('img');
-                    imgElement.src = event.target.result;
-                    imgElement.style.maxWidth = '300px'; // Set a max width for the preview
-                    imgElement.style.marginTop = '10px';
-                    imagePreview.appendChild(imgElement);
-                };
-
-                // Read the selected file as a DataURL (base64)
-                reader.readAsDataURL(file);
+            const files = this.files;
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = event.target.result;
+                        imgElement.style.maxWidth = '100px';
+                        imgElement.style.marginRight = '10px';
+                        imgElement.style.marginTop = '10px';
+                        imagePreview.appendChild(imgElement);
+                    };
+                    reader.readAsDataURL(file);
+                }
             }
         });
     </script>
