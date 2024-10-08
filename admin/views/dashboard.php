@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="./assets/css/_header.scss">
     <!-- ICONS -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- Font Awesome -->

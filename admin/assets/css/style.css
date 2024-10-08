@@ -412,10 +412,10 @@ a {
   padding: 5px;
   border: 1px dashed rgb(32, 48, 77);
   background-color: #fff;
-  display: flex;
+  /* display: flex; */
   /* Center the content */
-  align-items: center;
-  justify-content: center;
+  /* align-items: center;
+  justify-content: center; */
 }
 
 #imagePreview img {

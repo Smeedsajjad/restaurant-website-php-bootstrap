@@ -33,15 +33,18 @@ ul {
 }
 
 .sidebar {
-  position: relative;
+  position: fixed; /* Change to fixed */
+  top: 0; /* Align to top */
+  left: 0; /* Align to left */
   width: 256px;
-  /* height: 100vh; */
+  height: 100vh; /* Set height to 100% of viewport height */
   display: flex;
   flex-direction: column;
   gap: 20px;
   background-color: var(--first-color);
   padding: 15px;
   transition: all 0.3s;
+  overflow-y: auto; /* Add scrollbar if content overflows */
 }
 
 .sidebar {
@@ -92,6 +95,7 @@ ul {
 
 .nav {
   flex: 1;
+  overflow-y: auto;
 }
 
 .menu ul li {
@@ -355,9 +359,42 @@ body {
   min-height: 100vh;
   background-color: var(--body-background);
   font-family: var(--body-font);
+  margin: 0; /* Ensure no default margins */
 }
 
 main {
   flex: 1;
+  margin-left: 256px; /* Match the width of the sidebar */
   transition: margin-left 0.3s;
+  padding: 15px; /* Add some padding */
+}
+
+/* Adjust main content when sidebar is active (collapsed) */
+.sidebar.active + main {
+  margin-left: 60px; /* Match the collapsed width of the sidebar */
+}
+
+/* Ensure the content inside sidebar doesn't overflow */
+.nav {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Add media query for responsiveness */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 60px; /* Collapsed by default on small screens */
+  }
+
+  main {
+    margin-left: 60px;
+  }
+
+  .sidebar.active {
+    width: 256px;
+  }
+
+  .sidebar.active + main {
+    margin-left: 256px;
+  }
 }

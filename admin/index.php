@@ -19,7 +19,13 @@ switch($page) {
         $pageContent = $baseViewPath . 'edit-category.php'; // Page to edit a category
         break;
     case 'add-products':
-         $pageContent = $baseViewPath . 'add-products.php'; // Page to add a category
+        $pageContent = $baseViewPath . 'add-products.php'; // Page to add a category
+        break;
+    case 'manage-products':
+        $pageContent = $baseViewPath . 'manage-products.php'; // Page to manage Products
+        break;
+    case 'edit-products':
+        $pageContent = $baseViewPath . 'edit-products.php'; // Page to manage Products
         break;
     default:
         $pageContent = $baseViewPath . 'dashboard.php'; // Default to dashboard if no valid page is found
