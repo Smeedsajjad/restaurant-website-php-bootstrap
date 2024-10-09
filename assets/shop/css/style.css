@@ -58,6 +58,7 @@ a {
 .nav-link.active {
     color: var(--primary) !important;
 }
+
 .caoit {
     font-size: 15px;
     font-weight: 400;
@@ -66,8 +67,9 @@ a {
 
 .caoith {
     color: var(--primary);
-    margin-top: 0; 
-    font-size: 18px; /* Adjust as needed */
+    margin-top: 0;
+    font-size: 18px;
+    /* Adjust as needed */
 }
 
 .call-order-container {
@@ -76,8 +78,9 @@ a {
 }
 
 .call-order-icon {
-    margin-right: 10px; 
-    flex-shrink: 0; /* Prevent the icon from shrinking */
+    margin-right: 10px;
+    flex-shrink: 0;
+    /* Prevent the icon from shrinking */
 }
 
 .call-order-text {
@@ -120,14 +123,198 @@ a {
         font-size: 14px;
     }
 }
-.count-icon{
+
+.count-icon {
     background-color: var(--primary_hover);
     color: #000;
 }
-.fa-search:hover, .fa-user:hover, .fa-heart:hover, .fa-shopping-cart:hover{
+
+.fa-search:hover,
+.fa-user:hover,
+.fa-heart:hover,
+.fa-shopping-cart:hover {
     background-color: var(--primary_hover);
     border-radius: 50%;
 }
-.fa-search, .fa-user, .fa-heart, .fa-shopping-cart{
+
+.fa-search,
+.fa-user,
+.fa-heart,
+.fa-shopping-cart {
     padding: 10px;
+}
+
+.icon-toggler {
+    stroke: #000;
+}
+
+.icon-toggler:hover {
+    stroke: var(--primary);
+}
+
+/* Hero Section Styles */
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    background-color: #333;
+    filter: brightness(0.85);
+
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    background-image: radial-gradient(at center center, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 1) 100%);
+    opacity: 0.8;
+    transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-section>* {
+    position: relative;
+    z-index: 2;
+}
+
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 474px !important;
+    width: 58%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Responsive styles for hero-background */
+@media (max-width: 1600px) {
+    .hero-background {
+        left: 400px !important;
+        width: 62%;
+    }
+}
+
+@media (max-width: 1400px) {
+    .hero-background {
+        left: 350px !important;
+        width: 65%;
+    }
+}
+
+@media (max-width: 1200px) {
+    .hero-background {
+        left: 300px !important;
+        width: 70%;
+    }
+}
+
+@media (max-width: 992px) {
+    .hero-background {
+        left: 0 !important;
+        width: 100%;
+    }
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-section h1 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 76px;
+    line-height: 78px;
+    text-shadow: 1px 0 6px #000;
+}
+
+.hero-section h1 span {
+    color: var(--primary);
+}
+
+.hero-section h2 {
+    color: var(--secondary);
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 36px;
+}
+
+.hero-section p {
+    color: #fff;
+    font-size: 16px;
+}
+
+.pizza-image-container {
+    position: relative;
+    z-index: 3;
+}
+
+.pizza-image {
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+    transition: transform 0.3s ease;
+}
+
+.pizza-image:hover {
+    transform: scale(1.05);
+}
+
+.h_sprinkle {
+    z-index: 1;
+    width: 143%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (max-width: 1200px) {
+    .h_sprinkle {
+        width: 120%;
+    }
+}
+
+@media (max-width: 992px) {
+    .h_sprinkle {
+        width: 100%;
+        height: auto;
+    }
+}
+
+
+/* Responsive styles */
+@media (max-width: 991px) {
+    .hero-section {
+        text-align: center;
+    }
+
+    .hero-section .col-lg-6:first-child {
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 767px) {
+    .hero-section {
+        padding: 40px 0;
+    }
+
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-section h2 {
+        font-size: 1.5rem;
+    }
+}
+
+.h_flour {
+    position: relative;
+    z-index: 2;
 }
