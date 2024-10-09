@@ -1,5 +1,23 @@
 restaurant-website-php-bootstrap/
 ├── admin/
+│   ├── index.php                 
+│   ├── views/                    
+│   ├── assets/                   // Folder for assets like CSS, JS, images
+│   │   ├── admin/                // Separate folder for admin-specific CSS/JS
+│   │   │   ├── css/
+│   │   │   └── js/
+│   │   ├── shop/                 // Separate folder for shop-specific CSS/JS
+│   │   │   ├── css/
+│   │   │   └── js/
+│   │   └── images/               // Shared images folder
+│   ├── config/                  
+│   ├── partials/                 
+│   ├── php/                      
+└── index.php
+
+
+restaurant-website-php-bootstrap/
+├── admin/
 │   ├── index.php                 // Main entry point for the admin panel
 │   ├── views/                    // Folder containing all view files
 │   │   ├── dashboard.php         // Dashboard view
@@ -12,30 +30,6 @@ restaurant-website-php-bootstrap/
 │   ├── php/                      // PHP classes and controllers
 └── index.php                     // Main entry for the website (outside admin)
 
-
-
-/restaurant-website-php-bootstrap/
-├── admin/
-│   ├── index.php
-│   └── views/
-│       └── dashboard.php
-├── assets/
-│   ├── css/
-│       ├── nav.css
-│       └── style.css
-├── config/
-│   └── Database.php          # Database connection settings
-├── partials/
-│   └── header.php            # Header partial for the website
-├── php/
-│   ├── Category.php          # Model for category
-│   ├── CategoryController.php # Controller for category operations
-│   └── Menu.php              # Model for menu items
-├── uploads/                  # Directory to store uploaded images
-├── views/
-│   ├── AddCategoryView.php   # Form for adding a new category
-│   └── MenuView.php          # Form for managing menu items
-└── index.php                 # Entry point for the website
 
 restaurant-website-php-bootstrap/
 ├── admin/

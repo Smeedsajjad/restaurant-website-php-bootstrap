@@ -1,0 +1,133 @@
+:root {
+    --primary: #ffc222;
+    --primary_hover: #eeac00;
+    --secondary: #00A149;
+    --heading: #1e1d23;
+    --light: #999999;
+    --dark: #282828;
+    --border: #e5e5e5;
+    --background: #ffffff;
+    --font-size-normal: 15px;
+    --font-size-large: 18px;
+    --breakpoint-tablet: 768px;
+    --breakpoint-mobile: 480px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #000 !important;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.hhi:hover {
+    color: #fff;
+}
+
+.fa-facebook,
+.fa-twitter,
+.fa-youtube,
+.fa-instagram {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 15px;
+}
+
+.fa-facebook:hover,
+.fa-twitter:hover,
+.fa-youtube:hover,
+.fa-instagram:hover,
+.nav-link:hover {
+    color: var(--primary);
+}
+
+.nav-link.active {
+    color: var(--primary) !important;
+}
+.caoit {
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.caoith {
+    color: var(--primary);
+    margin-top: 0; 
+    font-size: 18px; /* Adjust as needed */
+}
+
+.call-order-container {
+    display: flex;
+    align-items: center;
+}
+
+.call-order-icon {
+    margin-right: 10px; 
+    flex-shrink: 0; /* Prevent the icon from shrinking */
+}
+
+.call-order-text {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Responsive styles */
+@media (max-width: var(--breakpoint-tablet)) {
+    .call-order-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .call-order-icon {
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .caoit {
+        font-size: 14px;
+    }
+
+    .caoith {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: var(--breakpoint-mobile)) {
+    .call-order-icon svg {
+        width: 35px;
+        height: 35px;
+    }
+
+    .caoit {
+        font-size: 12px;
+    }
+
+    .caoith {
+        font-size: 14px;
+    }
+}
+.count-icon{
+    background-color: var(--primary_hover);
+    color: #000;
+}
+.fa-search:hover, .fa-user:hover, .fa-heart:hover, .fa-shopping-cart:hover{
+    background-color: var(--primary_hover);
+    border-radius: 50%;
+}
+.fa-search, .fa-user, .fa-heart, .fa-shopping-cart{
+    padding: 10px;
+}
