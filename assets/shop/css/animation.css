@@ -1,0 +1,76 @@
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInBottomLeft {
+    from {
+        transform: translate(-50%, 100%);
+    }
+    to {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes rotateIn {
+    from {
+        transform: rotate(-15deg);
+    }
+    to {
+        transform: rotate(0);
+    }
+}
+
+.h1_tomato {
+    animation: fadeInDown 1s ease-out;
+}
+
+.h1_left_leaf {
+    animation: slideInLeft 1s ease-out;
+}
+
+.h2_right_leaf {
+    animation: slideInRight 1s ease-out;
+}
+
+.h1_mint {
+    animation: slideInBottomLeft 1s ease-out;
+}
+
+.h2_mushroom {
+    animation: rotateIn 1s ease-out;
+}
+
+/* Ensure elements are hidden before animation starts */
+.h1_tomato, .h1_left_leaf, .h2_right_leaf, .h1_mint, .h2_mushroom {
+    opacity: 0;
+}
+
+/* Show elements when animation is applied */
+.h1_tomato.animate, .h1_left_leaf.animate, .h2_right_leaf.animate, .h1_mint.animate, .h2_mushroom.animate {
+    opacity: 1;
+}

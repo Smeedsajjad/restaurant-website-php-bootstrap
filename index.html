@@ -8,6 +8,8 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
     <link rel="stylesheet" href="assets/shop/css/style.css">
+    <link rel="stylesheet" href="assets/shop/css/animation.css">
+    <link rel="stylesheet" href="assets/shop/css/navbar.css">
     <title>Shop</title>
 </head>
 
@@ -21,6 +23,7 @@
                         <p class="me-5 mb-0">
                             <i class="fa-solid fa-mobile-screen-button me-2"></i>
                             <span>CALL US: +381 65 666 6666</span>
+
                         </p>
                         <p class="mb-0">
                             <i class="fa-solid fa-location-dot me-2"></i>
@@ -41,7 +44,6 @@
 
     <!-- navbar -->
 
-    <!-- nav for lg -->
     <!-- nav for lg -->
     <nav class="navbar navbar-expand-lg d-none d-lg-block">
         <div class="container">
@@ -92,7 +94,7 @@
                             </svg>
                         </div>
                         <div class="call-order-text">
-                            <p class="caoit">Call and Order in</p>
+                            <p class="caoit" style="color: #999999;">Call and Order in</p>
                             <h3 class="caoith fw-bold">+1 718-904-4450</h3>
                         </div>
                     </span>
@@ -172,27 +174,43 @@
     <!-- hero section -->
     <section class="hero-section py-5 position-relative">
         <img src="assets/shop/images/h_flour.png" alt="Flour Background" class="hero-background d-none d-lg-block">
+        <img src="assets/shop/images/h1_left_leaf.png" alt="Leaf" class="h1_left_leaf">
+        <img src="assets/shop/images/h2_right_leaf.png" alt="Leaf" class="h2_right_leaf ">
+        <img src="assets/shop/images/h2_mushroom.png" alt="Mushroom" class="h2_mushroom">
+        <img src="assets/shop/images/h1_tomato.png" alt="Tomato" class="h1_tomato">
+        <img src="assets/shop/images/h1_mint.png" alt="Mint" class="h1_mint">
         <div class="container position-relative">
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <h1 class="display-4 fw-bold mb-4 hero-title">UNLIMITED MEDIUM <span>PIZZAS</span></h1>
                     <h2 class="h3 mb-3">Medium 2-topping* pizza</h2>
                     <p class="mb-4">*Additional charge for premium toppings. Minimum of 2 required.</p>
-                    <a href="#" class="btn btn-primary btn-lg">ORDER NOW</a>
+                    <a href="#" class="btn btn-primary btn-lg order-now-btn">ORDER NOW</a>
                 </div>
                 <div class="col-lg-6 mt-4">
                     <div class="d-flex justify-content-center position-relative" style="height: 100%;">
                         <img src="assets/shop/images/h_sprinkle.png" alt="Sprinkle Background"
-                            class="position-absolute h_sprinkle  d-none d-lg-block">
+                            class="position-absolute h_sprinkle d-none d-lg-block">
                         <img src="assets/shop/images/h_pizza.png" alt="Delicious Pizza"
                             class="img-fluid rounded position-relative pizza-image"
-                            style="max-height: 100%; width: auto; z-index: 2;">
+                            style="max-height: 100%; width: auto; z-index: 2;filter: brightness(0.90);">
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <div>
+        <div class="container position-relative">
+            <div class="row align-items-center">
+                <div class="d-flex justify-content-center position-relative" style="top: -28px;">
+                    <a href="#" class="btn order-now-btn fs-5">MENU</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
+
+    <script src="assets/shop/js/animation.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
