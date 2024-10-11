@@ -74,3 +74,16 @@
 .h1_tomato.animate, .h1_left_leaf.animate, .h2_right_leaf.animate, .h1_mint.animate, .h2_mushroom.animate {
     opacity: 1;
 }
+
+/* Initially hide the elements with a downward translation and no opacity */
+.product-cat {
+    opacity: 0;
+    transform: translateY(50px); /* Start 50px below their final position */
+    transition: all 0.6s ease-out; /* Smooth transition for both opacity and position */
+}
+
+/* Add this class when elements become visible to slide them to their natural position */
+.product-cat.visible {
+    opacity: 1;
+    transform: translateY(0); /* Move to their final position */
+}

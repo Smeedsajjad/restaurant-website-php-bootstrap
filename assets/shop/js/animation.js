@@ -156,3 +156,27 @@ leftLeaf.style.transition = "transform 0.1s ease-out";
 sprinkleImage.style.transition = "transform 0.1s ease-out";
 pizzaImage.style.transform = "translateY(var(--translateY))";
 pizzaImage.style.setProperty("--e-transform-transition-duration", "100ms");
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  const products = document.querySelectorAll('.product-cat');
+  let delay = 0; // Initialize delay
+
+  // Create an IntersectionObserver to detect when elements are visible in the viewport
+  let observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+          if (entry.isIntersecting) {
+              // Add a delay to each product before making it visible
+              setTimeout(() => {
+                  entry.target.classList.add('visible'); // Add class to animate
+              }, delay);
+              delay += 150; // Increase delay for the next product (150ms)
+          }
+      });
+  }, { threshold: 0.1 }); // Trigger when 10% of the element is in view
+
+  // Observe each product category
+  products.forEach(product => {
+      observer.observe(product);
+  });
+});

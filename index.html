@@ -4,9 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap -->
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
+    <!-- Font Awesome 5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- font-family: "Norican", cursive; -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Norican&display=swap" rel="stylesheet">
+    <!-- custom css -->
     <link rel="stylesheet" href="assets/shop/css/style.css">
     <link rel="stylesheet" href="assets/shop/css/animation.css">
     <link rel="stylesheet" href="assets/shop/css/navbar.css">
@@ -176,7 +190,7 @@
         <img src="assets/shop/images/h_flour.png" alt="Flour Background" class="hero-background d-none d-lg-block">
         <img src="assets/shop/images/h1_left_leaf.png" alt="Leaf" class="h1_left_leaf">
         <img src="assets/shop/images/h2_right_leaf.png" alt="Leaf" class="h2_right_leaf ">
-        <img src="assets/shop/images/h2_mushroom.png" alt="Mushroom" class="h2_mushroom">
+        <img src="assets/shop/images/h2_mushroom.png" alt="Mushroom" class="h2_mushroom ">
         <img src="assets/shop/images/h1_tomato.png" alt="Tomato" class="h1_tomato">
         <img src="assets/shop/images/h1_mint.png" alt="Mint" class="h1_mint">
         <div class="container position-relative">
@@ -199,16 +213,272 @@
             </div>
         </div>
     </section>
-    <div>
-        <div class="container position-relative">
-            <div class="row align-items-center">
-                <div class="d-flex justify-content-center position-relative" style="top: -28px;">
-                    <a href="#" class="btn order-now-btn fs-5">MENU</a>
-                </div>
+    <div class="container position-relative">
+        <div class="row align-items-center">
+            <div class="d-flex justify-content-center position-relative" style="top: -28px;">
+                <a href="#" class="btn order-now-btn fs-5">MENU</a>
             </div>
         </div>
     </div>
 
+    <!-- main section -->
+    <main>
+        <!-- category-section -->
+        <section class="category-section">
+            <div class="container">
+                <div class="row justify-content-center text-center col-lg gap-lg-5 align-items-end">
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
+                        <a href="#" class="link_category_product">
+                            <div class="img-wrapper position-relative">
+                                <img src="assets/shop/images/category-1.png" alt="Category 1" class="">
+                            </div>
+                            <span class="cat-title text-uppercase">combo</span>
+                            <div class="hover-circle"
+                                style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
+                        <a href="#" class="link_category_product">
+                            <div class="img-wrapper position-relative">
+                                <img src="assets/shop/images/category-2.png" alt="Category 2" class="">
+                            </div>
+                            <span class="cat-title">kids menu</span>
+                            <div class="hover-circle"
+                                style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
+                        <a href="#" class="link_category_product">
+                            <div class="img-wrapper position-relative">
+                                <img src="assets/shop/images/category-3.png" alt="Category 3" class="img-fluid">
+                            </div>
+                            <span class="cat-title">pizza</span>
+                            <div class="hover-circle"
+                                style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
+                        <a href="#" class="link_category_product">
+                            <div class="img-wrapper position-relative">
+                                <img src="assets/shop/images/category-4.png" alt="Category 4" class="img-fluid">
+                            </div>
+                            <span class="cat-title">box meals</span>
+                            <div class="hover-circle"
+                                style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
+                        <a href="#" class="link_category_product">
+                            <div class="img-wrapper position-relative">
+                                <img src="assets/shop/images/category-5.png" alt="Category 5" class="img-fluid">
+                            </div>
+                            <span class="cat-title">burger</span>
+                            <div class="hover-circle"
+                                style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
+                        <a href="#" class="link_category_product">
+                            <div class="img-wrapper position-relative">
+                                <img src="assets/shop/images/category-6.png" alt="Category 6" class="img-fluid">
+                            </div>
+                            <span class="cat-title">chicken</span>
+                            <div class="hover-circle"
+                                style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
+                        <a href="#" class="link_category_product">
+                            <div class="img-wrapper position-relative">
+                                <img src="assets/shop/images/category-7.png" alt="Category 7" class="img-fluid">
+                            </div>
+                            <span class="cat-title">sauces</span>
+                            <div class="hover-circle"
+                                style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
+                        <a href="#" class="link_category_product">
+                            <div class="img-wrapper position-relative">
+                                <img src="assets/shop/images/category-8.png" alt="Category 8" class="img-fluid">
+                            </div>
+                            <span class="cat-title">drinks</span>
+                            <div class="hover-circle"
+                                style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- offers section -->
+        <section class="offers-section mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="offer-card bg-white">
+                            <div class="row g-0 h-100">
+                                <div class="col-6">
+                                    <div class="card-body d-flex flex-column h-100">
+                                        <h5 class="card-title text-dark">Any day <br> offers</h5>
+                                        <p class="card-text flex-grow-1">New phenomenon burger taste</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="img-wrapper">
+                                        <img src="assets/shop/images/hy-circle.png" alt="Hover Circle"
+                                            class="hover-circle">
+                                        <img src="assets/shop/images/offer1.png" class="img-fluid" alt="Offer 1"
+                                            style="width: 150px !important;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="offer-card" style="background-image: url('assets/shop/images/offer-c2bg.jpg');">
+                            <div class="row g-0 h-100">
+                                <div class="col-6">
+                                    <div class="card-body d-flex flex-column h-100">
+                                        <h5 class="card-title text-white">Other flavors</h5>
+                                        <p class="card-text flex-grow-1 text-white">Save room. We made salads</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="img-wrapper">
+                                        <div class="hover-circle"
+                                            style="background-image: url('assets/shop/images/hr-circle.png');"></div>
+                                        <img src="assets/shop/images/offer2.png" class="img-fluid" alt="Offer 2"
+                                            style="right: 0 !important;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="offer-card bg-white">
+                            <div class="row g-0 h-100">
+                                <div class="col-6">
+                                    <div class="card-body d-flex flex-column h-100">
+                                        <h5 class="card-title">Find a Poco store near you</h5>
+                                        <p class="card-text flex-grow-1">Discover our locations</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="img-wrapper">
+                                        <div class="hover-circle"
+                                            style="background-image: url('assets/shop/images/hw_circle.png');"></div>
+                                        <img src="assets/shop/images/location.png" class="img-fluid" alt="Offer 3"
+                                            style="width: 150px !important;top: 7px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- hero 2 section -->
+        <section class="hero2-section">
+            <div class="hero2-img"> </div>
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="row">
+                        <div class="hero2-content">
+                            <div class="lch2">
+                                <img src="assets/shop/images/h1_think.png" alt="" class="ch2_leaf">
+                                <p>Get Up to <br><span>50%</span> <span style="color: #000;">OFF</span></p>
+                            </div>
+                            <div class="rch2">
+                                <p>Hot Fresh</p>
+                                <img src="assets/shop/images/h1_thunder-1.png" alt="" class="ch2_leaf">
+                                <img src="assets/shop/images/h1_thunder-2.png" alt="" class="ch2_leaf">
+                                <p class="p2">PIZZA</p>
+                                <button class="btn btn-inverse-primary">ORDER NOW</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi ullam labore explicabo nostrum accusamus
+            laudantium error, tempora ex, itaque possimus deleniti? Porro recusandae possimus nostrum asperiores ipsum
+            doloribus placeat suscipit corrupti quae facere voluptatibus corporis consectetur accusamus, eligendi
+            architecto aliquid aperiam ullam explicabo ab. Numquam sapiente qui quibusdam voluptas sint eaque veritatis,
+            voluptate dolorem omnis explicabo tenetur, officia dolore deserunt debitis asperiores, quo praesentium
+            pariatur rerum ducimus ut perspiciatis excepturi et. Quod quidem perferendis modi, maxime, facilis rerum
+            maiores exercitationem alias magni voluptates animi expedita ea est. Nihil ipsum voluptate illo obcaecati
+            beatae. Iusto consequatur incidunt rerum qui non alias ratione, sequi, magnam neque animi omnis, ea placeat
+            architecto sit velit ab labore autem ad exercitationem at est. Atque cumque dolor quas vero doloremque minus
+            deserunt nulla quia natus porro ab, corrupti doloribus adipisci dicta tempora quam ullam ipsum repellendus
+            vitae similique hic eum? Quaerat itaque nisi perspiciatis ducimus aliquam ipsa. Cumque reiciendis fugit
+            quidem consectetur provident cum debitis rerum ut, sed quos, ducimus pariatur numquam, quisquam temporibus?
+            Veritatis aliquam adipisci inventore quaerat vel excepturi, labore, nobis impedit necessitatibus similique
+            amet odio laborum tempora voluptates, sint rem reprehenderit quia atque delectus voluptatum! Doloremque
+            iusto odio, incidunt vero magni ut ratione dolorem repudiandae excepturi nulla, sunt exercitationem
+            sapiente. Voluptas ducimus est inventore accusamus adipisci sed earum commodi veritatis, ipsum modi sint
+            nesciunt eum similique maxime, eius aperiam distinctio porro! Tempora voluptate ipsa vitae quasi dolores
+            enim, error quidem, quam exercitationem illum dolorem non saepe nisi vero esse cupiditate perspiciatis
+            numquam atque! Soluta fuga obcaecati repellat et numquam doloremque facere, molestiae enim! Molestiae, vero
+            iusto temporibus quasi, quibusdam officiis a, dolorum laborum quis magnam impedit repellendus optio error
+            eligendi eaque cupiditate commodi minus officia! Doloremque necessitatibus minima quos eum saepe quasi
+            ducimus distinctio commodi? Neque odit aperiam ab beatae tenetur ut et sed cupiditate minima repellendus,
+            laboriosam quibusdam asperiores pariatur optio dicta expedita iure voluptate aut odio explicabo sequi at
+            repudiandae! Cumque velit consequatur laboriosam eveniet nobis dolorem reprehenderit autem ipsa, repellat
+            consectetur temporibus, id animi quos maxime magnam facere, inventore vel? Dolorem dolorum, vero dicta fuga
+            cumque, veniam officiis in aut sint quis animi quod aspernatur necessitatibus nam a eius tenetur, corporis
+            ipsum minima at omnis illo voluptates unde! Cumque, ullam quo facilis vel repellat a earum, sed eius facere
+            neque molestiae suscipit. Facere natus, tenetur nisi maiores cum eos aperiam earum facilis alias quidem
+            incidunt asperiores repellat, voluptates odit delectus nulla quaerat error. Eius laborum voluptatibus non
+            vel ullam tenetur voluptate quibusdam maiores ratione fugit atque aspernatur inventore nulla animi et iusto,
+            itaque accusantium sunt necessitatibus nobis nemo voluptates blanditiis obcaecati vero? Dolorum ex
+            voluptatibus repellat voluptate fugiat cum deserunt esse aliquam, inventore eligendi nemo dolores itaque
+            placeat nostrum officiis nobis. Quia optio dolor provident animi dolorum cupiditate porro fuga autem
+            adipisci numquam nihil, aspernatur eligendi architecto culpa! Explicabo velit impedit expedita repudiandae
+            deleniti, iusto commodi doloribus, quos consequatur modi rem eius dicta nam rerum beatae consequuntur quod
+            aliquid dolorum illo exercitationem? Labore dolore veritatis harum, nihil explicabo magni dolorum pariatur
+            debitis reprehenderit voluptates velit, ipsam similique, nobis a quos rerum sunt id minima! Fugiat amet
+            adipisci blanditiis error repudiandae dolor omnis voluptatibus consequatur pariatur laudantium nostrum,
+            cumque, quos fuga nesciunt aspernatur illo accusantium placeat, molestiae culpa nisi harum recusandae est
+            aliquid! Recusandae, dolorum minus consectetur inventore fuga iusto? Omnis ratione dignissimos quisquam
+            eveniet architecto! Doloribus, quam, eum rerum similique ipsa placeat harum aut, dolorum rem illo
+            accusantium exercitationem? Similique sint obcaecati corporis illo magnam eveniet ipsam, pariatur aut quasi
+            ab officia doloremque nihil repellat rem, provident ex. Vitae officia porro magnam excepturi ullam minus nam
+            expedita ipsum possimus totam in quas quasi veritatis, harum repellat nostrum ad. Possimus ipsa totam
+            doloribus facilis nesciunt odit animi? Porro in recusandae veritatis voluptas impedit molestiae libero
+            voluptatum eius quas nostrum. Quos voluptatem doloremque architecto quod vero enim voluptate maxime, porro
+            voluptatibus quae autem officiis dicta, vitae id magni cumque quia expedita est provident sit mollitia
+            nostrum perspiciatis reprehenderit ad? Placeat eligendi explicabo autem harum numquam, sint eos consectetur
+            iste eius porro saepe quos voluptas, accusantium laboriosam esse accusamus aliquam suscipit corporis quae
+            quod! Rem dicta iste eveniet et iure commodi, quae molestias laudantium dolore aut distinctio amet corporis.
+            Quidem saepe eveniet possimus assumenda provident rerum minima dolores, officia cupiditate officiis cum quas
+            distinctio sint, veritatis quis fugit aperiam quia! Sapiente, id recusandae. Corrupti consequuntur commodi
+            magnam nisi officiis maiores distinctio quis iste expedita earum, ea velit eveniet possimus? Impedit,
+            temporibus qui? Fuga eligendi quos cum sed impedit est rem doloribus molestiae! Aliquam molestiae omnis
+            debitis obcaecati recusandae dolores quos excepturi eum minus sapiente est laborum, laboriosam expedita
+            soluta? Exercitationem consectetur ipsum, adipisci iste at voluptatum nisi provident consequatur corporis
+            officia sint laudantium magnam? Ipsam explicabo cum esse, exercitationem fuga tempora vero, qui quas unde
+            corrupti in! Iure quisquam, ipsum totam provident quae, at magnam dicta debitis dolor odio accusantium
+            sapiente dolorem sit numquam voluptatem quibusdam magni deserunt nam natus obcaecati. Doloribus inventore
+            soluta pariatur, sed repudiandae veniam? Doloribus, exercitationem iusto! Delectus facilis minus molestiae
+            quae illo ea tempora sit sunt non, commodi accusantium quis eum voluptatum provident quas exercitationem,
+            earum placeat deserunt numquam fuga? Doloremque similique nihil nobis. Eum rem nihil natus obcaecati
+            laboriosam, omnis quidem veniam tempora temporibus voluptates harum mollitia, dolorum ipsa facere ducimus
+            assumenda, nobis quibusdam architecto nisi numquam minus hic consequuntur deserunt repudiandae.
+            Exercitationem ad amet incidunt a libero ex reiciendis optio temporibus consectetur atque, neque, delectus
+            doloremque possimus maxime aut eveniet blanditiis ipsum? Debitis voluptatem asperiores fugit voluptate
+            blanditiis, eius aliquid dolorem doloribus esse molestiae, dolore aspernatur minus quae quo. Quas, ea earum
+            ipsum, nulla inventore doloribus totam similique quae, fuga numquam voluptate sapiente non. Consequatur fuga
+            numquam perferendis nam aliquid quis reprehenderit, facere sed porro, ab repellendus eos nulla delectus
+            saepe amet ipsam suscipit ex provident ipsa similique quos autem. Praesentium sunt, quaerat labore quidem
+            perferendis omnis rem recusandae, quia ad minima blanditiis fugiat officia. Nihil laudantium reiciendis
+            ipsam perspiciatis. Reiciendis explicabo totam libero, rem ipsa, nesciunt vel sed debitis sequi corporis
+            possimus nobis accusamus ipsum.
+        </p>
+    </main>
 
     <script src="assets/shop/js/animation.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
