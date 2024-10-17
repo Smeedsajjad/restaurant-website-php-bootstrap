@@ -20,6 +20,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Norican&display=swap" rel="stylesheet">
+    <!-- swiper -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <!-- custom css -->
     <link rel="stylesheet" href="assets/shop/css/style.css">
     <link rel="stylesheet" href="assets/shop/css/animation.css">
@@ -135,7 +137,7 @@
     </nav>
 
     <!-- nav for sm -->
-    <nav class="navbar navbar-expand-lg d-lg-none bg-light position-sticky top-0" style="z-index: 1000;">
+    <nav class="navbar navbar-expand-lg d-lg-none bg-light position-sticky top-0" style="z-index: 1000; padding: 15px;">
         <div class="container-fluid">
             <div class="d-flex justify-content-between align-items-center w-100">
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
@@ -379,107 +381,281 @@
                 </div>
             </div>
         </section>
+        <!-- clients section -->
+        <section class="clients-section py-5">
+            <div class="container">
+                <h2 class="text-dark text-center mb-5">What Our Clients Say</h2>
+                <div class="clients-slider overflow-hidden">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="client-card">
+                                <img src="assets/shop/images/avatar-3.jpg" alt="Client 1" class="client-image">
+                                <h4 class="client-name">John Doe</h4>
+                                <p class="client-review">"The pizza here is absolutely amazing! The crust is perfectly
+                                    crispy, and the toppings are always fresh. I'm a regular customer now!"</p>
+                                <div class="client-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="client-card">
+                                <img src="assets/shop/images/avatar-2.jpg" alt="Client 2" class="client-image">
+                                <h4 class="client-name">James Smith</h4>
+                                <p class="client-review">"I love the variety of options on the menu. The combo meals are
+                                    a great value, and the service is always friendly and quick."</p>
+                                <div class="client-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="client-card">
+                                <img src="assets/shop/images/avatar-4.jpg" alt="Client 3" class="client-image">
+                                <h4 class="client-name">Mike Johnson</h4>
+                                <p class="client-review">"The delivery is always on time, and the food arrives hot and
+                                    fresh. It's my go-to place for a quick and delicious meal!"</p>
+                                <div class="client-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="client-card">
+                                <img src="assets/shop/images/avatar-3.jpg" alt="Client 1" class="client-image">
+                                <h4 class="client-name">John Doe</h4>
+                                <p class="client-review">"The pizza here is absolutely amazing! The crust is perfectly
+                                    crispy, and the toppings are always fresh. I'm a regular customer now!"</p>
+                                <div class="client-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="client-card">
+                                <img src="assets/shop/images/avatar-2.jpg" alt="Client 2" class="client-image">
+                                <h4 class="client-name">James Smith</h4>
+                                <p class="client-review">"I love the variety of options on the menu. The combo meals are
+                                    a great value, and the service is always friendly and quick."</p>
+                                <div class="client-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="client-card">
+                                <img src="assets/shop/images/avatar-4.jpg" alt="Client 3" class="client-image">
+                                <h4 class="client-name">Mike Johnson</h4>
+                                <p class="client-review">"The delivery is always on time, and the food arrives hot and
+                                    fresh. It's my go-to place for a quick and delicious meal!"</p>
+                                <div class="client-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </section>
 
         <!-- hero 2 section -->
-        <section class="hero2-section">
-            <div class="hero2-img"> </div>
+        <section class="hero-2-section">
             <div class="container-fluid">
-                <div class="container">
-                    <div class="row">
-                        <div class="hero2-content">
-                            <div class="lch2">
-                                <img src="assets/shop/images/h1_think.png" alt="" class="ch2_leaf">
-                                <p>Get Up to <br><span>50%</span> <span style="color: #000;">OFF</span></p>
+                <div class="row overflow-hidden">
+                    <div class="col-lg-4 hero2-col-lg-4 p-0 position-relative">
+                        <div class="h2h-b"></div>
+                        <div class="hero2-content-1">
+                            <div class="img-wrapper">
+                                <img src="assets/shop/images/h2-1.png" alt="Hero 2" class="img-fluid">
                             </div>
-                            <div class="rch2">
-                                <p>Hot Fresh</p>
-                                <img src="assets/shop/images/h1_thunder-1.png" alt="" class="ch2_leaf">
-                                <img src="assets/shop/images/h1_thunder-2.png" alt="" class="ch2_leaf">
-                                <p class="p2">PIZZA</p>
-                                <button class="btn btn-inverse-primary">ORDER NOW</button>
+                            <div class="content">
+                                <h2>Fast Food</h2>
+                                <h1>Meals</h1>
+                                <p class="text-white">New phenomenon <br> burger taste</p>
+                                <p class="price">$19.90</p>
+                                <a href="#" class="btn wb-btn">Order Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 hero2-col-lg-4 p-0 position-relative">
+                        <div class="hero2-content-2">
+                            <div class="h2h-b"></div>
+                            <div class="img-wrapper">
+                                <img src="assets/shop/images/h2-2.png" alt="Hero 2" class="img-fluid">
+                            </div>
+                            <div class="content">
+                                <h2>Fast Food</h2>
+                                <h1>Meals</h1>
+                                <p class="text-white" style="line-height: 1.5rem;">New phenomenon <br> burger taste</p>
+                                <p class="price">$19.90</p>
+                                <a href="#" class="btn wb-btn">Order Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 hero2-col-lg-4 p-0 position-relative">
+                        <div class="hero2-content-3">
+                            <div class="h2h-b"></div>
+                            <div class="img-wrapper">
+                                <img src="assets/shop/images/h2-3.png" alt="Hero 2" class="img-fluid "
+                                    style="top: -4rem;">
+                            </div>
+                            <div class="content">
+                                <h2>Fast Food</h2>
+                                <h1>Meals</h1>
+                                <p class="text-white">New phenomenon <br> burger taste</p>
+                                <p class="price">$19.90</p>
+                                <a href="#" class="btn wb-btn">Order Now</a>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
 
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi ullam labore explicabo nostrum accusamus
-            laudantium error, tempora ex, itaque possimus deleniti? Porro recusandae possimus nostrum asperiores ipsum
-            doloribus placeat suscipit corrupti quae facere voluptatibus corporis consectetur accusamus, eligendi
-            architecto aliquid aperiam ullam explicabo ab. Numquam sapiente qui quibusdam voluptas sint eaque veritatis,
-            voluptate dolorem omnis explicabo tenetur, officia dolore deserunt debitis asperiores, quo praesentium
-            pariatur rerum ducimus ut perspiciatis excepturi et. Quod quidem perferendis modi, maxime, facilis rerum
-            maiores exercitationem alias magni voluptates animi expedita ea est. Nihil ipsum voluptate illo obcaecati
-            beatae. Iusto consequatur incidunt rerum qui non alias ratione, sequi, magnam neque animi omnis, ea placeat
-            architecto sit velit ab labore autem ad exercitationem at est. Atque cumque dolor quas vero doloremque minus
-            deserunt nulla quia natus porro ab, corrupti doloribus adipisci dicta tempora quam ullam ipsum repellendus
-            vitae similique hic eum? Quaerat itaque nisi perspiciatis ducimus aliquam ipsa. Cumque reiciendis fugit
-            quidem consectetur provident cum debitis rerum ut, sed quos, ducimus pariatur numquam, quisquam temporibus?
-            Veritatis aliquam adipisci inventore quaerat vel excepturi, labore, nobis impedit necessitatibus similique
-            amet odio laborum tempora voluptates, sint rem reprehenderit quia atque delectus voluptatum! Doloremque
-            iusto odio, incidunt vero magni ut ratione dolorem repudiandae excepturi nulla, sunt exercitationem
-            sapiente. Voluptas ducimus est inventore accusamus adipisci sed earum commodi veritatis, ipsum modi sint
-            nesciunt eum similique maxime, eius aperiam distinctio porro! Tempora voluptate ipsa vitae quasi dolores
-            enim, error quidem, quam exercitationem illum dolorem non saepe nisi vero esse cupiditate perspiciatis
-            numquam atque! Soluta fuga obcaecati repellat et numquam doloremque facere, molestiae enim! Molestiae, vero
-            iusto temporibus quasi, quibusdam officiis a, dolorum laborum quis magnam impedit repellendus optio error
-            eligendi eaque cupiditate commodi minus officia! Doloremque necessitatibus minima quos eum saepe quasi
-            ducimus distinctio commodi? Neque odit aperiam ab beatae tenetur ut et sed cupiditate minima repellendus,
-            laboriosam quibusdam asperiores pariatur optio dicta expedita iure voluptate aut odio explicabo sequi at
-            repudiandae! Cumque velit consequatur laboriosam eveniet nobis dolorem reprehenderit autem ipsa, repellat
-            consectetur temporibus, id animi quos maxime magnam facere, inventore vel? Dolorem dolorum, vero dicta fuga
-            cumque, veniam officiis in aut sint quis animi quod aspernatur necessitatibus nam a eius tenetur, corporis
-            ipsum minima at omnis illo voluptates unde! Cumque, ullam quo facilis vel repellat a earum, sed eius facere
-            neque molestiae suscipit. Facere natus, tenetur nisi maiores cum eos aperiam earum facilis alias quidem
-            incidunt asperiores repellat, voluptates odit delectus nulla quaerat error. Eius laborum voluptatibus non
-            vel ullam tenetur voluptate quibusdam maiores ratione fugit atque aspernatur inventore nulla animi et iusto,
-            itaque accusantium sunt necessitatibus nobis nemo voluptates blanditiis obcaecati vero? Dolorum ex
-            voluptatibus repellat voluptate fugiat cum deserunt esse aliquam, inventore eligendi nemo dolores itaque
-            placeat nostrum officiis nobis. Quia optio dolor provident animi dolorum cupiditate porro fuga autem
-            adipisci numquam nihil, aspernatur eligendi architecto culpa! Explicabo velit impedit expedita repudiandae
-            deleniti, iusto commodi doloribus, quos consequatur modi rem eius dicta nam rerum beatae consequuntur quod
-            aliquid dolorum illo exercitationem? Labore dolore veritatis harum, nihil explicabo magni dolorum pariatur
-            debitis reprehenderit voluptates velit, ipsam similique, nobis a quos rerum sunt id minima! Fugiat amet
-            adipisci blanditiis error repudiandae dolor omnis voluptatibus consequatur pariatur laudantium nostrum,
-            cumque, quos fuga nesciunt aspernatur illo accusantium placeat, molestiae culpa nisi harum recusandae est
-            aliquid! Recusandae, dolorum minus consectetur inventore fuga iusto? Omnis ratione dignissimos quisquam
-            eveniet architecto! Doloribus, quam, eum rerum similique ipsa placeat harum aut, dolorum rem illo
-            accusantium exercitationem? Similique sint obcaecati corporis illo magnam eveniet ipsam, pariatur aut quasi
-            ab officia doloremque nihil repellat rem, provident ex. Vitae officia porro magnam excepturi ullam minus nam
-            expedita ipsum possimus totam in quas quasi veritatis, harum repellat nostrum ad. Possimus ipsa totam
-            doloribus facilis nesciunt odit animi? Porro in recusandae veritatis voluptas impedit molestiae libero
-            voluptatum eius quas nostrum. Quos voluptatem doloremque architecto quod vero enim voluptate maxime, porro
-            voluptatibus quae autem officiis dicta, vitae id magni cumque quia expedita est provident sit mollitia
-            nostrum perspiciatis reprehenderit ad? Placeat eligendi explicabo autem harum numquam, sint eos consectetur
-            iste eius porro saepe quos voluptas, accusantium laboriosam esse accusamus aliquam suscipit corporis quae
-            quod! Rem dicta iste eveniet et iure commodi, quae molestias laudantium dolore aut distinctio amet corporis.
-            Quidem saepe eveniet possimus assumenda provident rerum minima dolores, officia cupiditate officiis cum quas
-            distinctio sint, veritatis quis fugit aperiam quia! Sapiente, id recusandae. Corrupti consequuntur commodi
-            magnam nisi officiis maiores distinctio quis iste expedita earum, ea velit eveniet possimus? Impedit,
-            temporibus qui? Fuga eligendi quos cum sed impedit est rem doloribus molestiae! Aliquam molestiae omnis
-            debitis obcaecati recusandae dolores quos excepturi eum minus sapiente est laborum, laboriosam expedita
-            soluta? Exercitationem consectetur ipsum, adipisci iste at voluptatum nisi provident consequatur corporis
-            officia sint laudantium magnam? Ipsam explicabo cum esse, exercitationem fuga tempora vero, qui quas unde
-            corrupti in! Iure quisquam, ipsum totam provident quae, at magnam dicta debitis dolor odio accusantium
-            sapiente dolorem sit numquam voluptatem quibusdam magni deserunt nam natus obcaecati. Doloribus inventore
-            soluta pariatur, sed repudiandae veniam? Doloribus, exercitationem iusto! Delectus facilis minus molestiae
-            quae illo ea tempora sit sunt non, commodi accusantium quis eum voluptatum provident quas exercitationem,
-            earum placeat deserunt numquam fuga? Doloremque similique nihil nobis. Eum rem nihil natus obcaecati
-            laboriosam, omnis quidem veniam tempora temporibus voluptates harum mollitia, dolorum ipsa facere ducimus
-            assumenda, nobis quibusdam architecto nisi numquam minus hic consequuntur deserunt repudiandae.
-            Exercitationem ad amet incidunt a libero ex reiciendis optio temporibus consectetur atque, neque, delectus
-            doloremque possimus maxime aut eveniet blanditiis ipsum? Debitis voluptatem asperiores fugit voluptate
-            blanditiis, eius aliquid dolorem doloribus esse molestiae, dolore aspernatur minus quae quo. Quas, ea earum
-            ipsum, nulla inventore doloribus totam similique quae, fuga numquam voluptate sapiente non. Consequatur fuga
-            numquam perferendis nam aliquid quis reprehenderit, facere sed porro, ab repellendus eos nulla delectus
-            saepe amet ipsam suscipit ex provident ipsa similique quos autem. Praesentium sunt, quaerat labore quidem
-            perferendis omnis rem recusandae, quia ad minima blanditiis fugiat officia. Nihil laudantium reiciendis
-            ipsam perspiciatis. Reiciendis explicabo totam libero, rem ipsa, nesciunt vel sed debitis sequi corporis
-            possimus nobis accusamus ipsum.
-        </p>
-    </main>
+        <!-- blog section -->
+        <section class="blog-section">
+            <div class="container">
+                <h1>Latest News</h1>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="assets/shop/images/blog-1.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <small class="text-muted">Posted at: July 1, 2023</small>
+                                <h5 class="card-title">10 Reasons To Do A Digital Detox Challenge</h5>
+                                <p class="card-text text-muted">Ac haca ullamcorper donec ante habi tasse donec imperdiet eturpis varius per a augue magna hac. Nec hac…</p>
+                                <a href="#" class="btn btn-primary btn-lg order-now-btn" style="margin-top: 1.5rem;">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="assets/shop/images/blog-2.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <small class="text-muted">Posted at: July 2, 2023</small>
+                                <h5 class="card-title">The Ultimate Hangover Burger: Egg in a Hole Burger Grilled Cheese</h5>
+                                <p class="card-text text-muted">Ac haca ullamcorper donec ante habi tasse donec imperdiet eturpis varius per a augue magna hac. Nec hac…</p>
+                                <a href="#" class="btn btn-primary btn-lg order-now-btn" style="margin-top: 1.5rem;">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="assets/shop/images/blog-3.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <small class="text-muted">Posted at: July 3, 2023</small>
+                                <h5 class="card-title">Traditional Soft Pretzels with Sweet Beer Cheese</h5>
+                                <p class="card-text text-muted">Ac haca ullamcorper donec ante habi tasse donec imperdiet eturpis varius per a augue magna hac. Nec hac…</p>
+                                <a href="#" class="btn btn-primary btn-lg order-now-btn" style="margin-top: 1.5rem;">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <!-- footer section -->
+        <footer class="footer-section">
+            <div class="container-fluid">
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                        <h5>Address</h5>
+                        <p>570 8th Ave,<br>
+                        New York, NY 10018<br>
+                        United States</p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <h5>Book a table</h5>
+                        <p>Dogfood och Sliders foodtruck.<br>
+                        Under Om oss kan ni läsa<br>
+                        (850) 435-4155</p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <h5>Opening hours</h5>
+                        <p>Monday – Friday: <span class="text-white">8am – 4pm</span><br>
+                        Saturday: <span class="text-white">9am – 5pm</span></span></p>
+                        <div class="social-icons">
+                            <a href="#" class="me-2"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="me-2"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-wordpress"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>Newsletter</h5>
+                        <p>Subscribe to the weekly newsletter for all the latest updates</p>
+                        <form class="mt-3">
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control" placeholder="Your Email ..." aria-label="Your Email" aria-describedby="button-addon2">
+                                <button class="btn btn-primary" type="button" id="button-addon2">Subscribe</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <p>Copyright &copy; 2024 Poco. All rights reserved.</p>
+            </div>
+        </footer>
+
+    </main>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.clients-slider', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            touchEventsTarget: 'container',
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
+            }
+        });
+    </script>
+    </script>
     <script src="assets/shop/js/animation.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

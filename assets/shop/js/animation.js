@@ -180,3 +180,23 @@ document.addEventListener("DOMContentLoaded", function() {
       observer.observe(product);
   });
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const contents = document.querySelectorAll('.hero2-content-1, .hero2-content-2, .hero2-content-3, .content');
+  
+  // Observer to trigger animations when elements enter the viewport
+  const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+          if (entry.isIntersecting) {
+              entry.target.style.animationPlayState = 'running';
+              observer.unobserve(entry.target); // Only observe once
+          }
+      });
+  });
+
+  contents.forEach(content => {
+      content.style.animationPlayState = 'paused'; // Initially pause the animation
+      observer.observe(content);
+  });
+});
