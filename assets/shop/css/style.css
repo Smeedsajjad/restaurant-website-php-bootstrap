@@ -924,11 +924,15 @@ a {
 }
 /* footer section */
 .footer-section {
-    background-color: #000000;
-    padding: 4rem 0;
+    padding: 4rem 0 0 0;
     color: #7c7b7b;
     top: 6rem;
     position: relative;
+    background-color: #181818;
+    background-image: url(../images/shape_dot.png);
+    background-size: auto;
+    background-position: initial;
+
 }
 
 .footer-section h5 {
@@ -942,9 +946,9 @@ a {
     line-height: 1.6;
 }
 
-.footer-section .social-icons a {
+.social-icons>a>i {
     color: #333;
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     transition: all 0.3s ease;
     margin-top: 2rem;
     background-color: #fff;
@@ -953,11 +957,12 @@ a {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 15px;
+    height: 15px;
+    padding: 1rem;
 }
 
-.footer-section .social-icons a:hover {
+.social-icons>a>i:hover {
     background-color: var(--primary);
     color: #333 !important;
 }
@@ -971,18 +976,22 @@ a {
     background-color: var(--primary);
     border-color: var(--primary);
     border-radius: 0;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.5s ease;
+    color: #000;
 }
 
 .footer-section .btn-primary:hover {
     background-color: var(--primary_hover);
     border-color: var(--primary_hover);
+    color: #fff;
 }
 
 .footer-section .mt-4 {
     margin-top: 2rem !important;
 }
-
+input[type="email"]::placeholder{
+    color: #fff;
+}
 .footer-section .container-fluid > p {
     text-align: center;
     margin-top: 2rem;

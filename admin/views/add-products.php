@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $category_id = $_POST['category_id'];
     $ingredients = $_POST['ingredients'];
     $price = $_POST['price'];
+    $tagline = $_POST['tagline'];
     $is_available = isset($_POST['is_available']) ? $_POST['is_available'] : 0;
     $created_at = date('Y-m-d H:i:s');
     $updated_at = date('Y-m-d H:i:s');
@@ -47,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Convert image paths array to a string (e.g., comma-separated) for database storage
     $imagePathsString = implode(',', $imagePaths);
 
-    if ($productController->uploadProduct($name, $desc, $category_id, $ingredients, $imagePathsString, $price, $is_available, $created_at, $updated_at)) {
+    if ($productController->uploadProduct($name, $desc, $category_id, $ingredients, $imagePathsString, $price, $tagline, $is_available, $created_at, $updated_at)) {
         // Success message in toast with tick icon and progress bar
         echo "
         <div class='toast align-items-center text-bg-success position-fixed top-0 end-0 m-3' role='alert' aria-live='assertive' aria-atomic='true' id='successToast' style='min-width: 300px;'>
@@ -144,6 +145,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <div class="col-md-6 mb-3">
                                     <label for="productPrice" class="form-label">Price</label>
                                     <input name="price" type="number" min="0" step="0.01" class="form-control my-input" id="productPrice" required>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="producttagline" class="form-label">Tagline</label>
+                                    <textarea name="tagline" class="form-control my-input" id="producttagline" rows="3"></textarea>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <label for="productDesc" class="form-label">Description</label>

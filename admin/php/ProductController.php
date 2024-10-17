@@ -12,10 +12,10 @@ class ProductController
         $result = $this->connection->query("SELECT * FROM categories ORDER BY cat_name ASC");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-    public function uploadProduct($name, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $updated_at)
+    public function uploadProduct($name, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $updated_at, $tagline)
     {
-        $stmt = $this->connection->prepare("INSERT INTO products (name, `desc`, category_id, ingredients, images, price, is_available, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssissdiss", $name, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $updated_at);
+        $stmt = $this->connection->prepare("INSERT INTO products (name, `desc`, category_id, ingredients, images, price, is_available, created_at, updated_at, tagline) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssissdisss", $name, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $updated_at, $tagline);
         return $stmt->execute();
     }
 
@@ -40,7 +40,7 @@ class ProductController
         return $product;
     }
 
-    public function updateProduct($id, $name, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at) {
+    public function updateProduct($id, $name, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $tagline) {
         // Get the current product images
         $currentProduct = $this->getProduct($id);
         $oldImages = explode(',', $currentProduct['images']);
@@ -55,8 +55,8 @@ class ProductController
         }
 
         // Update the product in the database
-        $stmt = $this->connection->prepare("UPDATE products SET name = ?, `desc` = ?, category_id = ?, ingredients = ?, images = ?, price = ?, is_available = ?, created_at = ? WHERE id = ?");
-        $stmt->bind_param("sssssdisi", $name, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $id);
+        $stmt = $this->connection->prepare("UPDATE products SET name = ?, `desc` = ?, category_id = ?, ingredients = ?, images = ?, price = ?, is_available = ?, created_at = ?, tagline = ? WHERE id = ?");
+        $stmt->bind_param("sssssdisis", $name, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $tagline, $id);
 
         if ($stmt->execute()) {
             return true;
@@ -75,8 +75,8 @@ class ProductController
     public function searchProducts($searchTerm)
     {
         $searchTerm = "%$searchTerm%";
-        $stmt = $this->connection->prepare("SELECT * FROM products WHERE name LIKE ? OR `desc` LIKE ?");
-        $stmt->bind_param("ss", $searchTerm, $searchTerm);
+        $stmt = $this->connection->prepare("SELECT * FROM products WHERE name LIKE ? OR `desc` LIKE ? OR tagline LIKE ?");
+        $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
