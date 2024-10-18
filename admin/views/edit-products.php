@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $images = implode(',', array_filter($updatedImages));
 
     // Call the updateProduct method with the updated images
-    if ($productController->updateProduct($productId, $name, $desc, $category_id, $ingredientsString, $images, $price, $is_available, null)) {
+    if ($productController->updateProduct($productId, $name, $tagline, $desc, $category_id, $ingredientsString, $images, $price, $is_available, null)) {
         // Success message in toast
         echo "
         <div class='toast align-items-center text-bg-success position-fixed top-0 end-0 m-3' role='alert' aria-live='assertive' aria-atomic='true' id='successToast' style='min-width: 300px;'>
@@ -201,19 +201,18 @@ function base_url($uri = '')
                             </div>
 
                             <div class="mb-3">
+                                <label for="tagline" class="form-label">Tagline</label>
+                                <textarea class="form-control my-input" id="tagline" name="tagline" rows="3"><?php echo htmlspecialchars($product['tagline']); ?></textarea>
+                            </div>
+                            <div class="mb-3">
                                 <label for="desc" class="form-label">Description</label>
-                                <input type="text" class="form-control my-input" id="desc" name="desc" value="<?php echo htmlspecialchars($product['desc']); ?>">
+                                <textarea class="form-control my-input" id="desc" name="desc" rows="3"><?php echo htmlspecialchars($product['desc']); ?></textarea>
                             </div>
 
                             <div class="mb-3">
                                 <label for="ingredients" class="form-label">Ingredients</label>
                                 <input type="text" class="form-control my-input" id="ingredients" name="ingredients" value="<?php echo htmlspecialchars($product['ingredients']); ?>">
                             </div>
-
-                            <?php
-                            $ingredientsArray = explode(', ', $product['ingredients'] ?? '');
-                            $ingredientsJson = json_encode($ingredientsArray);
-                            ?>
 
                             <div class="mb-3">
                                 <label for="category" class="form-label">Category</label>

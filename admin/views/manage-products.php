@@ -88,6 +88,11 @@ if (isset($_POST['delete_product'])) {
     <!-- Make sure to include the Phosphor Icons library -->
     <link href="https://unpkg.com/phosphor-icons@1.4.1/css/phosphor.css" rel="stylesheet">
 
+    <style>
+        input::placeholder{
+            color: #fff !important;
+        }
+    </style>
 
 </head>
 
@@ -124,7 +129,7 @@ if (isset($_POST['delete_product'])) {
             <div class="row mt-3">
                 <div class="col-md-6 offset-md-3">
                     <form action="" method="GET" class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search products" aria-label="Search" name="search">
+                        <input class="form-control me-2 bg-transparent text-white" type="search" placeholder="Search products" aria-label="Search" name="search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
@@ -166,7 +171,7 @@ if (isset($_POST['delete_product'])) {
                         <div class="p-2 mt-2">
                             <h5 class="card-title"><?php echo $product['name']; ?></h5>
                             <p class="card-text">Price: $<?php echo $product['price']; ?></p>
-                            <p class="card-text">Category: <?php echo $product['category_id']; ?></p>
+                            <p class="card-text">Category: <?php echo $product['name']; ?></p>
                             <p class="card-text">Available: <?php echo $product['is_available'] ? 'Yes' : 'No'; ?></p>
                         </div>
                     </div>

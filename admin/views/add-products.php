@@ -368,6 +368,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }, 30); // Adjust the interval for faster/slower progress
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var input = document.querySelector('input[name=ingredients]');
+            var tagify = new Tagify(input, {
+                delimiters: ",| ",
+                trim: true
+            });
+
+            // Pre-populate tags
+            var ingredients = <?php echo json_encode(explode(',', $product['ingredients'])); ?>;
+            tagify.addTags(ingredients);
+
+            // Add this part to ensure Tagify sends data in the correct format
+            document.querySelector('form').addEventListener('submit', function() {
+                var tagsJson = JSON.stringify(tagify.value);
+                input.value = tagsJson;
+            });
+        });
+
     </script>
 
 
