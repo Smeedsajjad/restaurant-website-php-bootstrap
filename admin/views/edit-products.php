@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $desc = $_POST['desc'];
     $category_id = $_POST['category'];
     $ingredients = $_POST['ingredients'];
+    $tagline = $_POST['tagline'];
     // Check if $ingredients is a JSON string
     if (is_string($ingredients) && is_array(json_decode($ingredients, true))) {
         $ingredientsArray = json_decode($ingredients, true);
@@ -197,7 +198,7 @@ function base_url($uri = '')
                         <form method="post" action="index.php?page=edit-products&id=<?php echo $product['id']; ?>" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control my-input" id="name" name="name" value="<?php echo htmlspecialchars($product['name']); ?>" required>
+                                <input type="text" class="form-control my-input" id="name" name="name" value="<?php echo htmlspecialchars($product['name']); ?>">
                             </div>
 
                             <div class="mb-3">
@@ -216,7 +217,7 @@ function base_url($uri = '')
 
                             <div class="mb-3">
                                 <label for="category" class="form-label">Category</label>
-                                <select class="form-control my-input" id="category" name="category" required>
+                                <select class="form-control my-input" id="category" name="category">
                                     <?php
                                     $categories = $productController->getAllCategories();
                                     foreach ($categories as $category) {
@@ -228,7 +229,7 @@ function base_url($uri = '')
                             </div>
                             <div class="mb-3">
                                 <label for="price" class="form-label">Price</label>
-                                <input type="number" step="0.01" class="form-control my-input" id="price" name="price" value="<?php echo htmlspecialchars($product['price']); ?>" required>
+                                <input type="number" step="0.01" class="form-control my-input" id="price" name="price" value="<?php echo htmlspecialchars($product['price']); ?>">
                             </div>
                             <div class="mb-3 form-check " style="padding-left: 0 !important;">
                                 <label for="productAvailability" class="form-label">Availability</label>

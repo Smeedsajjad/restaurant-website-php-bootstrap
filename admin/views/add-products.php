@@ -158,7 +158,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <label for="productCategory" class="form-label">Category</label>
                                     <select name="category_id" class="form-control my-input" id="productCategory" required>
                                         <option value="">Select a category</option>
-                                        <!-- PHP code to populate categories from database -->
                                         <?php foreach ($categories as $category): ?>
                                             <option value="<?php echo htmlspecialchars($category['id']); ?>">
                                                 <?php echo htmlspecialchars($category['cat_name']); ?>

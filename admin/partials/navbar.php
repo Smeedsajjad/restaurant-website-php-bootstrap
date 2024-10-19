@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <div class="nav">
+    <div class="nav overflow-hidden">
       <div class="menu w-100">
         <ul>
           <li>
@@ -104,7 +104,7 @@
       </div>
     </div>
 
-    <div class="menu">
+    <div class="menu overflow-hidden">
       <p class="title">Account</p>
       <ul>
         <li>
