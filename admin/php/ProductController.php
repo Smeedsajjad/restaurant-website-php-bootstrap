@@ -7,24 +7,30 @@ class ProductController
     {
         $this->connection = $dbConnection;
     }
+
+    // Get all categories
     public function getAllCategories()
     {
         $result = $this->connection->query("SELECT * FROM categories ORDER BY cat_name ASC");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-    public function uploadProduct($name, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $updated_at, $tagline)
+
+    // Upload product
+    public function uploadProduct($name, $tagline, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $updated_at)
     {
-        $stmt = $this->connection->prepare("INSERT INTO products (name, `desc`, category_id, ingredients, images, price, is_available, created_at, updated_at, tagline) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssissdisss", $name, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $updated_at, $tagline);
+        $stmt = $this->connection->prepare("INSERT INTO products (name, tagline, `desc`, category_id, ingredients, images, price, is_available, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssissdiss", $name, $tagline, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $updated_at); // Fixed type string
         return $stmt->execute();
     }
 
+    // Get all products
     public function getProducts()
     {
         $result = $this->connection->query("SELECT * FROM products");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    // Get a single product by ID
     public function getProduct($id)
     {
         $stmt = $this->connection->prepare("SELECT * FROM products WHERE id = ?");
@@ -32,7 +38,7 @@ class ProductController
         $stmt->execute();
         $product = $stmt->get_result()->fetch_assoc();
 
-        // Add this check before returning the product
+        // Check if the images field is set
         if (!isset($product['images']) || $product['images'] === null) {
             $product['images'] = '';
         }
@@ -40,7 +46,9 @@ class ProductController
         return $product;
     }
 
-    public function updateProduct($id, $name, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $tagline) {
+    // Update a product
+    public function updateProduct($id, $name, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $tagline)
+    {
         // Get the current product images
         $currentProduct = $this->getProduct($id);
         $oldImages = explode(',', $currentProduct['images']);
@@ -55,16 +63,13 @@ class ProductController
         }
 
         // Update the product in the database
-        $stmt = $this->connection->prepare("UPDATE products SET name = ?, `desc` = ?, category_id = ?, ingredients = ?, images = ?, price = ?, is_available = ?, created_at = ?, tagline = ? WHERE id = ?");
-        $stmt->bind_param("sssssdisis", $name, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $tagline, $id);
+        $stmt = $this->connection->prepare("UPDATE products SET name = ?, tagline = ?, `desc` = ?, category_id = ?, ingredients = ?, images = ?, price = ?, is_available = ?, created_at = ? WHERE id = ?");
+        $stmt->bind_param("sssissdiss", $name, $tagline, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $id);
 
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+        return $stmt->execute();
     }
 
+    // Delete a product
     public function deleteProduct($id)
     {
         $stmt = $this->connection->prepare("DELETE FROM products WHERE id = ?");
@@ -72,6 +77,7 @@ class ProductController
         return $stmt->execute();
     }
 
+    // Search for products by name, description, or tagline
     public function searchProducts($searchTerm)
     {
         $searchTerm = "%$searchTerm%";

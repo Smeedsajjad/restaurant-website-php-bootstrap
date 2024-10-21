@@ -203,7 +203,7 @@ function base_url($uri = '')
 
                             <div class="mb-3">
                                 <label for="tagline" class="form-label">Tagline</label>
-                                <textarea class="form-control my-input" id="tagline" name="tagline" rows="3"><?php echo htmlspecialchars($product['tagline']); ?></textarea>
+                                <textarea class="form-control my-input" id="tagline" name="tagline" rows="3"><?php echo $product['tagline']; ?></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="desc" class="form-label">Description</label>
@@ -240,26 +240,26 @@ function base_url($uri = '')
                             </div>
 
                             <div class="mb-3">
-    <label for="images" class="form-label">Product Images</label>
-    <input type="file" class="form-control my-input" id="images" name="images[]" accept="image/*" multiple>
-    <div id="imagePreview" class="mt-2 image-preview">
-        <?php
-        if (!empty($product['images'])) {
-            $images = explode(',', $product['images']);
-            foreach ($images as $index => $image) {
-                $imagePath = trim($image);
-                if (file_exists($imagePath)) {
-                    echo "<div class='image-container' data-path='" . htmlspecialchars($imagePath) . "'>";
-                    echo "<img src='" . htmlspecialchars(base_url($imagePath)) . "' alt='Current Product Image' class='mt-2 me-2' style='max-width: 100px; max-height: 100px;'>";
-                    echo "<button type='button' class='btn btn-danger btn-sm remove-image'>Remove</button>";
-                    echo "</div>";
-                }
-            }
-        }
-        ?>
-    </div>
-    <input type="hidden" name="current_images" id="currentImages" value="">
-</div>
+                                <label for="images" class="form-label">Product Images</label>
+                                <input type="file" class="form-control my-input" id="images" name="images[]" accept="image/*" multiple>
+                                <div id="imagePreview" class="mt-2 image-preview">
+                                    <?php
+                                    if (!empty($product['images'])) {
+                                        $images = explode(',', $product['images']);
+                                        foreach ($images as $index => $image) {
+                                            $imagePath = trim($image);
+                                            if (file_exists($imagePath)) {
+                                                echo "<div class='image-container' data-path='" . htmlspecialchars($imagePath) . "'>";
+                                                echo "<img src='" . htmlspecialchars(base_url($imagePath)) . "' alt='Current Product Image' class='mt-2 me-2' style='max-width: 100px; max-height: 100px;'>";
+                                                echo "<button type='button' class='btn btn-danger btn-sm remove-image'>Remove</button>";
+                                                echo "</div>";
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                </div>
+                                <input type="hidden" name="current_images" id="currentImages" value="">
+                            </div>
 
                             <div class="m-1">
                                 <button class="submit">
@@ -373,7 +373,7 @@ function base_url($uri = '')
             // Handle new image uploads
             document.getElementById('images').addEventListener('change', function() {
                 const files = this.files;
-                
+
                 for (let i = 0; i < files.length; i++) {
                     const file = files[i];
                     const reader = new FileReader();

@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Convert image paths array to a string (e.g., comma-separated) for database storage
     $imagePathsString = implode(',', $imagePaths);
 
-    if ($productController->uploadProduct($name, $desc, $category_id, $ingredients, $imagePathsString, $price, $tagline, $is_available, $created_at, $updated_at)) {
+    if ($productController->uploadProduct($name, $tagline, $desc, $category_id, $ingredients, $imagePathsString, $price,  $is_available, $created_at, $updated_at)) {
         // Success message in toast with tick icon and progress bar
         echo "
         <div class='toast align-items-center text-bg-success position-fixed top-0 end-0 m-3' role='alert' aria-live='assertive' aria-atomic='true' id='successToast' style='min-width: 300px;'>
@@ -158,11 +158,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <label for="productCategory" class="form-label">Category</label>
                                     <select name="category_id" class="form-control my-input" id="productCategory" required>
                                         <option value="">Select a category</option>
-                                        <?php foreach ($categories as $category): ?>
-                                            <option value="<?php echo htmlspecialchars($category['id']); ?>">
-                                                <?php echo htmlspecialchars($category['cat_name']); ?>
-                                            </option>
-                                        <?php endforeach; ?>
+                                        <?php if (!empty($categories)) : ?>
+                                            <?php foreach ($categories as $category) : ?>
+                                                <option value="<?php echo $category['category_id']; ?>">
+                                                    <?php echo htmlspecialchars($category['cat_name']); ?></option>
+                                            <?php endforeach; ?>
+                                        <?php else : ?>
+                                            <option value="">No categories available</option>
+                                        <?php endif; ?>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -385,7 +388,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 input.value = tagsJson;
             });
         });
-
     </script>
 
 

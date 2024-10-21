@@ -1,3 +1,19 @@
+<?php
+// Include necessary configuration and class files
+require_once './config/config.php';
+require_once './admin/php/ProductController.php';
+
+// Create a new database connection
+$database = new Database();
+$dbConnection = $database->conn;
+
+// Pass the database connection to the ProductController
+$productController = new ProductController($dbConnection);
+
+// Get all products
+$products = $productController->getProducts();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +26,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
     <!-- Font Awesome 5 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,213 +46,11 @@
 </head>
 
 <body>
-    <!-- heading -->
-    <div class="container-fluid bg-dark d-none d-sm-block">
-        <div class="container">
-            <div class="row text-white p-1 pt-2 pb-2" style="font-size: 12px;">
-                <div class="col d-flex justify-content-between align-items-center">
-                    <div class="d-flex">
-                        <p class="me-5 mb-0">
-                            <i class="fa-solid fa-mobile-screen-button me-2"></i>
-                            <span>CALL US: +381 65 666 6666</span>
-
-                        </p>
-                        <p class="mb-0">
-                            <i class="fa-solid fa-location-dot me-2"></i>
-                            <span>71 Madison Ave</span>
-                        </p>
-                    </div>
-                    <div class="d-flex hhi">
-                        <a href="https://www.facebook.com/" target="_blank"><i
-                                class="fa-brands fa-facebook me-3"></i></a>
-                        <a href="https://twitter.com/" target="_blank"><i class="fa-brands fa-twitter me-3"></i></a>
-                        <a href="https://www.youtube.com/" target="_blank"><i class="fa-brands fa-youtube me-3"></i></a>
-                        <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- header -->
+    <?php include  './includes/header.php'; ?>
 
     <!-- navbar -->
-
-    <!-- nav for lg -->
-    <nav class="navbar navbar-expand-lg d-none d-lg-block">
-        <div class="container">
-            <a class="navbar-brand p-3" href="#">
-                <img src="assets/shop/images/logo_svg.svg" alt="Logo" height="30">
-            </a>
-            <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active fw-bold text-dark" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-bold text-dark" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-bold text-dark" href="#">Shop</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-bold text-dark" href="#">Shop</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-bold text-dark" href="#">Blog</a>
-                    </li>
-                </ul>
-                <div class="d-flex align-items-center p-3">
-                    <span class="text-dark me-3 call-order-container">
-                        <div class="call-order-icon">
-                            <svg id="Layer_1" width="45" height="45" data-name="Layer 1"
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-                                <defs>
-                                    <style>
-                                        .cls-1 {
-                                            stroke-width: 0px;
-                                            fill: #00A149;
-                                        }
-                                    </style>
-                                </defs>
-                                <path class="cls-1"
-                                    d="m47.628,31.482c-.775-.626-1.659-1.114-2.628-1.46v-1.552c0-.918-.258-1.825-.747-2.624-.484-.788-1.179-1.427-2.019-1.853-.849-.42-1.437-1.203-1.611-2.144l-.885-4.851h1.262c1.103,0,2-.897,2-2v-5c0-1.103-.897-2-2-2h-3.5c-.369,0-.722.057-1.065.141l-.261-.792c-.283-.807-1.044-1.349-1.894-1.349h-1.28v-1c0-.552-.447-1-1-1s-1,.448-1,1v4c0,.552.447,1,1,1s1-.448,1-1v-1.003l1.28-.004.352,1.069c-.867.724-1.449,1.758-1.581,2.939h-3.051c-.553,0-1,.448-1,1s.447,1,1,1h3.074l.759,9.821c.075,1.061-.391,2.062-1.243,2.675-1.251.891-2.861,2.041-3.951,2.82-.687.49-1.542.675-2.336.507-2.599-.566-4.725-2.403-5.705,4.823h.403c1.654,0,3-1.346,3-3s-1.346-3-3-3h-5.178c.112-.314.178-.648.178-1v-8c0-1.654-1.346-3-3-3H5c-1.654,0-3,1.346-3,3v8c0,.396.099.763.239,1.11-1.285.339-2.239,1.5-2.239,2.89,0,1.654,1.346,3,3,3h.149c-2.012,2.544-3.149,5.711-3.149,9,0,1.192.145,2.374.43,3.511.218.876,1.016,1.489,1.94,1.489h2.655c.254,2.799,2.611,5,5.475,5s5.221-2.201,5.475-5h18.045c.528,0,.965-.411.998-.938.23-3.68,3.298-6.562,6.982-6.562.767,0,1.525.126,2.254.375.785.271,1.498.662,2.118,1.162.428.347,1.059.279,1.406-.149.347-.43.279-1.06-.15-1.406Zm-6.628-21.482v5h-3.5c-1.379,0-2.5-1.122-2.5-2.5s1.121-2.5,2.5-2.5,2.5,1.57,2.5,3.5-1.57,3.5-3.5,3.5Zm-37,0c0-.551.448-1,1-1h8c.552,0,1,.449,1,1v8c0,.551-.448,1-1,1H5c-.552,0-1-.449-1-1v-8Zm-2,12c0-.551.448-1,1-1h18c.552,0,1,.449,1,1s-.448,1-1,1H3c-.552,0-1-.449-1-1Zm8.5,20c-1.758,0-3.204-1.308-3.449-3h6.899c-.245,1.692-1.691,3-3.449,3Zm22.63-4.999l-30.76.026c-.245-.98-.37-1.999-.37-3.027,0-3.4,1.4-6.653,3.835-9h12.657c1.069,3.389,3.876,6.013,7.392,6.778.331.07.667.104,1.002.104,1.03,0,2.055-.324,2.916-.939,1.089-.78,2.699-1.929,3.952-2.821,1.424-1.024,2.199-2.685,2.073-4.449l-.563-7.291c.661.383,1.418.618,2.236.618h.206l.95,5.212c.287,1.545,1.293,2.881,2.682,3.569.501.255.92.639,1.21.1.296.483.452.1.452.1.578v1.093c-.332-.037-.665-.063-1-.063-4.421,0-8.149,3.226-8.87,7.501Z"
-                                    id="id_101"></path>
-                                <path class="cls-1"
-                                    d="m42,33c-3.032,0-5.5,2.467-5.5,5.5s2.468,5.5,5.5,5.5,5.5-2.467,5.5-5.5-2.468-5.5-5.5-5.5Zm0,9c-1.93,0-3.5-1.57-3.5-3.5s1.57-3.5,3.5-3.5,3.5,1.57,3.5,3.5-1.57,3.5-3.5,3.5Z"
-                                    id="id_102"></path>
-                                <circle class="cls-1" cx="42" cy="38.5" r="1" id="id_103"></circle>
-                                <path class="cls-1"
-                                    d="m13.778,26.403c-.5-.233-1.096-.017-1.329.483-.233.5-.017,1.096.483,1.329,1.161.542,2.187,1.365,2.967,2.381.778,1.015,1.309,2.219,1.532,3.481.085.485.507.826.983.826.058,0,.116-.005.175-.015.544-.096.907-.615.811-1.159-.278-1.578-.94-3.082-1.915-4.351-.974-1.27-2.256-2.299-3.707-2.976Z"
-                                    id="id_104"></path>
-                            </svg>
-                        </div>
-                        <div class="call-order-text">
-                            <p class="caoit" style="color: #999999;">Call and Order in</p>
-                            <h3 class="caoith fw-bold">+1 718-904-4450</h3>
-                        </div>
-                    </span>
-                    <div class="d-flex align-items-center">
-                        <a href="#" class="text-dark me-4"><i class="fas fa-search"></i></a>
-                        <a href="#" class="text-dark me-4"><i class="fas fa-user"></i></a>
-                        <a href="#" class="text-dark me-4 position-relative">
-                            <i class="fas fa-heart"></i>
-                            <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill count-icon">
-                                0
-                            </span>
-                        </a>
-                        <a href="#" class="text-dark position-relative">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill count-icon">
-                                0
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-    </nav>
-
-    <!-- nav for sm -->
-    <nav class="navbar navbar-expand-lg d-lg-none bg-light position-sticky top-0" style="z-index: 1000; padding: 15px;">
-        <div class="container-fluid">
-            <div class="d-flex justify-content-between align-items-center w-100">
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-toggler h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" width="30" height="30">
-                        <path stroke-linecap="square" stroke-linejoin="round" stroke-width="2" d="M4 6h16" />
-                        <path stroke-linecap="square" stroke-linejoin="round" stroke-width="2" d="M4 12h12" />
-                        <path stroke-linecap="square" stroke-linejoin="round" stroke-width="2" d="M4 18h16" />
-                    </svg>
-                </button>
-
-                <a class="navbar-brand mx-auto" href="#">
-                    <img src="assets/shop/images/logo_svg.svg" alt="Logo" height="30">
-                </a>
-                <a href="tel:+17189044450" class="text-dark">
-                    <span class="position-relative">
-                        <i class="fas fa-phone-alt fs-3"></i>
-                    </span>
-                </a>
-            </div>
-            <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active fw-bold text-white" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold text-white" href="#">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold text-white" href="#">Shop</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold text-white" href="#">Blog</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <!-- sm bottom nav -->
-    <nav class="navbar navbar-expand-lg d-lg-none bg-light position-sticky bottom-0"
-        style="z-index: 1000; padding: 15px;">
-        <div class="container-fluid">
-            <div class="d-flex justify-content-between align-items-center w-100">
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-toggler h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" width="30" height="30">
-                        <path stroke-linecap="square" stroke-linejoin="round" stroke-width="2" d="M4 6h16" />
-                        <path stroke-linecap="square" stroke-linejoin="round" stroke-width="2" d="M4 12h12" />
-                        <path stroke-linecap="square" stroke-linejoin="round" stroke-width="2" d="M4 18h16" />
-                    </svg>
-                </button>
-
-                <a class="navbar-brand mx-auto" href="#">
-                    <img src="assets/shop/images/logo_svg.svg" alt="Logo" height="30">
-                </a>
-                <a href="tel:+17189044450" class="text-dark">
-                    <span class="position-relative">
-                        <i class="fas fa-phone-alt fs-3"></i>
-                    </span>
-                </a>
-            </div>
-            <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active fw-bold text-white" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold text-white" href="#">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold text-white" href="#">Shop</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold text-white" href="#">Blog</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php include  './includes/nav.php'; ?>
 
     <!-- hero section -->
     <section class="hero-section py-5 position-relative">
@@ -437,29 +250,17 @@
         <!-- Products-section -->
         <section class="products-section">
             <div class="container">
-                <h1 class="text-center fw-semibold">Popular dishes</h1>
+                <h1>Popular dishes</h1>
                 <div class="row">
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card myCard" style="width: 100%;border-radius: 15px;">
-                            <div class="card-img-wrapper">
-                                <img src="admin/uploads/products/67163b81348a2_2-1.png" class="card-img-top card-img" alt="...">
-                            </div>
+                    <div class="col-md-3">
+                        <div class="card" style="width: 18rem;">
+                            <img src="..." class="card-img-top" alt="...">
                             <div class="card-body">
-                                <p>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </p>
-                                <h5 class="card-title myCardText">Vegge Lover</h5>
-                                <p class="card-text" style="color: #999999; font-size: 13px;">Extra-virgin olive oil, garlic,...</p>
-                                <p class="price d-inline fs-3">$14.90</p>
-                                <a href="#" class="btn p-0 position-absolute" style="right: 0;margin: 20px;">
-                                    <i class="fas fa-shopping-cart myCart" style="background-color: var(--primary);"></i>
-                                </a>
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="btn"><i class="fas fa-shopping-cart myCart"></i></a>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
             </div>
@@ -674,67 +475,7 @@
         </section>
 
         <!-- footer section -->
-        <footer class="footer-section">
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-md-3 text-center">
-                        <h5>Address</h5>
-                        <p>570 8th Ave,<br>
-                            New York, NY 10018<br>
-                            United States</p>
-                    </div>
-                    <div class="col-md-3 text-center">
-                        <h5>Book a table</h5>
-                        <p>Dogfood och Sliders foodtruck.<br>
-                            Under Om oss kan ni läsa<br>
-                        </p>
-                        <p class="mt-2 fw-bold fs-6" style="color: var(--primary);">(850) 435-4155</p>
-                    </div>
-                    <div class="col-md-3 text-center">
-                        <h5>Opening hours</h5>
-                        <p>Monday – Friday: <span class="text-white">8am – 4pm</span><br>
-                            Saturday: <span class="text-white">9am – 5pm</span></span></p>
-                        <div class="social-icons">
-                            <a href="https://www.facebook.com" target="_blank" class="me-2"><i
-                                    class="fab fa-facebook"></i></a>
-                            <a href="https://www.instagram.com" target="_blank" class="me-2"><i
-                                    class="fab fa-instagram"></i></a>
-                            <a href="https://www.youtube.com" target="_blank" class="me-2"><i
-                                    class="fab fa-youtube"></i></a>
-                            <a href="https://www.twitter.com" target="_blank" class="me-2"><i
-                                    class="fab fa-twitter"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-md-3 text-center">
-                        <h5>Newsletter</h5>
-                        <p>Subscribe to the weekly newsletter for all the latest updates</p>
-                        <form class="mt-3">
-                            <div class="input-group mb-3">
-                                <input type="email" class="form-control bg-transparent" placeholder="Your Email ..."
-                                    aria-label="Your Email" aria-describedby="button-addon2">
-                                <button class="btn btn-primary" type="button" id="button-addon2">Subscribe</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-5 container-fluid"
-                style="background-color: var(--secondary); padding: 0 !important; margin-left: 0; margin-right: 0;">
-
-                <div class="mx-0 pt-4 pb-4 d-flex justify-content-center align-items-center">
-                    <div class="row w-100">
-                        <div class="col-md-6 text-center text-white">
-                            <p>Copyright &copy; 2024 Poco. All rights reserved.</p>
-                        </div>
-                        <div class="col-md-6 text-center">
-                            <img src="assets/shop/images/footer_img1.png" alt="" class="img-fluid">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            </div>
-        </footer>
+        <?php include './includes/footer.php' ?>
 
     </main>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
