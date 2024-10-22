@@ -1064,3 +1064,13 @@ input[type="email"]::placeholder{
 .fa-star {
     color: var(--primary);
 }
+.favorite_icon{
+    z-index: 3;
+    position: absolute;
+    right: 0;
+    color: gray;
+    cursor: pointer;
+}
+.favorite_icon:hover{
+    background-color: transparent !important;
+}

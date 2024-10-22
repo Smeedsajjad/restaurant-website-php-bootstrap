@@ -1,6 +1,6 @@
 <?php
 // Include necessary configuration and class files
-require_once './config/config.php';
+require_once './admin/config/config.php';
 require_once './admin/php/ProductController.php';
 
 // Create a new database connection
@@ -10,8 +10,8 @@ $dbConnection = $database->conn;
 // Pass the database connection to the ProductController
 $productController = new ProductController($dbConnection);
 
-// Get all products
-$products = $productController->getProducts();
+// Get 6 products
+$products = $productController->getLimitProducts(6);
 
 ?>
 <!DOCTYPE html>
@@ -250,19 +250,55 @@ $products = $productController->getProducts();
         <!-- Products-section -->
         <section class="products-section">
             <div class="container">
-                <h1>Popular dishes</h1>
+                <h1 class="text-center fw-semibold mb-5">Popular dishes</h1>
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="card" style="width: 18rem;">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn"><i class="fas fa-shopping-cart myCart"></i></a>
+                    <?php foreach ($products as $product): ?>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="card myCard col-sm mt-3" style="width: 100%;border-radius: 15px;">
+                                <div class="card-img-wrapper">
+                                    <i class="fas fa-heart favorite_icon"></i>
+                                    <?php
+                                    // Extract the image filename from the 'images' field, in case it includes subdirectories
+                                    $imagePath = basename($product['images']);
+                                    ?>
+                                    <!-- Use only the image filename, prefixed with 'admin/uploads/' -->
+                                    <img src="admin/uploads/products/<?php echo $imagePath; ?>" class="card-img-top card-img" alt="<?php echo $product['name']; ?>">
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </p>
+                                    <h5 class="card-title myCardText"><?php echo $product['name']; ?></h5>
+                                    <p class="card-text" style="color: #999999; font-size: 13px;">
+                                        <?php
+                                        // Split the tagline into an array of words
+                                        $words = explode(' ', $product['tagline']);
+
+                                        // Get the first 4 words
+                                        $firstFourWords = array_slice($words, 0, 4);
+
+                                        // Join the first 4 words back into a string
+                                        $shortTagline = implode(' ', $firstFourWords);
+
+                                        // Display the first 4 words followed by '...' if there are more than 4 words
+                                        echo (count($words) > 4) ? $shortTagline . '...' : $product['tagline'];
+                                        ?>
+                                    </p>
+
+                                    <p class="price d-inline fs-3">$<?php echo $product['price']; ?></p>
+                                    <a href="#" class="btn p-0 position-absolute" style="right: 0;margin: 20px;">
+                                        <i class="fas fa-shopping-cart myCart" style="background-color: var(--primary);"></i>
+                                    </a>
+                                </div>
                             </div>
+
                         </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
+            </div>
             </div>
 
         </section>

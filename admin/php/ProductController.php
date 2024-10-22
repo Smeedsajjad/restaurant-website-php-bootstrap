@@ -30,6 +30,17 @@ class ProductController
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    // Get 6 products
+    public function getLimitProducts($limit = 6)
+    {
+        // Only fetch products that are available (is_available = 1)
+        $stmt = $this->connection->prepare("SELECT * FROM products WHERE is_available = 1 LIMIT ?");
+        $stmt->bind_param("i", $limit);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     // Get a single product by ID
     public function getProduct($id)
     {
