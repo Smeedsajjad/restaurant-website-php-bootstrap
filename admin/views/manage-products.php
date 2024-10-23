@@ -171,7 +171,7 @@ if (isset($_POST['delete_product'])) {
                         <div class="p-2 mt-2">
                             <h5 class="card-title"><?php echo $product['name']; ?></h5>
                             <p class="card-text">Price: $<?php echo $product['price']; ?></p>
-                            <p class="card-text">Category: <?php echo $product['name']; ?></p>
+                            <p class="card-text">Category: <?php echo $product['cat_name']; ?></p>
                             <p class="card-text">Available: <?php echo $product['is_available'] ? 'Yes' : 'No'; ?></p>
                         </div>
                     </div>

@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $images = implode(',', array_filter($updatedImages));
 
     // Call the updateProduct method with the updated images
-    if ($productController->updateProduct($productId, $name, $tagline, $desc, $category_id, $ingredientsString, $images, $price, $is_available, null)) {
+    if ($productController->updateProduct($productId, $name, $tagline, $desc, $category_id, $ingredientsString, $images, $price, $is_available)) {
         // Success message in toast
         echo "
         <div class='toast align-items-center text-bg-success position-fixed top-0 end-0 m-3' role='alert' aria-live='assertive' aria-atomic='true' id='successToast' style='min-width: 300px;'>
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
         ";
-        header('Location: index.php?page=manage-products');
+        // header('Location: index.php?page=manage-products');
         // Refresh product data
         $product = $productController->getProduct($productId);
     } else {
@@ -107,6 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
         ";
+        
     }
 }
 
@@ -221,6 +222,7 @@ function base_url($uri = '')
                                     <?php
                                     $categories = $productController->getAllCategories();
                                     foreach ($categories as $category) {
+                                        // Ensure the selected value is retained correctly
                                         $selected = ($category['id'] == $product['category_id']) ? 'selected' : '';
                                         echo "<option value='{$category['id']}' {$selected}>{$category['cat_name']}</option>";
                                     }

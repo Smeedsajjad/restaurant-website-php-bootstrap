@@ -24,11 +24,20 @@ class ProductController
     }
 
     // Get all products
+    // public function getProducts()
+    // {
+    //     $result = $this->connection->query("SELECT * FROM products");
+    //     return $result->fetch_all(MYSQLI_ASSOC);
+    // }
     public function getProducts()
     {
-        $result = $this->connection->query("SELECT * FROM products");
+        // Assuming the primary key in the 'categories' table is 'category_id'
+        $query = "SELECT products.*, categories.cat_name FROM products 
+                  JOIN categories ON products.category_id = categories.category_id";
+        $result = $this->connection->query($query);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
 
     // Get 6 products
     public function getLimitProducts($limit = 6)
@@ -57,9 +66,13 @@ class ProductController
         return $product;
     }
 
+
+
     // Update a product
-    public function updateProduct($id, $name, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $tagline)
+    public function updateProduct($id, $name, $tagline, $desc, $category_id, $ingredients, $images, $price, $is_available)
     {
+       try {
+        //code...
         // Get the current product images
         $currentProduct = $this->getProduct($id);
         $oldImages = explode(',', $currentProduct['images']);
@@ -73,11 +86,26 @@ class ProductController
             }
         }
 
-        // Update the product in the database
-        $stmt = $this->connection->prepare("UPDATE products SET name = ?, tagline = ?, `desc` = ?, category_id = ?, ingredients = ?, images = ?, price = ?, is_available = ?, created_at = ? WHERE id = ?");
-        $stmt->bind_param("sssissdiss", $name, $tagline, $desc, $category_id, $ingredients, $images, $price, $is_available, $created_at, $id);
+        // Set the current time for the updated_at field
+        $updated_at = date('Y-m-d H:i:s');
+        // Set created_at to the existing value or current time
+        $created_at = $currentProduct['created_at']; // Use existing created_at value
 
-        return $stmt->execute();
+        // Example of an update query
+        $update_query = "UPDATE products SET name = ?, tagline = ?, `desc` = ?, category_id = ?, ingredients = ?, images = ?, price = ?, is_available = ?, updated_at = NOW() WHERE id = ?";
+
+        // Prepare the statement
+        $stmt = $this->connection->prepare($update_query);
+
+        // Bind parameters
+        $stmt->bind_param("sssissdis", $name, $tagline, $desc, $category_id, $ingredients, $images, $price, $is_available, $id);
+
+        // Execute the statement
+        $stmt->execute();
+       } catch (\Throwable $th) {
+           // Print the error message
+           echo "Error updating product: " . $th->getMessage();
+       }
     }
 
     // Delete a product
