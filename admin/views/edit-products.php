@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Handle image uploads
     if (!empty($_FILES['images']['name'][0])) {
-        $targetDir = './uploads/products/';
+        $targetDir = 'uploads/products/';
         $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
 
         foreach ($_FILES['images']['name'] as $key => $val) {
