@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Refresh product data
         $product = $productController->getProduct($productId);
     } else {
-        // Failure message in toast
+        // Failure message in toast'
         echo "
         <div class='toast align-items-center text-bg-danger position-fixed top-0 end-0 m-3' role='alert' aria-live='assertive' aria-atomic='true' id='errorToast' style='min-width: 300px;'>
             <div class='d-flex'>
@@ -222,9 +222,9 @@ function base_url($uri = '')
                                     <?php
                                     $categories = $productController->getAllCategories();
                                     foreach ($categories as $category) {
-                                        // Ensure the selected value is retained correctly
-                                        $selected = ($category['id'] == $product['category_id']) ? 'selected' : '';
-                                        echo "<option value='{$category['id']}' {$selected}>{$category['cat_name']}</option>";
+                                        // Check if the current category is the selected one
+                                        $selected = ($category['category_id'] == $product['category_id']) ? 'selected' : '';
+                                        echo "<option value='" . htmlspecialchars($category['category_id']) . "' $selected>" . htmlspecialchars($category['cat_name']) . "</option>";
                                     }
                                     ?>
                                 </select>

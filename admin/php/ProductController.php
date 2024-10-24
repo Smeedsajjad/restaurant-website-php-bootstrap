@@ -102,15 +102,26 @@ class ProductController
 
         // Execute the statement
         $stmt->execute();
+        return true; // Return true on success
        } catch (\Throwable $th) {
-           // Print the error message
-           echo "Error updating product: " . $th->getMessage();
+           return "Error updating product: " . $th->getMessage(); // Return error message
        }
     }
 
     // Delete a product
     public function deleteProduct($id)
     {
+        // Fetch the product details to get the image path
+        $product = $this->getProduct($id);
+        if ($product && !empty($product['images'])) {
+            $images = explode(',', $product['images']);
+            foreach ($images as $image) {
+                if (file_exists($image)) {
+                    unlink($image); // Delete the image file
+                }
+            }
+        }
+
         $stmt = $this->connection->prepare("DELETE FROM products WHERE id = ?");
         $stmt->bind_param("i", $id);
         return $stmt->execute();

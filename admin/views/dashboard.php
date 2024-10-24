@@ -1,3 +1,18 @@
+<?php
+session_start();
+require_once './config/config.php';
+require_once './php/Admin.php';
+
+// Create a new database connection
+$database = new Database();
+$dbConnection = $database->conn;
+
+// Create an Admin object
+$admin = new Admin($dbConnection);
+
+// Check session timeout
+$admin->checkSession();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,6 +42,7 @@
     ?>
 
     <main>
+        <?php echo "Welcome, " . $_SESSION['username'] . "!"; ?>
         <h1>Main content goes here</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit impedit quo aut earum assumenda ipsa adipisci culpa quia. Consequatur eum eveniet quo facere ea modi corrupti optio voluptatem quia exercitationem?</p>
     </main>
@@ -34,7 +50,7 @@
     <!-- Add jQuery from a CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script> 
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
     <!-- Custom JS -->
     <script src="./assets/js/nav.js"></script>
 </body>

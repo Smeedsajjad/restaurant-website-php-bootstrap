@@ -18,20 +18,29 @@ class CategoryController {
     }
 
     public function getCategory($id) {
-        $stmt = $this->connection->prepare("SELECT * FROM categories WHERE id = ?");
+        $stmt = $this->connection->prepare("SELECT * FROM categories WHERE category_id = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
 
     public function updateCategory($id, $name, $imagePath) {
-        $stmt = $this->connection->prepare("UPDATE categories SET cat_name = ?, cat_img = ? WHERE id = ?");
+        $stmt = $this->connection->prepare("UPDATE categories SET cat_name = ?, cat_img = ? WHERE category_id = ?");
         $stmt->bind_param("ssi", $name, $imagePath, $id);
         return $stmt->execute();
     }
 
     public function deleteCategory($id) {
-        $stmt = $this->connection->prepare("DELETE FROM categories WHERE id = ?");
+        // Fetch the category details to get the image path
+        $category = $this->getCategory($id);
+        if ($category && !empty($category['cat_img'])) {
+            $imagePath = $category['cat_img'];
+            if (file_exists($imagePath)) {
+                unlink($imagePath); // Delete the image file
+            }
+        }
+
+        $stmt = $this->connection->prepare("DELETE FROM categories WHERE category_id = ?");
         $stmt->bind_param("i", $id);
         return $stmt->execute();
     }

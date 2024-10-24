@@ -5,9 +5,18 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
 $baseViewPath = './views/';
 
 // Determine the content to include based on the `page` parameter
-switch($page) {
+switch ($page) {
     case 'dashboard':
         $pageContent = $baseViewPath . 'dashboard.php';
+        break;
+    case 'login':
+        $pageContent = $baseViewPath . 'login.php';
+        break;
+    case 'register':
+        $pageContent = $baseViewPath . 'register.php';
+        break;
+    case 'logout':
+        $pageContent = $baseViewPath . 'logout.php';
         break;
     case 'add-category':
         $pageContent = $baseViewPath . 'add-category.php'; // Page to add a category
@@ -33,4 +42,3 @@ switch($page) {
 
 // Include the selected page content
 include $pageContent;
-?>

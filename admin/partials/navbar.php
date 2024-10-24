@@ -108,13 +108,19 @@
       <p class="title">Account</p>
       <ul>
         <li>
-          <a href="#">
+          <a href="index.php?page=register">
             <i class="icon ph-bold ph-info"></i>
-            <span class="text">Help</span>
+            <span class="text">Register</span>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="index.php?page=login">
+            <i class="icon ph-bold ph-info"></i>
+            <span class="text">LogIn</span>
+          </a>
+        </li>
+        <li>
+          <a href="index.php?page=logout">
             <i class="icon ph-bold ph-sign-out"></i>
             <span class="text">Logout</span>
           </a>
