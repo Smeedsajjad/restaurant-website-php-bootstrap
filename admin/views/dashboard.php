@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 require_once './config/config.php';
 require_once './php/Admin.php';
 
@@ -10,9 +11,34 @@ $dbConnection = $database->conn;
 // Create an Admin object
 $admin = new Admin($dbConnection);
 
+// Set the session timeout duration in seconds (e.g., 1800 for 30 minutes)
+$sessionTimeout = 86400;
+
+// Check if the user is logged in
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: index.php?page=login"); // Redirect to login if not logged in
+    exit;
+}
+
 // Check session timeout
-$admin->checkSession();
+if (isset($_SESSION['last_activity'])) {
+    // Calculate the session lifetime
+    $sessionLifetime = time() - $_SESSION['last_activity'];
+
+    // If session has expired, log out the user
+    if ($sessionLifetime > $sessionTimeout) {
+        // Destroy session and redirect to login page
+        session_unset();
+        session_destroy();
+        header("Location: index.php?page=login"); // Optional: Indicate session timeout
+        exit;
+    }
+}
+
+// Update last activity timestamp
+$_SESSION['last_activity'] = time();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,12 +64,19 @@ $admin->checkSession();
 
 <body>
     <?php
-    include __DIR__ . '/../partials/navbar.php';
+    include './partials/navbar.php';
     ?>
-
     <main>
-        <?php echo "Welcome, " . $_SESSION['username'] . "!"; ?>
-        <h1>Main content goes here</h1>
+        <h2 class="text-capitalize" >
+            <?php
+        if (isset($_SESSION['username'])) {
+            echo "Welcome, " . htmlspecialchars($_SESSION['username']) . "!";
+        } else {
+            header("Location: index.php?page=login");
+            exit;
+        }
+        ?>
+        </h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit impedit quo aut earum assumenda ipsa adipisci culpa quia. Consequatur eum eveniet quo facere ea modi corrupti optio voluptatem quia exercitationem?</p>
     </main>
 

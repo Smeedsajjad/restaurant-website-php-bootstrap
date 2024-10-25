@@ -104,25 +104,13 @@
       </div>
     </div>
 
-    <div class="menu overflow-hidden">
-      <p class="title">Account</p>
-      <ul>
-        <li>
-          <a href="index.php?page=register">
-            <i class="icon ph-bold ph-info"></i>
-            <span class="text">Register</span>
-          </a>
-        </li>
-        <li>
-          <a href="index.php?page=login">
-            <i class="icon ph-bold ph-info"></i>
-            <span class="text">LogIn</span>
-          </a>
-        </li>
+    <div class="menu overflow-hidden border-top">
+      <!-- <p class="title">Account</p> -->
+      <ul class="mt-1 mb-1">
         <li>
           <a href="index.php?page=logout">
             <i class="icon ph-bold ph-sign-out"></i>
-            <span class="text">Logout</span>
+            <span class="text" onclick="return confirm('Are you sure you want to log out?');">Logout</span>
           </a>
         </li>
       </ul>

@@ -43,22 +43,26 @@ class Admin {
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
-
+    
         if ($result->num_rows > 0) {
             $admin = $result->fetch_assoc();
             if (password_verify($password, $admin['password'])) {
-                // Store user data in session
+                session_start(); // Ensure session is started
                 $_SESSION['admin_id'] = $admin['id'];
-                $_SESSION['username'] = $admin['username'];
-                $_SESSION['last_activity'] = time(); // Track last activity time
+                $_SESSION['username'] = $admin['username'];  // Setting username in session
+                $_SESSION['last_activity'] = time();
                 return true;
             }
         }
         return false;
     }
+    
 
     // Method to logout
     public function logout() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         session_unset();
         session_destroy();
         header("Location: index.php?page=login"); // Redirect to login page
@@ -69,8 +73,8 @@ class Admin {
     public function checkSession() {
         if (isset($_SESSION['last_activity'])) {
             $sessionDuration = time() - $_SESSION['last_activity'];
-            if ($sessionDuration > 86400) { // 24 hours in seconds
-                $this->logout(); // Log out after 24 hours
+            if ($sessionDuration > 86400) {
+                $this->logout();
             }
         }
         $_SESSION['last_activity'] = time(); // Update last activity time

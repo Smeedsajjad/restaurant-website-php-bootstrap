@@ -125,3 +125,6 @@ label {
 .loginbttm {
     padding: 0px;
 }
+button{
+    cursor: pointer !important;
+}

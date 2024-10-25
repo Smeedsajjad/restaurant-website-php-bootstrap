@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/shop/css/login.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
+    <!-- Font Awesome 5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- font-family: "Norican", cursive; -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Norican&display=swap" rel="stylesheet">
+    <title>SiginUp</title>
+</head>
+
+<body style="background-color: var(--primary_hover);">
+
+    <div class="container bg-white d-flex justify-content-center align-items-center shadow-lg"
+        style="border-radius: 15px; padding: 20px;height: 80vh;transform: translateY(12%);">
+        <div class="row">
+            <div class="col-md-6">
+                <div>
+                    <button class="btn position-absolute rounded-pill" style="top: 1rem;"><svg width="22px"
+                            height="22px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                            <polyline points="244 400 100 256 244 112"
+                                style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px" />
+                            <line x1="120" y1="256" x2="412" y2="256"
+                                style="fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px" />
+                        </svg>Back</button>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <img src="assets/shop/images/lc.png" alt=""
+                        style="width: 80px; height: auto;position: absolute; top: 45px;">
+                </div>
+                <form class="row g-3 needs-validation" novalidate>
+                    <!-- Full Name -->
+                    <div class="col-md-6">
+                        <label for="validationFullName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="validationFullName" name="full_name" required>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Full Name must be at least 5.</div>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="col-md-6">
+                        <label for="validationUsername" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="validationUsername" name="username" required>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Please enter a username.</div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-md-6">
+                        <label for="validationEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="validationEmail" name="email" required>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="col-md-6">
+                        <label for="validationPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="validationPassword" name="password" required>
+                        <div class="invalid-feedback">Please enter a password.</div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="col-md-6">
+                        <label for="validationPhone" class="form-label">Phone</label>
+                        <input type="tel" class="form-control" id="validationPhone" name="phone">
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Please enter a valid phone number.</div>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="termsCheck" required>
+                            <label class="form-check-label" for="termsCheck">Agree to terms and conditions</label>
+                            <div class="invalid-feedback">You must agree before submitting.</div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Register</button>
+                    </div>
+                </form>
+
+            </div>
+            <div class="col-md-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, labore! Et earum,
+                expedita repellat reiciendis voluptatibus rem eius voluptas assumenda explicabo excepturi illo aut
+                aperiam temporibus quas pariatur facere aspernatur.</div>
+        </div>
+    </div>
+    <script>
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Custom validation for full name
+            const validateFullName = (input) => {
+                if (input.value.length < 5) {
+                    input.setCustomValidity('Full name must be at least 5 characters long.');
+                } else {
+                    input.setCustomValidity('');
+                }
+            };
+
+            // Custom validation for password
+            const validatePassword = (input) => {
+                const passwordPattern = /^(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/; // At least 8 characters and at least one symbol
+                if (!passwordPattern.test(input.value)) {
+                    input.setCustomValidity('Password must be at least 8 characters long and include at least one symbol.');
+                } else {
+                    input.setCustomValidity('');
+                }
+            };
+
+            // Custom validation for phone number
+            const validatePhone = (input) => {
+                const phonePattern = /^\d{10}$/; // 10 digits
+                if (input.value && !phonePattern.test(input.value)) {
+                    input.setCustomValidity('Please enter a valid phone number (10 digits).');
+                } else {
+                    input.setCustomValidity('');
+                }
+            };
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    // Validate full name
+                    const fullNameInput = form.querySelector('#validationFullName');
+                    validateFullName(fullNameInput);
+
+                    // Validate password
+                    const passwordInput = form.querySelector('#validationPassword');
+                    validatePassword(passwordInput);
+
+                    // Validate phone number
+                    const phoneInput = form.querySelector('#validationPhone');
+                    validatePhone(phoneInput);
+
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

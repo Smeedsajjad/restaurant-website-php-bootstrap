@@ -126,9 +126,10 @@
                             </span>
                         </a>
                         <a href="#" class="text-dark position-relative">
-                            <i class="fas fa-shopping-cart"></i>
+                            <i class="fa-solid fa-basket-shopping"></i>
                             <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill count-icon">
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill count-icon"
+                                style="top: -6px !important;left: 25px !important;">
                                 0
                             </span>
                         </a>
@@ -187,57 +188,41 @@
             </div>
         </div>
     </nav>
-    <!-- sm bottom nav -->
-    <nav class="navbar navbar-expand-lg d-lg-none bg-light position-sticky bottom-0"
-        style="z-index: 1000; padding: 15px;">
-        <div class="container-fluid">
-            <div class="d-flex justify-content-between align-items-center w-100">
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-toggler h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" width="30" height="30">
-                        <path stroke-linecap="square" stroke-linejoin="round" stroke-width="2" d="M4 6h16" />
-                        <path stroke-linecap="square" stroke-linejoin="round" stroke-width="2" d="M4 12h12" />
-                        <path stroke-linecap="square" stroke-linejoin="round" stroke-width="2" d="M4 18h16" />
-                    </svg>
-                </button>
 
-                <a class="navbar-brand mx-auto" href="#">
-                    <img src="assets/shop/images/logo_svg.svg" alt="Logo" height="30">
-                </a>
-                <a href="tel:+17189044450" class="text-dark">
-                    <span class="position-relative">
-                        <i class="fas fa-phone-alt fs-3"></i>
-                    </span>
-                </a>
-            </div>
-            <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
+    <!-- sm bottom nav -->
+    <nav class="navbar navbar-expand-lg d-lg-none bg-light position-fixed bottom-0 w-100" style="z-index: 1000; padding: 10px;">
+        <div class="container-fluid p-0">
+            <div class="d-flex justify-content-between align-items-center w-100 icon-container">
+                <div class="text-center icon-item">
+                    <a href="#" class="text-dark"><i class="fa-solid fa-store icon-size"></i></a>
+                    <h6 class="fw-semibold mb-0">Shop</h6>
                 </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active fw-bold text-white" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold text-white" href="#">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold text-white" href="#">Shop</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-bold text-white" href="#">Blog</a>
-                        </li>
-                    </ul>
+                <div class="text-center icon-item">
+                    <a href="#" class="text-dark"><i class="fas fa-user icon-size"></i></a>
+                    <h6 class="fw-semibold mb-0">Account</h6>
+                </div>
+                <div class="text-center icon-item">
+                    <a href="#" class="text-dark"><i class="fas fa-search icon-size"></i></a>
+                    <h6 class="fw-semibold mb-0">Search</h6>
+                </div>
+                <div class="text-center icon-item position-relative">
+                    <a href="#" class="text-dark">
+                        <i class="fas fa-heart icon-size"></i>
+                        <span class="position-absolute badge rounded-pill count-icon" style="top: -10px; right: 0;">0</span>
+                    </a>
+                    <h6 class="fw-semibold mb-0">Wishlist</h6>
+                </div>
+                <div class="text-center icon-item position-relative">
+                    <a href="#" class="text-dark">
+                        <i class="fa-solid fa-basket-shopping icon-size"></i>
+                        <span class="position-absolute badge rounded-pill count-icon" style="top: -10px; right: 0;">0</span>
+                    </a>
+                    <h6 class="fw-semibold mb-0">Cart</h6>
                 </div>
             </div>
         </div>
     </nav>
+    
 
     <!-- hero section -->
     <section class="hero-section py-5 position-relative">
@@ -442,8 +427,9 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="card myCard" style="width: 100%;border-radius: 15px;">
                             <div class="card-img-wrapper">
-                            <i class="fas fa-heart favorite_icon"></i>
-                                <img src="admin/uploads/products/67163b81348a2_2-1.png" class="card-img-top card-img" alt="...">
+                                <i class="fas fa-heart favorite_icon"></i>
+                                <img src="admin/uploads/products/67163b81348a2_2-1.png" class="card-img-top card-img"
+                                    alt="...">
                             </div>
                             <div class="card-body">
                                 <p>
@@ -453,14 +439,16 @@
                                     <i class="fas fa-star"></i>
                                 </p>
                                 <h5 class="card-title myCardText">Vegge Lover</h5>
-                                <p class="card-text" style="color: #999999; font-size: 13px;">Extra-virgin olive oil, garlic,...</p>
+                                <p class="card-text" style="color: #999999; font-size: 13px;">Extra-virgin olive oil,
+                                    garlic,...</p>
                                 <p class="price d-inline fs-3">$14.90</p>
                                 <a href="#" class="btn p-0 position-absolute" style="right: 0;margin: 20px;">
-                                    <i class="fas fa-shopping-cart myCart" style="background-color: var(--primary);"></i>
+                                    <i class="fas fa-shopping-cart myCart"
+                                        style="background-color: var(--primary);"></i>
                                 </a>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

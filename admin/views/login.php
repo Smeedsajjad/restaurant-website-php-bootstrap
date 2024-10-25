@@ -9,13 +9,18 @@ $dbConnection = $database->conn;
 // Create an Admin object
 $admin = new Admin($dbConnection);
 
+if (isset($_SESSION['admin_id'])) {
+    header("Location: index.php?page=dashboard");
+    exit;
+}
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
     if ($admin->loginAdmin($username, $password)) {
-        header("Location: index.php?page=dashboard"); // Redirect to dashboard after login
+        header("Location: index.php?page=dashboard");
+        exit;
     } else {
         echo "Invalid username or password.";
     }
@@ -70,12 +75,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <input name="password" type="password" value="admin@123" class="form-control" i>
                             </div>
 
-                            <div class="col-lg-12 loginbttm">
-                                <div class="col-lg-6 login-btm login-text">
-                                    <!-- Error Message -->
-                                </div>
-                                <div class="col-lg-6 login-btm login-button">
-                                    <button type="submit" class="btn btn-outline-primary">LOGIN</button>
+                            <div class="col-lg-12 loginbttm d-flex justify-content-center">
+                                <div class="login-btm login-button">
+                                    <button type="submit" class="btn btn-outline-primary" style="cursor: pointer;">LOGIN</button>
                                 </div>
                             </div>
                         </form>
