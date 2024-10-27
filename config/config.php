@@ -1,27 +1,24 @@
 <?php
 class Database
 {
-    private $host = "localhost";
-    private $db_name = "restaurant";
-    private $username = "root";
-    private $password = "";
+    private $host = "localhost"; // Database host
+    private $username = "root"; // Database username
+    private $password = ""; // Database password
+    private $dbname = "restaurant"; // Database name
     public $conn;
 
-    public function getConnection()
+    public function __construct()
     {
-        $this->conn = null;
+        $this->conn = new mysqli($this->host, $this->username, $this->password, $this->dbname);
 
-        try {
-            $this->conn = new mysqli($this->host, $this->username, $this->password, $this->db_name);
-
-            // Check for connection errors
-            if ($this->conn->connect_error) {
-                throw new Exception("Connection failed: " . $this->conn->connect_error);
-            }
-        } catch (Exception $e) {
-            echo "Connection error: " . $e->getMessage();
+        // Check connection
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
         }
+    }
 
-        return $this->conn;
+    public function close()
+    {
+        $this->conn->close();
     }
 }

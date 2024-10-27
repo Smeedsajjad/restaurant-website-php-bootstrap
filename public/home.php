@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Include necessary configuration and class files
 require_once './admin/config/config.php';
 require_once './admin/php/ProductController.php';
@@ -12,6 +13,13 @@ $productController = new ProductController($dbConnection);
 
 // Get 6 products
 $products = $productController->getLimitProducts(6);
+
+// Allow access to the home page even if the user is not logged in
+// Remove the session check that redirects to the login page
+// if (!isset($_SESSION['user_id'])) {
+//     header("Location: index.php?page=login");
+//     exit();
+// }
 
 ?>
 <!DOCTYPE html>
@@ -51,7 +59,7 @@ $products = $productController->getLimitProducts(6);
 
     <!-- navbar -->
     <?php include  './includes/nav.php'; ?>
-
+  
     <!-- hero section -->
     <section class="hero-section py-5 position-relative">
         <img src="assets/shop/images/h_flour.png" alt="Flour Background" class="hero-background d-none d-lg-block">
@@ -252,51 +260,57 @@ $products = $productController->getLimitProducts(6);
             <div class="container">
                 <h1 class="text-center fw-semibold mb-5">Popular dishes</h1>
                 <div class="row">
-                    <?php foreach ($products as $product): ?>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="card myCard col-sm mt-3" style="width: 100%;border-radius: 15px;">
-                                <div class="card-img-wrapper">
-                                    <i class="fas fa-heart favorite_icon"></i>
-                                    <?php
-                                    // Extract the image filename from the 'images' field, in case it includes subdirectories
-                                    $imagePath = basename($product['images']);
-                                    ?>
-                                    <!-- Use only the image filename, prefixed with 'admin/uploads/' -->
-                                    <img src="admin/uploads/products/<?php echo $imagePath; ?>" class="card-img-top card-img" alt="<?php echo $product['name']; ?>">
-                                </div>
-                                <div class="card-body">
-                                    <p>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </p>
-                                    <h5 class="card-title myCardText"><?php echo $product['name']; ?></h5>
-                                    <p class="card-text" style="color: #999999; font-size: 13px;">
+                    <?php if (count($products) > 0): ?>
+                        <?php foreach ($products as $product): ?>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="card myCard col-sm mt-3" style="width: 100%;border-radius: 15px;">
+                                    <div class="card-img-wrapper">
+                                        <i class="fas fa-heart favorite_icon"></i>
                                         <?php
-                                        // Split the tagline into an array of words
-                                        $words = explode(' ', $product['tagline']);
-
-                                        // Get the first 4 words
-                                        $firstFourWords = array_slice($words, 0, 4);
-
-                                        // Join the first 4 words back into a string
-                                        $shortTagline = implode(' ', $firstFourWords);
-
-                                        // Display the first 4 words followed by '...' if there are more than 4 words
-                                        echo (count($words) > 4) ? $shortTagline . '...' : $product['tagline'];
+                                        // Extract the image filename from the 'images' field, in case it includes subdirectories
+                                        $imagePath = basename($product['images']);
                                         ?>
-                                    </p>
+                                        <!-- Use only the image filename, prefixed with 'admin/uploads/' -->
+                                        <img src="admin/uploads/products/<?php echo $imagePath; ?>" class="card-img-top card-img" alt="<?php echo $product['name']; ?>">
+                                    </div>
+                                    <div class="card-body">
+                                        <p>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </p>
+                                        <h5 class="card-title myCardText"><?php echo $product['name']; ?></h5>
+                                        <p class="card-text" style="color: #999999; font-size: 13px;">
+                                            <?php
+                                            // Split the tagline into an array of words
+                                            $words = explode(' ', $product['tagline']);
 
-                                    <p class="price d-inline fs-3">$<?php echo $product['price']; ?></p>
-                                    <a href="#" class="btn p-0 position-absolute" style="right: 0;margin: 20px;">
-                                        <i class="fas fa-shopping-cart myCart" style="background-color: var(--primary);"></i>
-                                    </a>
+                                            // Get the first 4 words
+                                            $firstFourWords = array_slice($words, 0, 4);
+
+                                            // Join the first 4 words back into a string
+                                            $shortTagline = implode(' ', $firstFourWords);
+
+                                            // Display the first 4 words followed by '...' if there are more than 4 words
+                                            echo (count($words) > 4) ? $shortTagline . '...' : $product['tagline'];
+                                            ?>
+                                        </p>
+
+                                        <p class="price d-inline fs-3">$<?php echo $product['price']; ?></p>
+                                        <a href="#" class="btn p-0 position-absolute" style="right: 0;margin: 20px;">
+                                            <i class="fas fa-shopping-cart myCart" style="background-color: var(--primary);"></i>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
 
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="col-md-12 mb-6 text-center">
+                            <h2>Explore Other Options</h2>
                         </div>
-                    <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
             </div>

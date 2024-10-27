@@ -29,7 +29,7 @@ p {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none !important;
     color: #fff;
 }
 
@@ -623,11 +623,12 @@ a {
 }
 
 /* clients section */
-.clients-section{
+.clients-section {
     padding: 100px 30px;
     background-color: #f7f2e2 !important;
     font-family: "Poppins", sans-serif;
 }
+
 .clients-section {
     background-color: #f8f9fa;
     position: relative;
@@ -697,20 +698,25 @@ a {
     opacity: 1;
 }
 
-.swiper-container-horizontal > .swiper-pagination-bullets {
+.swiper-container-horizontal>.swiper-pagination-bullets {
     bottom: -10px;
 }
-.swiper-button-lock{
+
+.swiper-button-lock {
     background: transparent !important;
     border: 1px solid #8b8585;
     color: #8b8585;
 }
-.swiper-pagination-bullet-active{
+
+.swiper-pagination-bullet-active {
     background-color: var(--primary) !important;
 }
-.swiper-pagination-bullet{
+
+.swiper-pagination-bullet {
     background-color: #ffc022c0 !important;
-}/* .hero-2-section */
+}
+
+/* .hero-2-section */
 .hero-2-section {
     margin-top: 6rem;
 }
@@ -719,9 +725,12 @@ a {
     padding: 80px 30px 55px 60px;
     position: relative;
     z-index: 3;
-    opacity: 0; /* Initially hidden */
-    transform: translateY(50px); /* Initially positioned below */
-    animation: slideUp 1s ease-out forwards; /* Animate to final position */
+    opacity: 0;
+    /* Initially hidden */
+    transform: translateY(50px);
+    /* Initially positioned below */
+    animation: slideUp 1s ease-out forwards;
+    /* Animate to final position */
 }
 
 .content h2 {
@@ -770,9 +779,12 @@ a {
 .hero2-content-1 {
     background-color: var(--secondary);
     position: relative;
-    opacity: 0; /* Initially hidden */
-    transform: translateX(150px); /* Initially positioned off to the right */
-    animation: slideInFromRight 1s ease-out forwards; /* Animate to final position */
+    opacity: 0;
+    /* Initially hidden */
+    transform: translateX(150px);
+    /* Initially positioned off to the right */
+    animation: slideInFromRight 1s ease-out forwards;
+    /* Animate to final position */
 }
 
 .hero2-content-2,
@@ -810,14 +822,16 @@ a {
     left: 8rem;
     width: 400px;
     height: 400px;
-    z-index: 1; /* Ensure it's behind the content */
+    z-index: 1;
+    /* Ensure it's behind the content */
     transition: all 0.3s ease-in-out;
     transform: scale(0);
 }
 
 .hero2-col-lg-4 {
     position: relative;
-    overflow: hidden; /* Ensure the hover effect is contained within the element */
+    overflow: hidden;
+    /* Ensure the hover effect is contained within the element */
 }
 
 .hero2-col-lg-4:hover .h2h-b {
@@ -833,26 +847,35 @@ a {
     padding: 80px 30px 55px 60px;
     position: relative;
     z-index: 3;
-    opacity: 0; /* Initially hidden */
-    transform: translateY(100px); /* Positioned more towards the bottom */
-    animation: slideUpMore 1s ease-out forwards; /* Slide up with more distance */
-    animation-delay: 0.5s; /* Content animation will start after image */
+    opacity: 0;
+    /* Initially hidden */
+    transform: translateY(100px);
+    /* Positioned more towards the bottom */
+    animation: slideUpMore 1s ease-out forwards;
+    /* Slide up with more distance */
+    animation-delay: 0.5s;
+    /* Content animation will start after image */
 }
 
 .hero2-content-1,
 .hero2-content-2,
 .hero2-content-3 {
-    opacity: 0; /* Initially hidden */
-    transform: translateX(200px); /* Start far right */
-    animation: slideInFromRight 1s ease-out forwards; /* Slide to original position */
+    opacity: 0;
+    /* Initially hidden */
+    transform: translateX(200px);
+    /* Start far right */
+    animation: slideInFromRight 1s ease-out forwards;
+    /* Slide to original position */
 }
 
 .hero2-content-2 {
-    animation-delay: 0.2s; /* Slight delay for staggered effect */
+    animation-delay: 0.2s;
+    /* Slight delay for staggered effect */
 }
 
 .hero2-content-3 {
-    animation-delay: 0.4s; /* More delay for staggered effect */
+    animation-delay: 0.4s;
+    /* More delay for staggered effect */
 }
 
 .hero2-content-1>.img-wrapper>.img-fluid,
@@ -862,8 +885,10 @@ a {
     right: -16rem;
     top: 1rem;
     z-index: 3;
-    opacity: 0; /* Initially hidden */
-    transform: translateX(200px); /* Start off-screen (to the right) */
+    opacity: 0;
+    /* Initially hidden */
+    transform: translateX(200px);
+    /* Start off-screen (to the right) */
     animation: slideInFromRight 1s ease-out forwards;
 }
 
@@ -871,11 +896,14 @@ a {
 @keyframes slideInFromRight {
     0% {
         opacity: 0;
-        transform: translateX(200px); /* Start off to the right */
+        transform: translateX(200px);
+        /* Start off to the right */
     }
+
     100% {
         opacity: 1;
-        transform: translateX(0); /* Final position */
+        transform: translateX(0);
+        /* Final position */
     }
 }
 
@@ -883,45 +911,60 @@ a {
 @keyframes slideUpMore {
     0% {
         opacity: 0;
-        transform: translateY(100px); /* Start from lower position */
+        transform: translateY(100px);
+        /* Start from lower position */
     }
+
     100% {
         opacity: 1;
-        transform: translateY(0); /* Final position */
+        transform: translateY(0);
+        /* Final position */
     }
 }
+
 /* blog-section */
-.blog-section{
+.blog-section {
     margin-top: 6rem;
 }
-.blog-section>.container>.row>.col-md-4>.card>.card-body>small{
+
+.blog-section>.container>.row>.col-md-4>.card>.card-body>small {
     font-size: 12px;
     cursor: pointer;
 }
-.blog-section>.container>.row>.col-md-4>.card>.card-body>small:hover{
+
+.blog-section>.container>.row>.col-md-4>.card>.card-body>small:hover {
     color: var(--primary_hover) !important;
 }
-.blog-section>.container>.row>.col-md-4>.card>.card-body>.card-title{
+
+.blog-section>.container>.row>.col-md-4>.card>.card-body>.card-title {
     font-weight: 600;
     margin: 1rem 0 1rem 0;
     cursor: pointer;
 }
-.blog-section>.container>.row>.col-md-4>.card>.card-body>.card-title:hover{
+
+.blog-section>.container>.row>.col-md-4>.card>.card-body>.card-title:hover {
     color: var(--primary_hover) !important;
 }
-.blog-section>.container>.row>.col-md-4>.card>.card-body>p{
-   font-size: 13px;
-   user-select: none;
+
+.blog-section>.container>.row>.col-md-4>.card>.card-body>p {
+    font-size: 13px;
+    user-select: none;
 }
+
 .blog-section .card-body p {
     font-size: 14px;
-    height: 60px; /* Set a fixed height */
-    overflow: hidden; /* Hide overflow */
-    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    height: 60px;
+    /* Set a fixed height */
+    overflow: hidden;
+    /* Hide overflow */
+    text-overflow: ellipsis;
+    /* Add ellipsis for overflow text */
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Number of lines to show */
+    -webkit-line-clamp: 3;
+    /* Number of lines to show */
     -webkit-box-orient: vertical;
 }
+
 /* footer section */
 .footer-section {
     padding: 4rem 0 0 0;
@@ -989,15 +1032,18 @@ a {
 .footer-section .mt-4 {
     margin-top: 2rem !important;
 }
-input[type="email"]::placeholder{
+
+input[type="email"]::placeholder {
     color: #fff;
 }
-.footer-section .container-fluid > p {
+
+.footer-section .container-fluid>p {
     text-align: center;
     margin-top: 2rem;
     font-size: 12px;
     color: #6c757d;
 }
+
 /* Products in home */
 .myCard {
     position: relative;
@@ -1064,13 +1110,139 @@ input[type="email"]::placeholder{
 .fa-star {
     color: var(--primary);
 }
-.favorite_icon{
+
+.favorite_icon {
     z-index: 3;
     position: absolute;
-    right: 0;
+    right: 8px;
     color: gray;
     cursor: pointer;
+    top: 5px;
 }
-.favorite_icon:hover{
+
+.favorite_icon:hover {
     background-color: transparent !important;
+}
+
+/* other pages */
+
+/* ## Shop ##*/
+.op_hero_section {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #000;
+    padding: 15vh 0 15vh 0;
+}
+
+.opht {
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+.product-categories {
+    background-color: #fbf7e8;
+}
+
+.cat-item {
+    border-bottom: 0.5px solid rgb(223, 220, 220);
+    padding: 10px 0 10px 8px;
+}
+
+input.afs.form-control {
+    border: 2px solid var(--primary);
+    border-radius: 2rem;
+    padding: 12px 0 12px 15px;
+}
+
+.input-group {
+    position: relative;
+}
+
+.input-group-append {
+    position: absolute;
+    right: 10px;
+    /* Adjust as needed for spacing */
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    /* Prevents clicks on the icon */
+}
+
+.input-group-append i {
+    color: #999;
+    /* Change color as needed */
+}
+
+.afs.form-control {
+    border-top: 1px solid var(--primary);
+    /* Top border */
+    border-bottom: 1px solid var(--primary);
+    /* Bottom border */
+    border-right: none;
+    /* Remove right border to avoid conflict with icon */
+    padding-right: 30px;
+    /* Add padding to the right for the icon */
+}
+
+.input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+}
+input[type="range"] {
+    /* Slider track */
+    -webkit-appearance: none; /* Removes default styling on Webkit browsers */
+    width: 80%;
+    height: 8px;
+    background: var(--primary); /* Track color gradient */
+    border-radius: 5px;
+    outline: none;
+    margin: 10px 0;
+  }
+  
+  /* Thumb (draggable button) */
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary); /* Thumb color */
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  }
+  .filter_submit_btn{
+    background-color: var(--primary);
+    font-size: 12px;
+    padding: 0.5em 1.5em;
+  }
+  .filter_submit_btn:hover{
+    background-color: var(--primary_hover);
+  }.product-categories .cat-item a {
+    display: flex;
+    justify-content: space-between; /* Space between category name and count */
+    align-items: center; /* Center items vertically */
+}
+
+.category-name {
+    flex-grow: 1; /* Allow the category name to take available space */
+}
+
+.count {
+    margin-left: 10px; /* Optional: Add some space between name and count */
 }

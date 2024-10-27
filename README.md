@@ -27,11 +27,14 @@ restaurant-website/
 │   ├── footer.php                 # Footer HTML
 │   └── config.php                 # Configuration file for database connections
 │
+├── php/                        # Controller & other php code
+|
 ├── public/                        # Publicly accessible files
 │   ├── index.php                  # Home page
 │   ├── menu.php                   # Menu page
 │   ├── about.php                  # About page
 │   ├── contact.php                # Contact page
+│   ├── signup.php                # SignUp page
 │   ├── reservations.php           # Reservation page
 │   ├── gallery.php                # Gallery page
 │   └── 404.php                    # 404 error page
@@ -40,3 +43,16 @@ restaurant-website/
 ├── composer.json                  # Composer dependencies (if using)
 ├── package.json                   # Node.js dependencies (if using)
 └── README.md                      # Project documentation
+```
+
+<h1>Later Add this code</h1>
+  <h2>Welcome to the Restaurant Management System</h2>
+    <p>Hello,<?php
+                // Check if the user is logged in and display the username or a default message
+                echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Guest';
+                ?>!
+    </p>
+
+    <?php if (!isset($_SESSION['user_id'])): ?>
+        <p><a href="index.php?page=login">Login</a> or <a href="index.php?page=signup">Sign Up</a> to enjoy more features.</p>
+    <?php endif; ?>
