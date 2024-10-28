@@ -131,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     </div>
                     <div class="box-body p-3">
-                    <form method="post" enctype="multipart/form-data" action="index.php?page=edit-category&id=<?php echo htmlspecialchars($category['id']); ?>">
+                    <form method="post" enctype="multipart/form-data" action="index.php?page=edit-category&id=<?php echo isset($category['id']) ? htmlspecialchars($category['id']) : ''; ?>">
                             <div class="row">
                                 <div class="col-md-12 mb-3">
                                     <label for="categoryname" class="form-label">Name</label>

@@ -21,6 +21,9 @@ switch ($page) {
     case 'shop':
         $pageContent = $baseViewPath . 'shop.php';
         break;
+    case 'product':
+        $pageContent = $baseViewPath . 'product.php';
+        break;
     case 'menu':
         $pageContent = $baseViewPath . 'menu.html';
         break;

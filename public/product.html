@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
+    <!-- Font Awesome 5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- jquery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/magnify@2.3.3/dist/js/jquery.magnify.min.js"></script>
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- font-family: "Norican", cursive; -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Norican&display=swap" rel="stylesheet">
+    <!-- custom style -->
+    <link rel="stylesheet" href="../assets/shop/css/style.css">
+    <title>Product Name</title>
+</head>
+
+<body>
+    <!-- Hero section -->
+
+    <section class="op_hero_section"
+        style="margin-bottom: 5vh;background-image: url(../assets/shop/images/breadcrumb1.jpg);">
+        <div class="container-fluid">
+            <div>
+                <nav class="container d-flex justify-content-start test-start"
+                    style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+                    aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#" class="text-muted">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="text-muted">Shop</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="#" class="text-dark">Product
+                                Name</a>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="product-image-container">
+                        <img id="product-image" src="../admin/uploads/products/671fbd6503d1a_Apricot_Chicken.png" alt="Product Name" class="img-fluid" data-magnify="gallery" data-caption="Product Name" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- Additional product details can go here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        $(document).ready(function() {
+            $('#product-image').magnify({
+                speed: 300, // Animation speed
+            });
+        });
+    </script>
+
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,3 +1,17 @@
+<?php
+// Include necessary configuration and class files
+require_once './admin/config/config.php';
+require_once './admin/php/ProductController.php';
+// Create a new database connection
+$database = new Database();
+$dbConnection = $database->conn;
+
+// Pass the database connection to the ProductController
+$productController = new ProductController($dbConnection);
+
+// Get All avilable products
+$products = $productController->getAllProducts();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,87 +72,57 @@
                         <small class="text-muted mb-5">Showing 1-24 of 54 Results</small>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 col-sm-6">
-                            <div class="card myCard" style="width: 100%;border-radius: 15px;">
-                                <div class="card-img-wrapper">
-                                    <i class="fas fa-heart favorite_icon"></i>
-                                    <img src="https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-450x450.png"
-                                        class="card-img-top card-img" alt="...">
-                                </div>
-                                <div class="card-body">
-                                    <p>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </p>
-                                    <h5 class="card-title myCardText">Vegge Lover</h5>
-                                    <p class="card-text" style="color: #999999; font-size: 13px;">Extra-virgin olive
-                                        oil,
-                                        garlic,...</p>
-                                    <p class="price d-inline fs-3">$14.90</p>
-                                    <a href="#" class="btn p-0 position-absolute" style="right: 0;margin: 20px;">
-                                        <i class="fas fa-shopping-cart myCart"
-                                            style="background-color: var(--primary);"></i>
-                                    </a>
-                                </div>
-                            </div>
+                        <?php if (count($products) > 0): ?>
+                            <?php foreach ($products as $product): ?>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="card myCard col-sm mt-3" style="width: 100%;border-radius: 15px;">
+                                        <div class="card-img-wrapper">
+                                            <i class="fas fa-heart favorite_icon"></i>
+                                            <?php
+                                            // Extract the image filename from the 'images' field, in case it includes subdirectories
+                                            $imagePath = basename($product['images']);
+                                            ?>
+                                            <!-- Use only the image filename, prefixed with 'admin/uploads/' -->
+                                            <img src="admin/uploads/products/<?php echo $imagePath; ?>" class="card-img-top card-img" alt="<?php echo $product['name']; ?>">
+                                        </div>
+                                        <div class="card-body">
+                                            <p>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </p>
+                                            <h5 class="card-title myCardText"><?php echo $product['name']; ?></h5>
+                                            <p class="card-text" style="color: #999999; font-size: 13px;">
+                                                <?php
+                                                // Split the tagline into an array of words
+                                                $words = explode(' ', $product['tagline']);
 
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="card myCard" style="width: 100%;border-radius: 15px;">
-                                <div class="card-img-wrapper">
-                                    <i class="fas fa-heart favorite_icon"></i>
-                                    <img src="https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-450x450.png"
-                                        class="card-img-top card-img" alt="...">
-                                </div>
-                                <div class="card-body">
-                                    <p>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </p>
-                                    <h5 class="card-title myCardText">Vegge Lover</h5>
-                                    <p class="card-text" style="color: #999999; font-size: 13px;">Extra-virgin olive
-                                        oil,
-                                        garlic,...</p>
-                                    <p class="price d-inline fs-3">$14.90</p>
-                                    <a href="#" class="btn p-0 position-absolute" style="right: 0;margin: 20px;">
-                                        <i class="fas fa-shopping-cart myCart"
-                                            style="background-color: var(--primary);"></i>
-                                    </a>
-                                </div>
-                            </div>
+                                                // Get the first 4 words
+                                                $firstFourWords = array_slice($words, 0, 4);
 
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="card myCard" style="width: 100%;border-radius: 15px;">
-                                <div class="card-img-wrapper">
-                                    <i class="fas fa-heart favorite_icon"></i>
-                                    <img src="https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-450x450.png"
-                                        class="card-img-top card-img" alt="...">
-                                </div>
-                                <div class="card-body">
-                                    <p>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </p>
-                                    <h5 class="card-title myCardText">Vegge Lover</h5>
-                                    <p class="card-text" style="color: #999999; font-size: 13px;">Extra-virgin olive
-                                        oil,
-                                        garlic,...</p>
-                                    <p class="price d-inline fs-3">$14.90</p>
-                                    <a href="#" class="btn p-0 position-absolute" style="right: 0;margin: 20px;">
-                                        <i class="fas fa-shopping-cart myCart"
-                                            style="background-color: var(--primary);"></i>
-                                    </a>
-                                </div>
-                            </div>
+                                                // Join the first 4 words back into a string
+                                                $shortTagline = implode(' ', $firstFourWords);
 
-                        </div>
+                                                // Display the first 4 words followed by '...' if there are more than 4 words
+                                                echo (count($words) > 4) ? $shortTagline . '...' : $product['tagline'];
+                                                ?>
+                                            </p>
+
+                                            <p class="price d-inline fs-3">$<?php echo $product['price']; ?></p>
+                                            <a href="#" class="btn p-0 position-absolute" style="right: 0;margin: 20px;">
+                                                <i class="fas fa-shopping-cart myCart" style="background-color: var(--primary);"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <div class="col-md-12 mb-6 text-center">
+                                <h2>Explore Other Options</h2>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <!-- aside filter -->

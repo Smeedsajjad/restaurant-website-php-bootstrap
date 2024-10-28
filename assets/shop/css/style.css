@@ -1049,6 +1049,7 @@ input[type="email"]::placeholder {
     position: relative;
     overflow: hidden;
     border-radius: 15px;
+    cursor: pointer;
 }
 
 .card-img-wrapper {
@@ -1245,4 +1246,27 @@ input[type="range"] {
 
 .count {
     margin-left: 10px; /* Optional: Add some space between name and count */
+}
+/* ## Products ## */
+.product-image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+#product-image {
+    width: 100%; /* Adjust as needed */
+    height: auto;
+}
+
+.magnifier {
+    position: absolute;
+    border: 3px solid #000; /* Border color of the magnifier */
+    border-radius: 50%;
+    cursor: none; /* Hide the default cursor */
+    width: 100px; /* Size of the magnifier */
+    height: 100px; /* Size of the magnifier */
+    display: none; /* Hidden by default */
+    pointer-events: none; /* Prevent mouse events on the magnifier */
+    background-repeat: no-repeat;
+    background-size: 200%; /* Adjust zoom level */
 }

@@ -50,6 +50,16 @@ class ProductController
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    // Get All products
+    public function getAllProducts()
+    {
+        // Only fetch products that are available (is_available = 1)
+        $stmt = $this->connection->prepare("SELECT * FROM products WHERE is_available = 1");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     // Get a single product by ID
     public function getProduct($id)
     {
