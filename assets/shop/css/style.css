@@ -1270,3 +1270,18 @@ input[type="range"] {
     background-repeat: no-repeat;
     background-size: 200%; /* Adjust zoom level */
 }
+/* Add this to your existing CSS file */
+.quantity {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.quantity button {
+    width: 30px;
+    height: 30px;
+}
+
+.social-share a {
+    margin-right: 10px;
+}

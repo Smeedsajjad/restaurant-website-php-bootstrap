@@ -12,9 +12,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
     <!-- Font Awesome 5 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- jquery -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/magnify@2.3.3/dist/js/jquery.magnify.min.js"></script>
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,13 +25,40 @@
     <!-- custom style -->
     <link rel="stylesheet" href="../assets/shop/css/style.css">
     <title>Product Name</title>
+    <style>
+        .zoom-area {
+            width: 500px;
+            margin: 50px auto;
+            position: relative;
+            cursor: none
+        }
+
+        /* for create magnify glass */
+        .large {
+            width: 175px;
+            height: 175px;
+            position: absolute;
+            border-radius: 100%;
+
+            /* for box shadow for glass effect */
+            box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85),
+                0 0 7px 7px rgba(0, 0, 0, 0.25),
+                inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+
+            /*for hide the glass by default*/
+            display: none;
+        }
+
+        .small {
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
     <!-- Hero section -->
 
-    <section class="op_hero_section"
-        style="margin-bottom: 5vh;background-image: url(../assets/shop/images/breadcrumb1.jpg);">
+    <section class="op_hero_section" style="background-image: url(../assets/shop/images/breadcrumb1.jpg);">
         <div class="container-fluid">
             <div>
                 <nav class="container d-flex justify-content-start test-start"
@@ -56,25 +80,100 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="product-image-container">
-                        <img id="product-image" src="../admin/uploads/products/671fbd6503d1a_Apricot_Chicken.png" alt="Product Name" class="img-fluid" data-magnify="gallery" data-caption="Product Name" />
+                    <!-- Created by Rohan Hapani -->
+                    <div class="zoom-area">
+
+                        <!-- It's container of the magnify glass -->
+                        <div class="large"></div>
+
+                        <!-- It's for the small image -->
+                        <img class="small" src="../admin/uploads/products/671fbd6503d1a_Apricot_Chicken.png" width="500"
+                            height="500" />
+
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <!-- Additional product details can go here -->
+                    <h1 class="fw-bold">Apricot Chicken</h1>
+                    <p>Rated 3.60 out of 5 based on 5 customer ratings (5 customer reviews)</p>
+                    <p>Crispy bacon, tasty ham, pineapple, onion and stretchy mozzarella, finished with a BBQ swirl.</p>
+                    <h3>£18.30</h3>
+
+                    <div class="quantity">
+                        <button class="btn btn-secondary" id="decrease-quantity">-</button>
+                        <input type="number" id="quantity" value="1" min="1" style="width: 50px; text-align: center;" />
+                        <button class="btn btn-secondary" id="increase-quantity">+</button>
+                    </div>
+
+                    <button class="btn btn-primary mt-2">Add to cart</button>
+                    <button class="btn btn-outline-secondary mt-2">Add to wishlist</button>
+
+                    <p><strong>SKU:</strong> N/A</p>
+                    <p><strong>Category:</strong> Pizza</p>
+                    <p><strong>Tags:</strong> Burgers, Tacos</p>
+
+                    <h5>Share:</h5>
+                    <div class="social-share">
+                        <a href="#" class="text-muted">Facebook</a> |
+                        <a href="#" class="text-muted">Twitter</a> |
+                        <a href="#" class="text-muted">Linkedin</a> |
+                        <a href="#" class="text-muted">Google+</a> |
+                        <a href="#" class="text-muted">Pinterest</a> |
+                        <a href="#" class="text-muted">Email</a>
+                    </div>
+
+                    <p class="mt-3"><strong>Free global shipping on all orders</strong></p>
+                    <p>30 days easy returns if you change your mind</p>
+                    <p>Order before noon for same day dispatch</p>
+                    <p><strong>Guaranteed Safe Checkout</strong></p>
                 </div>
             </div>
         </div>
     </main>
+    <!-- Include jQuery from a CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            $('#product-image').magnify({
-                speed: 300, // Animation speed
-            });
-        });
-    </script>
+        /* Created by Rohan Hapani */
+        $(document).ready(function () {
+            var sub_width = 0;
+            var sub_height = 0;
+            $(".large").css("background", "url('" + $(".small").attr("src") + "') no-repeat");
 
+            $(".zoom-area").mousemove(function (e) {
+                if (!sub_width && !sub_height) {
+                    var image_object = new Image();
+                    image_object.src = $(".small").attr("src");
+                    sub_width = image_object.width;
+                    sub_height = image_object.height;
+                }
+                else {
+                    var magnify_position = $(this).offset();
+
+                    var mx = e.pageX - magnify_position.left;
+                    var my = e.pageY - magnify_position.top;
+
+                    if (mx < $(this).width() && my < $(this).height() && mx > 0 && my > 0) {
+                        $(".large").fadeIn(100);
+                    }
+                    else {
+                        $(".large").fadeOut(100);
+                    }
+                    if ($(".large").is(":visible")) {
+                        var rx = Math.round(mx / $(".small").width() * sub_width - $(".large").width() / 2) * -1;
+                        var ry = Math.round(my / $(".small").height() * sub_height - $(".large").height() / 2) * -1;
+
+                        var bgp = rx + "px " + ry + "px";
+
+                        var px = mx - $(".large").width() / 2;
+                        var py = my - $(".large").height() / 2;
+
+                        $(".large").css({ left: px, top: py, backgroundPosition: bgp });
+                    }
+                }
+            })
+        })
+    </script>
+    </script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
