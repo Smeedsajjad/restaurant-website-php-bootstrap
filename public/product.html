@@ -27,10 +27,21 @@
     <title>Product Name</title>
     <style>
         .zoom-area {
-            width: 500px;
-            margin: 50px auto;
+            /* margin: 50px auto; */
             position: relative;
-            cursor: none
+            /* cursor: none */
+        }
+
+        @media (max-width: 991px) {
+            .zoom-area {
+                left: -100px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .zoom-area {
+                left: 0px;
+            }
         }
 
         /* for create magnify glass */
@@ -77,54 +88,86 @@
     </section>
 
     <main>
-        <div class="container">
+        <div class="container mb-5">
             <div class="row">
                 <div class="col-md-6">
                     <!-- Created by Rohan Hapani -->
                     <div class="zoom-area">
-
-                        <!-- It's container of the magnify glass -->
                         <div class="large"></div>
-
-                        <!-- It's for the small image -->
                         <img class="small" src="../admin/uploads/products/671fbd6503d1a_Apricot_Chicken.png" width="500"
                             height="500" />
-
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h1 class="fw-bold">Apricot Chicken</h1>
-                    <p>Rated 3.60 out of 5 based on 5 customer ratings (5 customer reviews)</p>
-                    <p>Crispy bacon, tasty ham, pineapple, onion and stretchy mozzarella, finished with a BBQ swirl.</p>
-                    <h3>£18.30</h3>
-
-                    <div class="quantity">
-                        <button class="btn btn-secondary" id="decrease-quantity">-</button>
-                        <input type="number" id="quantity" value="1" min="1" style="width: 50px; text-align: center;" />
-                        <button class="btn btn-secondary" id="increase-quantity">+</button>
+                    <h1 class="fw-semibold" style="font-size: 52px;">Apricot Chicken</h1>
+                    <div class="rating d-inline">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <a class="customer_reviews_trigger mx-2 text-muted">(5 customer reviews)</a>
+                    <p class="text-muted mt-3">Crispy bacon, tasty ham, pineapple, onion and stretchy mozzarella,
+                        finished with a BBQ swirl.</p>
+                    <h3 class="mb-0 price fw-bold">£18.30</h3>
+                    <hr>
+                    <div class="row">
+                        <div class="quantity col-4">
+                            <button class="btn fw-semibold" id="decrease-quantity">-</button>
+                            <input class="fw-semibold" type="number" id="quantity" value="1" min="1"
+                                style="width: 50px; text-align: center;" />
+                            <button class="btn fw-semibold" id="increase-quantity">+</button>
+                        </div>
+                        <button class="btn bg-warning col-6 invers_btn"><i
+                                class="fa-solid fa-basket-shopping mx-2"></i>Add to cart</button>
+                        <button class="btn col-1"><i class="fa fa-heart"></i></button>
                     </div>
 
-                    <button class="btn btn-primary mt-2">Add to cart</button>
-                    <button class="btn btn-outline-secondary mt-2">Add to wishlist</button>
+                    <hr>
 
-                    <p><strong>SKU:</strong> N/A</p>
-                    <p><strong>Category:</strong> Pizza</p>
-                    <p><strong>Tags:</strong> Burgers, Tacos</p>
+                    <small class="text-muted d-block"><strong>Category:</strong> <a class="cat_name_p"
+                            href="#">Pizza</a></small>
 
-                    <h5>Share:</h5>
-                    <div class="social-share">
-                        <a href="#" class="text-muted">Facebook</a> |
-                        <a href="#" class="text-muted">Twitter</a> |
-                        <a href="#" class="text-muted">Linkedin</a> |
-                        <a href="#" class="text-muted">Google+</a> |
-                        <a href="#" class="text-muted">Pinterest</a> |
-                        <a href="#" class="text-muted">Email</a>
+                    <small class="d-inline">Share:</small>
+                    <div class="social-share d-inline">
+                        <a href="https://www.facebook.com/" class="text-muted"><i
+                                class="fa-brands fa-square-facebook"></i></a>
+                        <a href="https://twitter.com/" class="text-muted"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/" class="text-muted"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="https://plus.google.com/" class="text-muted"><i
+                                class="fa-brands fa-google-plus"></i></a>
+                        <a href="https://www.pinterest.com/" class="text-muted"><i
+                                class="fa-brands fa-pinterest"></i></a>
+                        <a href="mailto:info@example.com" class="text-muted"><i class="fa fa-envelope"></i></a>
                     </div>
+                    <hr>
+                    <ul class="mt-3">
+                        <li><small class="text-muted">Free global shipping on all orders</small></li>
+                        <li><small class="text-muted">30 days easy returns if you change your mind</small></li>
+                        <li><small class="text-muted">Order before noon for same day dispatch</small></li>
+                    </ul>
+                    <hr>
+                    <div>
+                        <small class="text-muted"><strong>Guaranteed Safe Checkout</strong></small>
+                        <img src="../assets/shop/images/garante_checkoutd.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                    <p class="mt-3"><strong>Free global shipping on all orders</strong></p>
-                    <p>30 days easy returns if you change your mind</p>
-                    <p>Order before noon for same day dispatch</p>
-                    <p><strong>Guaranteed Safe Checkout</strong></p>
+        <div class="container-fluid mt-5 mb-5">
+            <div class="row">
+                <div style="display: flex; justify-content: center; gap: 20px;">
+                    <button class="btn btn-lg drb" style="flex: 1; max-width: 150px;">Description</button>
+                    <button class="btn btn-lg drb" style="flex: 1; max-width: 150px;">Reviews (5)</button>
+                </div>
+                <div class="row text-muted">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium distinctio quidem modi
+                        laborum quaerat vitae mollitia ipsum tenetur culpa. Placeat quia iste sunt ipsam natus
+                        voluptates, consectetur tenetur obcaecati autem.</p>
+                    <p><strong>Ingregients:</strong>Dr. Praeger’s Black Bean Burger, Focaccia bun, Balsamic Vinaigrette,
+                        Pesto, Tomato, Swiss Cheese</p>
                 </div>
             </div>
         </div>
@@ -171,6 +214,19 @@
                     }
                 }
             })
+
+            // Update quantity on button click
+            $("#increase-quantity").click(function () {
+                var quantity = parseInt($("#quantity").val());
+                $("#quantity").val(quantity + 1);
+            });
+
+            $("#decrease-quantity").click(function () {
+                var quantity = parseInt($("#quantity").val());
+                if (quantity > 1) {
+                    $("#quantity").val(quantity - 1);
+                }
+            });
         })
     </script>
     </script>

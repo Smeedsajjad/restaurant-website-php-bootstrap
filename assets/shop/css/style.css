@@ -1285,3 +1285,42 @@ input[type="range"] {
 .social-share a {
     margin-right: 10px;
 }
+.customer_reviews_trigger:hover{
+    color: var(--primary) !important;
+}
+.quantity>button{
+    border: none  !important;
+    z-index: 2;
+}
+.quantity>input{
+    border: none  !important;
+}
+.invers_btn:hover{
+    color: #fff !important;
+    background-color: var(--primary_hover) !important;
+}
+.fa-heart:hover{
+    color: red;
+    transition: color 0.5s ease;
+}
+.cat_name_p:hover{
+    color: var(--primary) !important;
+    text-decoration: underline;
+    transition: color 0.5s ease;
+}
+.drb {
+    background-color: var(--primary);
+    transition: color 0.3s ease;
+    border: none !important;
+    font-weight: 700;
+    font-size: 1rem; /* Adjusted font size */
+    padding: 0.4em 1em; /* Adjusted padding */
+    max-width: 150px; /* Set a maximum width */
+    overflow: hidden; /* Prevent overflow */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    white-space: nowrap; /* Prevent text wrapping */
+    height: 55px;
+}
+.drb:hover{
+    background-color: var(--primary_hover);
+}
