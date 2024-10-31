@@ -1300,13 +1300,13 @@ input[type="range"] {
     background-color: var(--primary_hover) !important;
 }
 .fa-heart:hover{
-    color: red;
+    color: var(--primary_hover);
     transition: color 0.5s ease;
 }
 .cat_name_p:hover{
     color: var(--primary) !important;
     text-decoration: underline;
-    transition: color 0.5s ease;
+    transition: color 0.2s ease;
 }
 .drb {
     background-color: var(--primary);
@@ -1323,4 +1323,54 @@ input[type="range"] {
 }
 .drb:hover{
     background-color: var(--primary_hover);
+}
+.social-share>a>i:hover{
+    color: var(--primary_hover);
+}
+.drb_active{
+    background-color: transparent !important;
+}
+.customer_review {
+    margin-top: 20px; /* Space above the review section */
+}
+
+.review {
+    border-bottom: 1px solid #ddd; /* Separator between reviews */
+    padding: 10px 0; /* Space around each review */
+}
+
+.review p {
+    margin: 5px 0; /* Space between paragraphs */
+}
+
+.review strong {
+    font-weight: bold; /* Bold for the rating */
+}
+
+.review span {
+    font-size: 0.9rem; /* Smaller font for the date */
+    color: #888; /* Lighter color for the date */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Space between form fields */
+}
+.profile-img {
+    width: 50px; /* Set a fixed width */
+    height: 50px; /* Set a fixed height */
+    border-radius: 50%; /* Make the image circular */
+}
+.star-rating {
+    display: flex; /* Align stars in a row */
+    cursor: pointer; /* Change cursor to pointer */
+}
+
+.star-rating .fa-star {
+    pad: 3px;
+    color: #ccc; /* Muted color for unselected stars */
+    transition: color 0.2s; /* Smooth transition for color change */
+}
+
+.star-rating .fa-star.selected {
+    color: gold; /* Color for selected stars */
 }
