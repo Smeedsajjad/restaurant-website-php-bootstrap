@@ -11,20 +11,7 @@ $dbConnection = $database->conn;
 $productController = new ProductController($dbConnection);
 // Get the product ID from the URL
 $productId = isset($_GET['id']) ? $_GET['id'] : null;
-
-// if ($productId) {
-//     // Fetch product details
 $product = $productController->getProduct($productId);
-//     if (!$product) {
-//         // Handle product not found
-//         echo "Product not found.";
-//         exit;
-//     }
-// } else {
-//     // Handle case where no product ID is provided
-//     echo "No product selected.";
-//     exit;
-// }
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +22,8 @@ $product = $productController->getProduct($productId);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- bootstrap -->
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -55,44 +44,80 @@ $product = $productController->getProduct($productId);
     <link rel="stylesheet" href="assets/shop/css/style.css">
     <title><?php echo htmlspecialchars($product['name']); ?></title>
     <style>
-        .zoom-area {
-            /* margin: 50px auto; */
-            position: relative;
-            /* cursor: none */
-        }
-
-        .form-control:focus {
-            border: 0.5px solid var(--primary);
-            outline: none !important;
-            box-shadow: none;
-        }
-
-        @media (max-width: 991px) {
-            .zoom-area {
-                left: -100px;
-            }
-        }
-
-        @media (max-width: 767px) {
-            .zoom-area {
-                left: 0px;
-            }
-        }
-
-        /* for create magnify glass */
-        .large {
-            width: 175px;
-            height: 175px;
+        .loader {
+            color: var(--primary);
+            font-size: 45px;
+            text-indent: -9999em;
+            overflow: hidden;
+            width: 1em;
+            height: 1em;
+            border-radius: 50%;
             position: absolute;
-            border-radius: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: mltShdSpin 1.7s infinite ease, round 1.7s infinite ease;
+        }
 
-            /* for box shadow for glass effect */
-            box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85),
-                0 0 7px 7px rgba(0, 0, 0, 0.25),
-                inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
-
-            /*for hide the glass by default*/
+        .loader-bg {
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
             display: none;
+            cursor: wait;
+        }
+
+        @keyframes mltShdSpin {
+            0% {
+                box-shadow: 0 -0.83em 0 -0.4em,
+                    0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+                    0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+            }
+
+            5%,
+            95% {
+                box-shadow: 0 -0.83em 0 -0.4em,
+                    0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+                    0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+            }
+
+            10%,
+            59% {
+                box-shadow: 0 -0.83em 0 -0.4em,
+                    -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em,
+                    -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+            }
+
+            20% {
+                box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em,
+                    -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em,
+                    -0.749em -0.34em 0 -0.477em;
+            }
+
+            38% {
+                box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em,
+                    -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em,
+                    -0.82em -0.09em 0 -0.477em;
+            }
+
+            100% {
+                box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em,
+                    0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+            }
+        }
+
+        @keyframes round {
+            0% {
+                transform: rotate(0deg)
+            }
+
+            100% {
+                transform: rotate(360deg)
+            }
         }
 
         .small {
@@ -102,7 +127,10 @@ $product = $productController->getProduct($productId);
 </head>
 
 <body>
-
+    <!-- loader -->
+    <div class="loader-bg" style="display: none;">
+        <div class="loader"></div>
+    </div>
     <!-- header -->
     <?php include  './includes/header.php'; ?>
 
@@ -158,24 +186,29 @@ $product = $productController->getProduct($productId);
                                 $starClass = ($i <= $rating) ? 'fa-star checked' : 'fa-star text-muted';
                                 echo '<span class="fa ' . $starClass . '"></span>';
                             }
-                           
-                       echo " </div>";
-                       echo ' <p class="customer_reviews_trigger mx-2 text-muted d-inline">(' . htmlspecialchars($reviewCount) . ' customer reviews)</p>';
-                        ?> 
-                        <p class="text-muted mt-3"><?php echo htmlspecialchars($product['tagline']); ?></p>
-                        <h3 class="mb-0 price fw-bold">£<?php echo htmlspecialchars($product['price']); ?></h3>
-                        <hr>
-                        <div class="row">
-                            <div class="quantity col-4">
-                                <button class="btn fw-semibold" id="decrease-quantity">-</button>
-                                <input class="fw-semibold" type="number" id="quantity" value="1" min="1" style="width: 50px; text-align: center;" />
-                                <button class="btn fw-semibold" id="increase-quantity">+</button>
+
+                            echo " </div>";
+                            echo ' <p class="customer_reviews_trigger mx-2 text-muted d-inline">(' . htmlspecialchars($reviewCount) . ' customer reviews)</p>';
+                            ?>
+                            <p class="text-muted mt-3"><?php echo htmlspecialchars($product['tagline']); ?></p>
+                            <h3 class="mb-0 price fw-bold">£<?php echo htmlspecialchars($product['price']); ?></h3>
+                            <hr>
+                            <div class="row">
+                                <div class="quantity col-4">
+                                    <button class="btn fw-semibold" id="decrease-quantity">-</button>
+                                    <input class="fw-semibold" type="number" id="quantity" value="1" min="1" style="width: 50px; text-align: center;" />
+                                    <button class="btn fw-semibold" id="increase-quantity">+</button>
+                                </div>
+                                <button class="btn bg-warning col-6 invers_btn" id="add-to-cart" data-id="<?php echo $product['id']; ?>">
+                                    <i class="fa-solid fa-basket-shopping mx-2"></i>Add to cart
+                                </button>
+                                <button class="btn col-1"><i class="fa fa-heart"></i></button>
                             </div>
-                            <button class="btn bg-warning col-6 invers_btn"><i class="fa-solid fa-basket-shopping mx-2"></i>Add to cart</button>
-                            <button class="btn col-1"><i class="fa fa-heart"></i></button>
+                            <div id="cart-loader" style="display: none;">Adding to cart...</div>
+                            <div id="cart-success-message" style="display: none; color: green;">Product added to cart!</div>
                         </div>
 
-                        <small class="text-muted d-block"><strong>Category:</strong> <a class="cat_name_p text-muted" href="#"><?php echo htmlspecialchars($product['category_name']); ?></a></small>                        <small class="d-inline">Share:</small>
+                        <small class="text-muted d-block"><strong>Category:</strong> <a class="cat_name_p text-muted" href="#">category_name</a></small> <small class="d-inline">Share:</small>
                         <div class="social-share d-inline">
                             <a href="https://www.facebook.com/" class="text-muted"><i class="fa-brands fa-square-facebook"></i></a>
                             <a href="https://twitter.com/" class="text-muted"><i class="fa-brands fa-twitter"></i></a>
@@ -207,9 +240,7 @@ $product = $productController->getProduct($productId);
                     </div>
                     <div class="row">
                         <div class="description text-muted" id="description-section">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium distinctio quidem modi
-                                laborum quaerat vitae mollitia ipsum tenetur culpa. Placeat quia iste sunt ipsam natus
-                                voluptates, consectetur tenetur obcaecati autem.</p>
+                            <p><?php echo htmlspecialchars($product['desc']); ?></p>
                             <p><strong>Ingredients:</strong> Dr. Praeger’s Black Bean Burger, Focaccia bun, Balsamic
                                 Vinaigrette, Pesto, Tomato, Swiss Cheese</p>
                         </div>
@@ -318,6 +349,46 @@ $product = $productController->getProduct($productId);
     <?php include './includes/footer.php' ?>
     <!-- Include jQuery from a CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#add-to-cart').on('click', function() {
+                let productId = $(this).data('id');
+                let quantity = $('#quantity').val();
+
+                // Show the loader
+                $('.loader-bg').show(); // Show the loader background
+                $('#cart-success-message').hide(); // Hide success message
+
+                $.ajax({
+                    url: './php/add_to_cart.php',
+                    method: 'POST',
+                    data: {
+                        product_id: productId,
+                        quantity: quantity
+                    },
+                    success: function(response) {
+                        console.log(response); // Log the response for debugging
+                        response = JSON.parse(response);
+
+                        // Hide the loader after receiving the response
+                        $('.loader-bg').hide(); // Hide the loader background
+
+                        if (response.status === 'success') {
+                            $('#cart-success-message').show(); // Show success message
+                        } else {
+                            alert(response.message); // Show error message returned from PHP
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Hide the loader if there is an error
+                        $('.loader-bg').hide(); // Hide the loader background
+                        console.error('AJAX error:', status, error); // Log detailed AJAX error
+                        alert('Error occurred while adding to cart');
+                    }
+                });
+            });
+        });
+    </script>
     <script src="assets/shop/js/product.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

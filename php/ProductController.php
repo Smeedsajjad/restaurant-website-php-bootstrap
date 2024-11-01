@@ -23,12 +23,12 @@ class ProductController
         return $stmt->execute();
     }
 
-    // Get all products
-    // public function getProducts()
-    // {
-    //     $result = $this->connection->query("SELECT * FROM products");
-    //     return $result->fetch_all(MYSQLI_ASSOC);
-    // }
+    public function getAllProduct() {
+        $query = "SELECT * FROM products";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function getProducts()
     {
         // Assuming the primary key in the 'categories' table is 'category_id'
