@@ -61,14 +61,23 @@ $product = $productController->getProduct($productId);
 
         .loader-bg {
             background-color: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent background */
             position: fixed;
+            /* Fixed position */
             top: 0;
+            /* Cover the top */
             left: 0;
+            /* Cover the left */
             width: 100%;
+            /* Full width */
             height: 100%;
+            /* Full height */
             z-index: 9999;
+            /* High z-index to overlay other elements */
             display: none;
+            /* Initially hidden */
             cursor: wait;
+            /* Change cursor to indicate loading */
         }
 
         @keyframes mltShdSpin {
@@ -156,7 +165,19 @@ $product = $productController->getProduct($productId);
             </div>
         </div>
     </section>
+    <div class="container">
+        <div class="row">
+            <div id="success-message" class="text-white p-3" style="background-color: var(--secondary); display: none;">
+                <p class="position-relative d-inline" style="text-align: center; top: 6px;">has been added successfully</p>
+                <a class="text-end float-end p-2" style="border-left: 0.5px solid rgba(0, 128, 0, 0.61);" href="#">VIEW CART</a>
+            </div>
 
+            <div id="error-message" class="text-white p-3" style="background-color: red; display: none;">
+                <p class="position-relative d-inline" style="text-align: center; top: 6px;">Try again to add product to cart</p>
+                <a class="text-end float-end p-2" style="border-left: 0.5px solid rgba(0, 128, 0, 0.61);" href="#">VIEW CART</a>
+            </div>
+        </div>
+    </div>
     <main>
         <div class="container mb-5">
             <div class="row">
@@ -355,9 +376,10 @@ $product = $productController->getProduct($productId);
                 let productId = $(this).data('id');
                 let quantity = $('#quantity').val();
 
-                // Show the loader
-                $('.loader-bg').show(); // Show the loader background
-                $('#cart-success-message').hide(); // Hide success message
+                // Hide any previous messages
+                $('#success-message').hide();
+                $('#error-message').hide();
+                $('.loader-bg').show(); // Show loader
 
                 $.ajax({
                     url: './php/add_to_cart.php',
@@ -368,27 +390,32 @@ $product = $productController->getProduct($productId);
                     },
                     success: function(response) {
                         console.log(response); // Log the response for debugging
-                        response = JSON.parse(response);
-
-                        // Hide the loader after receiving the response
-                        $('.loader-bg').hide(); // Hide the loader background
+                        response = JSON.parse(response); // Parse the JSON response
 
                         if (response.status === 'success') {
-                            $('#cart-success-message').show(); // Show success message
+                            // Set and show success message
+                            $('#success-message p').text('Product "' + response.product_name + '" has been added successfully');
+                            $('#success-message').show();
                         } else {
-                            alert(response.message); // Show error message returned from PHP
+                            // Set and show error message
+                            $('#error-message p').text(response.message);
+                            $('#error-message').show();
                         }
                     },
                     error: function(xhr, status, error) {
-                        // Hide the loader if there is an error
-                        $('.loader-bg').hide(); // Hide the loader background
-                        console.error('AJAX error:', status, error); // Log detailed AJAX error
-                        alert('Error occurred while adding to cart');
+                        console.error('AJAX error:', status, error);
+                        $('#error-message p').text('Failed to add product to cart');
+                        $('#error-message').show();
+                    },
+                    complete: function() {
+                        $('.loader-bg').hide(); // Hide loader after request completes
                     }
                 });
             });
         });
     </script>
+
+
     <script src="assets/shop/js/product.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
