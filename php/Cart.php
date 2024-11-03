@@ -53,5 +53,15 @@ class Cart
             return ['status' => 'error', 'message' => 'Failed to add product to cart due to database error.'];
         }
     }
+
+    // Method to get total count of items in cart
+    public function getCartCount()
+    {
+        $stmt = $this->connection->prepare("SELECT SUM(quantity) AS count FROM cart");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        return $row['count'] ? (int)$row['count'] : 0; // Return 0 if count is null
+    }
 }
-?>

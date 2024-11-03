@@ -42,6 +42,7 @@ $product = $productController->getProduct($productId);
     <link href="https://fonts.googleapis.com/css2?family=Norican&display=swap" rel="stylesheet">
     <!-- custom style -->
     <link rel="stylesheet" href="assets/shop/css/style.css">
+    <link rel="stylesheet" href="assets/shop/css/navbar.css">
     <title><?php echo htmlspecialchars($product['name']); ?></title>
     <style>
         .loader {
@@ -166,12 +167,14 @@ $product = $productController->getProduct($productId);
         </div>
     </section>
     <div class="container">
-        <div class="row">
+        <div class="row mb-5">
+            <!-- Success Message -->
             <div id="success-message" class="text-white p-3" style="background-color: var(--secondary); display: none;">
-                <p class="position-relative d-inline" style="text-align: center; top: 6px;">has been added successfully</p>
+                <p class="position-relative d-inline" style="text-align: center; top: 6px;">Product has been added successfully</p>
                 <a class="text-end float-end p-2" style="border-left: 0.5px solid rgba(0, 128, 0, 0.61);" href="#">VIEW CART</a>
             </div>
 
+            <!-- Error Message -->
             <div id="error-message" class="text-white p-3" style="background-color: red; display: none;">
                 <p class="position-relative d-inline" style="text-align: center; top: 6px;">Try again to add product to cart</p>
                 <a class="text-end float-end p-2" style="border-left: 0.5px solid rgba(0, 128, 0, 0.61);" href="#">VIEW CART</a>
@@ -376,7 +379,6 @@ $product = $productController->getProduct($productId);
                 let productId = $(this).data('id');
                 let quantity = $('#quantity').val();
 
-                // Hide any previous messages
                 $('#success-message').hide();
                 $('#error-message').hide();
                 $('.loader-bg').show(); // Show loader
@@ -389,33 +391,68 @@ $product = $productController->getProduct($productId);
                         quantity: quantity
                     },
                     success: function(response) {
-                        console.log(response); // Log the response for debugging
-                        response = JSON.parse(response); // Parse the JSON response
+                        try {
+                            if (typeof response === 'string') {
+                                response = JSON.parse(response); // Parse if JSON string
+                            }
 
-                        if (response.status === 'success') {
-                            // Set and show success message
-                            $('#success-message p').text('Product "' + response.product_name + '" has been added successfully');
-                            $('#success-message').show();
-                        } else {
-                            // Set and show error message
-                            $('#error-message p').text(response.message);
-                            $('#error-message').show();
+                            if (response.status === 'success') {
+                                $('#success-message p').text(response.product_name + '" has been added successfully');
+                                $('#success-message').fadeIn();
+                                $('.count-icon').text(response.cart_count); // Update cart count
+                            } else {
+                                $('#error-message p').text(response.message || 'An error occurred');
+                                $('#error-message').fadeIn();
+                            }
+                        } catch (error) {
+                            console.error("Parsing error:", error);
+                            $('#error-message p').text('Unexpected response format');
+                            $('#error-message').fadeIn();
                         }
                     },
                     error: function(xhr, status, error) {
                         console.error('AJAX error:', status, error);
                         $('#error-message p').text('Failed to add product to cart');
-                        $('#error-message').show();
+                        $('#error-message').fadeIn();
                     },
                     complete: function() {
-                        $('.loader-bg').hide(); // Hide loader after request completes
+                        setTimeout(() => {
+                            $('.loader-bg').fadeOut(); // Smoothly hide loader
+                        }, 500); // Optional delay
                     }
                 });
             });
+
+            // Function to fetch and update cart count
+            function updateCartCount() {
+                $.ajax({
+                    url: './php/get_cart_count.php',
+                    method: 'GET',
+                    success: function(response) {
+                        try {
+                            if (typeof response === 'string') {
+                                response = JSON.parse(response);
+                            }
+                            if (response.status === 'success') {
+                                $('#cart-count').text(response.count); // Update cart count badge
+                                $('#cart-count-sm').text(response.count); // Update cart count badge
+                            } else {
+                                console.error('Error in response:', response.message);
+                            }
+                        } catch (error) {
+                            console.error("Parsing error:", error);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Failed to fetch cart count:', status, error);
+                    }
+                });
+            }
+
+            // Initial cart count update on page load
+            updateCartCount();
         });
     </script>
-
-
     <script src="assets/shop/js/product.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

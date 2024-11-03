@@ -34,6 +34,9 @@ try {
                 } else {
                     $response['message'] = 'Product not found.';
                 }
+
+                // Get updated cart count
+                $response['cart_count'] = $cart->getCartCount();
             } else {
                 $response['message'] = $addToCartResponse['message']; // Use message from addToCart response
             }
@@ -51,4 +54,4 @@ try {
 // Return the JSON response
 header('Content-Type: application/json');
 echo json_encode($response);
-?>
+exit(); // Ensure no further output after JSON response
