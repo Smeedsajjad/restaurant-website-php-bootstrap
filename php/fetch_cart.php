@@ -1,10 +1,16 @@
 <?php
+require_once 'config.php';
 require_once 'Cart.php';
-require_once '../config/config.php';
 
-$cart = new Cart($db);
+$database = new Database();
+$dbConnection = $database->conn;
 
-$items = $cart->getCartItems();
-$total = $cart->getCartTotal();
+$cart = new Cart($dbConnection);
 
-echo json_encode(['items' => $items, 'total' => $total]);
+if (isset($_POST['productId'])) {
+    $productId = $_POST['productId'];
+    $result = $cart->removeFromCart($productId);
+
+    echo json_encode(['status' => $result ? 'success' : 'error']);
+}
+?>

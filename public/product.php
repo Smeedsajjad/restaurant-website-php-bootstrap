@@ -188,7 +188,7 @@ $product = $productController->getProduct($productId);
                                 <div class="col-md-6 mb-5">
                                     <div class="review">
                                         <div class="d-flex align-items-center"> <!-- Flex container -->
-                                            <img src="../admin/uploads/default.png" alt="Duc Pham" class="profile-img" />
+                                            <!-- <img src="../admin/uploads/default.png" alt="Duc Pham" class="profile-img" /> -->
                                             <div class="ms-2"> <!-- Margin start for spacing -->
                                                 <div>
                                                     <span class="fa fa-star text-warning"></span>
@@ -368,6 +368,7 @@ $product = $productController->getProduct($productId);
             updateCartCount();
         });
     </script>
+    
     <script src="assets/shop/js/product.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -50,20 +50,22 @@
 </nav>
 
 <!-- Offcanvas cart -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+<div class="offcanvas offcanvas-end show" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
     <div class="offcanvas-header border-bottom ms-3 me-3">
         <h5 class="offcanvas-title fw-semibold" id="cartOffcanvasLabel">Shoping Cart</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
         <div id="cart-items">
-            <!-- Cart items will be loaded here dynamically -->
+            <!-- Cart items will be dynamically inserted here -->
         </div>
-        <p class="text-center" id="empty-cart-message" style="display: none;">Your cart is empty.</p>
-
+        <p id="empty-message" class="text-center" style="display: none;">Your cart is empty.</p>
         <div class="position-absolute bottom-0 w-100 p-2">
             <hr>
-            <p><strong class="text-capitalize">Subtotal:</strong> <span id="cart-subtotal">$0.00</span></p>
+            <p>
+                <strong class="text-capitalize">Subtotal:</strong>
+                <span id="cart-subtotal">$0.00</span>
+            </p>
             <div class="mt-3">
                 <a href="index.php?page=checkout" class="btn invers_btn d-block">Checkout</a>
                 <a href="index.php?page=cart" class="btn outline_btn d-block mb-3 mt-3">View cart</a>
@@ -71,63 +73,72 @@
         </div>
     </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-// Load cart items on page load
-document.addEventListener('DOMContentLoaded', loadCart);
+    $(document).ready(function() {
+        function fetchCartItems() {
+            $.ajax({
+                url: 'php/cart_action.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    let itemsHtml = '';
+                    let cartItems = response.items;
 
-function loadCart() {
-    fetch('php/fetch_cart.php')
-        .then(response => response.json())
-        .then(data => {
-            const cartItems = document.getElementById('cart-items');
-            const subtotal = document.getElementById('cart-subtotal');
-            const emptyMessage = document.getElementById('empty-cart-message');
-            
-            // Clear existing items
-            cartItems.innerHTML = '';
-            
-            if (data.items.length > 0) {
-                data.items.forEach(item => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.classList.add('items', 'd-flex', 'align-items-center', 'border-bottom', 'ms-3', 'me-3', 'fw-light');
-                    
-                    itemDiv.innerHTML = `
-                        <i class="fa-regular fa-circle-xmark" onclick="removeFromCart(${item.product_id})"></i>
-                        <img src="admin/uploads/products/${item.image}" class="img-fluid rounded-start" alt="" style="width: 80px;">
-                        <span class="card-body d-inline ms-3">
-                            <h5 class="card-title mb-1">${item.name}</h5>
-                            <p><span>${item.quantity}</span> x <span class="hoverText">$${item.price}</span></p>
-                        </span>
-                    `;
-                    cartItems.appendChild(itemDiv);
-                });
-                subtotal.textContent = `$${data.total.toFixed(2)}`;
-                emptyMessage.style.display = 'none';
-            } else {
-                subtotal.textContent = '$0.00';
-                emptyMessage.style.display = 'block';
-            }
-        });
-}
+                    if (cartItems.length > 0) {
+                        $('#empty-message').hide();
+                        cartItems.forEach(function(item) {
+                            itemsHtml += `
+                            <div class="items d-flex align-items-center border-bottom ms-3 me-3 fw-light">
+                                <i class="fa-regular fa-circle-xmark remove-item" data-id="${item.product_id}"></i>
+                                <img src="admin/uploads/products/${item.image}" class="img-fluid rounded-start" alt="${item.name}" style="width: 80px;">
+                                <span class="card-body d-inline ms-3">
+                                    <h5 class="card-title mb-1">${item.name}</h5>
+                                    <p><span>${item.quantity}</span> x <span class="hoverText">$${item.price.toFixed(2)}</span></p>
+                                </span>
+                            </div>`;
+                        });
+                    } else {
+                        $('#empty-message').show();
+                    }
 
-function removeFromCart(productId) {
-    fetch('php/cart_action.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ 'product_id': productId })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            loadCart(); // Reload cart after deletion
-        } else {
-            alert('Failed to remove item from cart.');
+                    $('#cart-items').html(itemsHtml);
+                    $('#cart-subtotal').text(`$${response.subtotal.toFixed(2)}`);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching cart items:', error);
+                }
+            });
         }
-    });
-}
-</script>
 
+        // Remove item from cart
+        $(document).on('click', '.remove-item', function() {
+            const productId = $(this).data('id');
+            $.ajax({
+                url: 'php/cart_action.php',
+                type: 'POST',
+                data: {
+                    action: 'remove',
+                    productId: productId
+                },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        fetchCartItems(); // Refresh cart items after removal
+                    } else {
+                        alert('Failed to remove item: ' + response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error removing item:', error);
+                }
+            });
+        });
+
+        // Initial fetch of cart items
+        fetchCartItems();
+    });
+</script>
 <!-- nav for sm -->
 <nav class="navbar navbar-expand-lg d-lg-none bg-light position-sticky top-0" style="z-index: 1000; padding: 15px;">
     <div class="container-fluid">

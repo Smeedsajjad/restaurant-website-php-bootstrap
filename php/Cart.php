@@ -58,28 +58,43 @@ class Cart
         return $row['count'] ? (int)$row['count'] : 0;
     }
 
-    // Method to fetch cart items with product details
-    public function getCartItems()
-    {
-        $stmt = $this->connection->prepare("SELECT c.product_id, p.name, p.price, c.quantity, p.image FROM cart c JOIN products p ON c.product_id = p.id");
-        $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    }
-
-    // Method to calculate subtotal
-    public function getCartTotal()
-    {
-        $stmt = $this->connection->prepare("SELECT SUM(p.price * c.quantity) AS total FROM cart c JOIN products p ON c.product_id = p.id");
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc();
-        return $result['total'] ?? 0;
-    }
-
-    // Method to remove a product from the cart
-    public function removeItem($productId)
+    public function removeFromCart($productId)
     {
         $stmt = $this->connection->prepare("DELETE FROM cart WHERE product_id = ?");
         $stmt->bind_param("i", $productId);
-        return $stmt->execute();
+        if ($stmt->execute()) {
+            return ['status' => 'success', 'message' => 'Product removed from cart.'];
+        } else {
+            return ['status' => 'error', 'message' => 'Failed to remove product: ' . $stmt->error];
+        }
+    }
+
+    public function getCartItems()
+    {
+        $stmt = $this->connection->prepare("
+            SELECT c.product_id, c.quantity, p.name, p.price, p.images 
+            FROM cart c 
+            JOIN products p ON c.product_id = p.id
+        ");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $items = [];
+        while ($row = $result->fetch_assoc()) {
+            $items[] = $row;
+        }
+        return $items;
+    }
+
+    public function getCartSubtotal()
+    {
+        $stmt = $this->connection->prepare("
+            SELECT SUM(c.quantity * p.price) AS subtotal 
+            FROM cart c 
+            JOIN products p ON c.product_id = p.id
+        ");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row['subtotal'] ? (float)$row['subtotal'] : 0.00; // Return 0.00 if subtotal is null
     }
 }
