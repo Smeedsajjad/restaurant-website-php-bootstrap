@@ -1613,8 +1613,15 @@ input[type="range"]::-moz-range-thumb {
 
 .fa-circle-xmark {
     cursor: pointer;
+    color: rgb(223, 39, 39);
 }
 
 .fa-circle-xmark:hover {
     color: #d94a4a;
+}
+#Dribbble-Light-Preview{
+    fill: #999999;
+}
+#tableImg{
+    width: 90px !important;
 }

@@ -24,11 +24,17 @@ switch ($page) {
     case 'product':
         $pageContent = $baseViewPath . 'product.php';
         break;
+    case 'cart':
+        $pageContent = $baseViewPath . 'cart.php';
+        break;
     case 'menu':
         $pageContent = $baseViewPath . 'menu.html';
         break;
     case 'contact':
         $pageContent = $baseViewPath . 'contact.html';
+        break;
+    case 'shop':
+        $pageContent = $baseViewPath . 'shop.html';
         break;
     case 'about':
         $pageContent = $baseViewPath . 'about.html';
