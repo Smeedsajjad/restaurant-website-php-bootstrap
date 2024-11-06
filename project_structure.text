@@ -1,0 +1,102 @@
+- admin
+  - assets
+    - css
+      - login.css
+      - nav.css
+      - style.css
+    - images
+      - 19876836111588529852.svg
+      - avatar.png
+      - c1.jpg
+      - c2.jpg
+      - c3.jpg
+      - c4.jpg
+      - c5.jpg
+      - cart.svg
+      - category.svg
+      - danger.gif
+      - done.gif
+      - gear.svg
+      - logo.png
+    - js
+      - nav.js
+      - script.js
+  - config
+    - config.php
+  - index.php
+  - partials
+    - header.php
+    - navbar.php
+  - php
+    - Admin.php
+    - CategoryController.php
+    - ProductController.php
+  - uploads
+    - categories
+      - category-3.png
+      - category5.png
+    - default.png
+    - products
+      - 671fbd6503d1a_Apricot_Chicken.png
+  - views
+    - add-category.php
+    - add-products.php
+    - dashboard.php
+    - edit-category.php
+    - edit-products.php
+    - login.php
+    - logout.php
+    - manage-category.php
+    - manage-products.php
+    - register.php
+- assets
+  - shop
+    - css
+      - animation.css
+      - login.css
+      - navbar.css
+      - style.css
+    - fonts
+      - Norican.zip
+      - Poppins.zip
+    - images
+    
+    - js
+      - animation.js
+      - product.js
+      - script.js
+- config
+  - config.php
+- includes
+  - cartSlider.php
+  - footer.php
+  - header.php
+  - nav.php
+- index.html
+- index.php
+- php
+  - add_to_cart.php
+  - Cart.php
+  - cart_action.php
+  - fetch_cart.php
+  - get_cart_count.php
+  - ProductController.php
+  - UserController.php
+- public
+  - 404.php
+  - about.html
+  - contact.html
+  - home.php
+  - login.php
+  - logout.php
+  - menu.html
+  - product.php
+  - shop.php
+  - signup.php
+- README.md
+- vendor
+  - bootstrap
+    - css    
+    - js
+
+  - fonts

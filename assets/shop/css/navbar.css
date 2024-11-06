@@ -103,6 +103,7 @@
 .icon-toggler:hover {
     stroke: var(--primary);
 }
+
 .icon-container {
     display: flex;
     justify-content: space-between;
@@ -113,11 +114,13 @@
     flex: 1;
     text-align: center;
     position: relative;
-    border-right: 0.5px solid rgb(190, 184, 184); /* Add border to each item */
+    border-right: 0.5px solid rgb(190, 184, 184);
+    /* Add border to each item */
 }
 
 .icon-item:last-child {
-    border-right: none; /* Remove border for the last item */
+    border-right: none;
+    /* Remove border for the last item */
 }
 
 .icon-size {
@@ -132,26 +135,32 @@
 
 @media (max-width: 768px) {
     .icon-size {
-        font-size: 1.5em; /* Reduce icon size on smaller screens */
+        font-size: 1.5em;
+        /* Reduce icon size on smaller screens */
     }
-    .count-icon{
-    right: 10px !important;
+
+    .count-icon {
+        right: 10px !important;
     }
+
     .icon-item h6 {
-        font-size: 0.85em; /* Adjust text size for smaller screens */
+        font-size: 0.85em;
+        /* Adjust text size for smaller screens */
     }
 }
 
 @media (max-width: 576px) {
     .icon-size {
-        font-size: 1.3em; /* Further reduce icon size on very small screens */
+        font-size: 1.3em;
+        /* Further reduce icon size on very small screens */
     }
 
     .count-icon {
         font-size: 0.7em;
     }
-    
+
     .icon-item h6 {
-        font-size: 0.8em; /* Reduce text size for extra small screens */
+        font-size: 0.8em;
+        /* Reduce text size for extra small screens */
     }
 }

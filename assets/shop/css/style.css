@@ -1196,57 +1196,70 @@ input.afs.form-control {
     border-top-right-radius: 2rem;
     border-bottom-right-radius: 2rem;
 }
+
 input[type="range"] {
     /* Slider track */
-    -webkit-appearance: none; /* Removes default styling on Webkit browsers */
+    -webkit-appearance: none;
+    /* Removes default styling on Webkit browsers */
     width: 80%;
     height: 8px;
-    background: var(--primary); /* Track color gradient */
+    background: var(--primary);
+    /* Track color gradient */
     border-radius: 5px;
     outline: none;
     margin: 10px 0;
-  }
-  
-  /* Thumb (draggable button) */
-  input[type="range"]::-webkit-slider-thumb {
+}
+
+/* Thumb (draggable button) */
+input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 20px;
     height: 20px;
-    background-color: var(--primary); /* Thumb color */
+    background-color: var(--primary);
+    /* Thumb color */
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-  }
-  
-  input[type="range"]::-moz-range-thumb {
+}
+
+input[type="range"]::-moz-range-thumb {
     width: 20px;
     height: 20px;
     background-color: var(--primary);
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-  }
-  .filter_submit_btn{
+}
+
+.filter_submit_btn {
     background-color: var(--primary);
     font-size: 12px;
     padding: 0.5em 1.5em;
-  }
-  .filter_submit_btn:hover{
+}
+
+.filter_submit_btn:hover {
     background-color: var(--primary_hover);
-  }.product-categories .cat-item a {
+}
+
+.product-categories .cat-item a {
     display: flex;
-    justify-content: space-between; /* Space between category name and count */
-    align-items: center; /* Center items vertically */
+    justify-content: space-between;
+    /* Space between category name and count */
+    align-items: center;
+    /* Center items vertically */
 }
 
 .category-name {
-    flex-grow: 1; /* Allow the category name to take available space */
+    flex-grow: 1;
+    /* Allow the category name to take available space */
 }
 
 .count {
-    margin-left: 10px; /* Optional: Add some space between name and count */
+    margin-left: 10px;
+    /* Optional: Add some space between name and count */
 }
+
 /* ## Products ## */
 .product-image-container {
     position: relative;
@@ -1254,22 +1267,31 @@ input[type="range"] {
 }
 
 #product-image {
-    width: 100%; /* Adjust as needed */
+    width: 100%;
+    /* Adjust as needed */
     height: auto;
 }
 
 .magnifier {
     position: absolute;
-    border: 3px solid #000; /* Border color of the magnifier */
+    border: 3px solid #000;
+    /* Border color of the magnifier */
     border-radius: 50%;
-    cursor: none; /* Hide the default cursor */
-    width: 100px; /* Size of the magnifier */
-    height: 100px; /* Size of the magnifier */
-    display: none; /* Hidden by default */
-    pointer-events: none; /* Prevent mouse events on the magnifier */
+    cursor: none;
+    /* Hide the default cursor */
+    width: 100px;
+    /* Size of the magnifier */
+    height: 100px;
+    /* Size of the magnifier */
+    display: none;
+    /* Hidden by default */
+    pointer-events: none;
+    /* Prevent mouse events on the magnifier */
     background-repeat: no-repeat;
-    background-size: 200%; /* Adjust zoom level */
+    background-size: 200%;
+    /* Adjust zoom level */
 }
+
 /* Add this to your existing CSS file */
 .quantity {
     display: flex;
@@ -1285,97 +1307,132 @@ input[type="range"] {
 .social-share a {
     margin-right: 10px;
 }
-.customer_reviews_trigger:hover{
+
+.customer_reviews_trigger:hover {
     color: var(--primary) !important;
 }
-.quantity>button{
-    border: none  !important;
+
+.quantity>button {
+    border: none !important;
     z-index: 2;
 }
-.quantity>input{
-    border: none  !important;
+
+.quantity>input {
+    border: none !important;
 }
-.invers_btn:hover{
+
+.invers_btn:hover {
     color: #fff !important;
     background-color: var(--primary_hover) !important;
 }
-.fa-heart:hover{
+
+.fa-heart:hover {
     color: var(--primary_hover);
     transition: color 0.5s ease;
 }
-.cat_name_p:hover{
+
+.cat_name_p:hover {
     color: var(--primary) !important;
     text-decoration: underline;
     transition: color 0.2s ease;
 }
+
 .drb {
     background-color: var(--primary);
     transition: color 0.3s ease;
     border: none !important;
     font-weight: 700;
-    font-size: 1rem; /* Adjusted font size */
-    padding: 0.4em 1em; /* Adjusted padding */
-    max-width: 150px; /* Set a maximum width */
-    overflow: hidden; /* Prevent overflow */
-    text-overflow: ellipsis; /* Add ellipsis for overflow text */
-    white-space: nowrap; /* Prevent text wrapping */
+    font-size: 1rem;
+    /* Adjusted font size */
+    padding: 0.4em 1em;
+    /* Adjusted padding */
+    max-width: 150px;
+    /* Set a maximum width */
+    overflow: hidden;
+    /* Prevent overflow */
+    text-overflow: ellipsis;
+    /* Add ellipsis for overflow text */
+    white-space: nowrap;
+    /* Prevent text wrapping */
     height: 55px;
 }
-.drb:hover{
+
+.drb:hover {
     background-color: var(--primary_hover);
 }
-.social-share>a>i:hover{
+
+.social-share>a>i:hover {
     color: var(--primary_hover);
 }
-.drb_active{
+
+.drb_active {
     background-color: transparent !important;
 }
+
 .customer_review {
-    margin-top: 20px; /* Space above the review section */
+    margin-top: 20px;
+    /* Space above the review section */
 }
 
 .review {
-    border-bottom: 1px solid #ddd; /* Separator between reviews */
-    padding: 10px 0; /* Space around each review */
+    border-bottom: 1px solid #ddd;
+    /* Separator between reviews */
+    padding: 10px 0;
+    /* Space around each review */
 }
 
 .review p {
-    margin: 5px 0; /* Space between paragraphs */
+    margin: 5px 0;
+    /* Space between paragraphs */
 }
 
 .review strong {
-    font-weight: bold; /* Bold for the rating */
+    font-weight: bold;
+    /* Bold for the rating */
 }
 
 .review span {
-    font-size: 0.9rem; /* Smaller font for the date */
-    color: #888; /* Lighter color for the date */
+    font-size: 0.9rem;
+    /* Smaller font for the date */
+    color: #888;
+    /* Lighter color for the date */
 }
 
 .form-group {
-    margin-bottom: 15px; /* Space between form fields */
+    margin-bottom: 15px;
+    /* Space between form fields */
 }
+
 .profile-img {
-    width: 50px; /* Set a fixed width */
-    height: 50px; /* Set a fixed height */
-    border-radius: 50%; /* Make the image circular */
+    width: 50px;
+    /* Set a fixed width */
+    height: 50px;
+    /* Set a fixed height */
+    border-radius: 50%;
+    /* Make the image circular */
 }
+
 .star-rating {
-    display: flex; /* Align stars in a row */
-    cursor: pointer; /* Change cursor to pointer */
+    display: flex;
+    /* Align stars in a row */
+    cursor: pointer;
+    /* Change cursor to pointer */
 }
 
 .star-rating .fa-star {
     pad: 3px;
-    color: #ccc; /* Muted color for unselected stars */
-    transition: color 0.2s; /* Smooth transition for color change */
+    color: #ccc;
+    /* Muted color for unselected stars */
+    transition: color 0.2s;
+    /* Smooth transition for color change */
 }
 
 .star-rating .fa-star.selected {
-    color: gold; /* Color for selected stars */
+    color: gold;
+    /* Color for selected stars */
 }
 
- 
+
 .zoom-area {
     /* margin: 50px auto; */
     position: relative;
@@ -1415,36 +1472,149 @@ input[type="range"] {
     /*for hide the glass by default*/
     display: none;
 }
+
 /* ## Cart Slider ## */
 /* Custom styles for the cart offcanvas */
 .offcanvas {
-    width: 300px; /* Set your desired width */
-  }
-  
-  /* Change close button icon on hover */
-  .btn-close {
+    width: 300px;
+    /* Set your desired width */
+}
+
+/* Change close button icon on hover */
+.btn-close {
     position: relative;
-    font-size: 24px; /* Adjust size if necessary */
+    font-size: 24px;
+    /* Adjust size if necessary */
     transition: color 0.3s ease;
-  }
-  #cart-subtotal {
+}
+
+#cart-subtotal {
     position: absolute;
     right: 20px;
-  }
-  .btn.invers_btn.d-block{
+}
+
+.btn.invers_btn.d-block {
     background-color: var(--primary);
     padding: .875em 2.5em;
     border: none;
     border-radius: 8px;
-  }
-  .outline_btn{
+}
+
+.outline_btn {
     padding: .875em 2.5em;
     background-color: transparent;
     color: #000;
     border-color: #000;
     border-radius: 8px;
-  }
-  .outline_btn:hover{
+}
+
+.outline_btn:hover {
     border-color: var(--primary);
     color: var(--primary);
-  }
+}
+
+.cart-items>.items>img {
+    width: 80px !important;
+    height: 80px !important;
+}
+
+.loader {
+    color: var(--primary);
+    font-size: 45px;
+    text-indent: -9999em;
+    overflow: hidden;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: mltShdSpin 1.7s infinite ease, round 1.7s infinite ease;
+}
+
+.loader-bg {
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent background */
+    position: fixed;
+    /* Fixed position */
+    top: 0;
+    /* Cover the top */
+    left: 0;
+    /* Cover the left */
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    z-index: 9999;
+    /* High z-index to overlay other elements */
+    display: none;
+    /* Initially hidden */
+    cursor: wait;
+    /* Change cursor to indicate loading */
+}
+
+@keyframes mltShdSpin {
+    0% {
+        box-shadow: 0 -0.83em 0 -0.4em,
+            0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+            0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+
+    5%,
+    95% {
+        box-shadow: 0 -0.83em 0 -0.4em,
+            0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+            0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+
+    10%,
+    59% {
+        box-shadow: 0 -0.83em 0 -0.4em,
+            -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em,
+            -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+    }
+
+    20% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em,
+            -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em,
+            -0.749em -0.34em 0 -0.477em;
+    }
+
+    38% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em,
+            -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em,
+            -0.82em -0.09em 0 -0.477em;
+    }
+
+    100% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em,
+            0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+}
+
+@keyframes round {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+.hoverText:hover{
+    color: var(--primary);
+}
+.items.d-flex.align-items-center.border-bottom.ms-3.me-3.fw-light{
+    padding-bottom: 7px;
+    position: relative;
+    top: -10px; 
+}
+
+.fa-circle-xmark {
+    cursor: pointer;
+}
+
+.fa-circle-xmark:hover {
+    color: #d94a4a;
+}

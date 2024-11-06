@@ -51,32 +51,82 @@
 
 <!-- Offcanvas cart -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
-    <div class="offcanvas-header">
+    <div class="offcanvas-header border-bottom ms-3 me-3">
         <h5 class="offcanvas-title fw-semibold" id="cartOffcanvasLabel">Shoping Cart</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
+    </div>
     <div class="offcanvas-body">
         <div id="cart-items">
-            <hr>
-            <div class="items">
-                
-            </div>
-            <hr>
-            <p class="text-center">Your cart is empty.</p>
+            <!-- Cart items will be loaded here dynamically -->
         </div>
-        <div class="position-absolute bottom-0 w-100">
+        <p class="text-center" id="empty-cart-message" style="display: none;">Your cart is empty.</p>
+
+        <div class="position-absolute bottom-0 w-100 p-2">
             <hr>
-            <p>
-                <strong class=" text-capitalize">Subtotal:</strong>
-                <span id="cart-subtotal" style="position: absolute;right:22px;">$0.00</span>
-            </p>
-            <div style="margin:5px 22px 0 0;">
+            <p><strong class="text-capitalize">Subtotal:</strong> <span id="cart-subtotal">$0.00</span></p>
+            <div class="mt-3">
                 <a href="index.php?page=checkout" class="btn invers_btn d-block">Checkout</a>
                 <a href="index.php?page=cart" class="btn outline_btn d-block mb-3 mt-3">View cart</a>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+// Load cart items on page load
+document.addEventListener('DOMContentLoaded', loadCart);
+
+function loadCart() {
+    fetch('php/fetch_cart.php')
+        .then(response => response.json())
+        .then(data => {
+            const cartItems = document.getElementById('cart-items');
+            const subtotal = document.getElementById('cart-subtotal');
+            const emptyMessage = document.getElementById('empty-cart-message');
+            
+            // Clear existing items
+            cartItems.innerHTML = '';
+            
+            if (data.items.length > 0) {
+                data.items.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('items', 'd-flex', 'align-items-center', 'border-bottom', 'ms-3', 'me-3', 'fw-light');
+                    
+                    itemDiv.innerHTML = `
+                        <i class="fa-regular fa-circle-xmark" onclick="removeFromCart(${item.product_id})"></i>
+                        <img src="admin/uploads/products/${item.image}" class="img-fluid rounded-start" alt="" style="width: 80px;">
+                        <span class="card-body d-inline ms-3">
+                            <h5 class="card-title mb-1">${item.name}</h5>
+                            <p><span>${item.quantity}</span> x <span class="hoverText">$${item.price}</span></p>
+                        </span>
+                    `;
+                    cartItems.appendChild(itemDiv);
+                });
+                subtotal.textContent = `$${data.total.toFixed(2)}`;
+                emptyMessage.style.display = 'none';
+            } else {
+                subtotal.textContent = '$0.00';
+                emptyMessage.style.display = 'block';
+            }
+        });
+}
+
+function removeFromCart(productId) {
+    fetch('php/cart_action.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ 'product_id': productId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            loadCart(); // Reload cart after deletion
+        } else {
+            alert('Failed to remove item from cart.');
+        }
+    });
+}
+</script>
 
 <!-- nav for sm -->
 <nav class="navbar navbar-expand-lg d-lg-none bg-light position-sticky top-0" style="z-index: 1000; padding: 15px;">

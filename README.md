@@ -18,16 +18,17 @@ restaurant-website/
 │
 ├── assets/                        # Public assets for the restaurant website
 │   ├── css/                       # Stylesheets for the frontend
-│   ├── js/                        # JavaScript files for the frontend
+│   ├── js/                        # JavaScript
 │   ├── images/                    # Images used in the website
 │   └── fonts/                     # Custom fonts if any
 │
 ├── includes/                      # Commonly used files
 │   ├── header.php                 # Header HTML
 │   ├── footer.php                 # Footer HTML
-│   └── config.php                 # Configuration file for database connections
+│   └── nav.php                    # It includ cart navbar etc...
 │
-├── php/                        # Controller & other php code
+├── php/
+|                        # Controller & other php code
 |
 ├── public/                        # Publicly accessible files
 │   ├── index.php                  # Home page
