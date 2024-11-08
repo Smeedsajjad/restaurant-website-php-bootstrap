@@ -3,6 +3,8 @@
 @import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900);
 
 :root {
+  --primary: #ffc222;
+  --primary_hover: #eeac00;
   --header-height: 3rem;
   --body-background: #20304c;
   --nav-width: 68px;
@@ -33,18 +35,23 @@ ul {
 }
 
 .sidebar {
-  position: fixed; /* Change to fixed */
-  top: 0; /* Align to top */
-  left: 0; /* Align to left */
+  position: fixed;
+  /* Change to fixed */
+  top: 0;
+  /* Align to top */
+  left: 0;
+  /* Align to left */
   width: 256px;
-  height: 100vh; /* Set height to 100% of viewport height */
+  height: 100vh;
+  /* Set height to 100% of viewport height */
   display: flex;
   flex-direction: column;
   gap: 20px;
   background-color: var(--first-color);
   padding: 15px;
   transition: all 0.3s;
-  overflow-y: auto; /* Add scrollbar if content overflows */
+  overflow-y: auto;
+  /* Add scrollbar if content overflows */
 }
 
 .sidebar {
@@ -122,7 +129,8 @@ ul {
   background-color: #f6f6f6;
   border-radius: 35px;
 }
-.menu ul li>a:hover{
+
+.menu ul li>a:hover {
   color: #4c95dd;
 }
 
@@ -312,44 +320,51 @@ ul {
   /* fill: #3b4559; */
   fill: #b5b5c3;
 }
+
 .dashboard-icon.active path {
   fill: #fff;
 }
 
-.menu ul li.active > a>.icons {
+.menu ul li.active>a>.icons {
   padding: 7px;
   background-color: #4c95dd;
   box-shadow: 0 4px 5px 0 rgba(76, 149, 221, 0.5);
   border-radius: 50%;
 }
-.menu ul li.active > a>.icons:hover {
+
+.menu ul li.active>a>.icons:hover {
   color: #fff;
 }
 
 /* Hover effect for main menu links */
-.menu > ul > li > a:hover {
-  color: #4c95dd; /* Hover color for links */
+.menu>ul>li>a:hover {
+  color: #4c95dd;
+  /* Hover color for links */
 }
 
 /* Hover effect for SVG icons inside the main menu links */
-.menu > ul > li > a:hover .dashboard-icon path, 
-.menu > ul > li > a:hover .icon,
-.menu > ul > li > a:hover .arrow {
-  fill: #ffffff; /* Change fill color of icons */
-  stroke: #4c95dd; /* Change stroke color if applicable */
+.menu>ul>li>a:hover .dashboard-icon path,
+.menu>ul>li>a:hover .icon,
+.menu>ul>li>a:hover .arrow {
+  fill: #ffffff;
+  /* Change fill color of icons */
+  stroke: #4c95dd;
+  /* Change stroke color if applicable */
 }
+
 /* Hover effect for the text inside the main menu links */
-.menu > ul > li > a:hover .text {
+.menu>ul>li>a:hover .text {
   color: #4c95dd;
 }
 
 /* Hover effect for the submenu links */
-.menu > ul > li > ul.sub-menu li a:hover {
-  color: #4c95dd; /* Hover color for submenu links */
+.menu>ul>li>ul.sub-menu li a:hover {
+  color: #4c95dd;
+  /* Hover color for submenu links */
 }
 
 /* Hover effect for the text inside the submenu links */
-.menu > ul > li > ul.sub-menu li a:hover .text {
+.menu>ul>li>ul.sub-menu li a:hover .text {
   color: #4c95dd;
 }
 
@@ -359,19 +374,23 @@ body {
   min-height: 100vh;
   background-color: var(--body-background);
   font-family: var(--body-font);
-  margin: 0; /* Ensure no default margins */
+  margin: 0;
+  /* Ensure no default margins */
 }
 
 main {
   flex: 1;
-  margin-left: 256px; /* Match the width of the sidebar */
+  margin-left: 256px;
+  /* Match the width of the sidebar */
   transition: margin-left 0.3s;
-  padding: 15px; /* Add some padding */
+  padding: 15px;
+  /* Add some padding */
 }
 
 /* Adjust main content when sidebar is active (collapsed) */
-.sidebar.active + main {
-  margin-left: 60px; /* Match the collapsed width of the sidebar */
+.sidebar.active+main {
+  margin-left: 60px;
+  /* Match the collapsed width of the sidebar */
 }
 
 /* Ensure the content inside sidebar doesn't overflow */
@@ -379,11 +398,18 @@ main {
   flex: 1;
   overflow-y: auto;
 }
-
+.fa-basket-shopping {
+  border-radius: 50%;
+  padding: 10px;
+}
+.fa-basket-shopping:hover {
+  background-color: var(--primary) !important;
+}
 /* Add media query for responsiveness */
 @media screen and (max-width: 768px) {
   .sidebar {
-    width: 60px; /* Collapsed by default on small screens */
+    width: 60px;
+    /* Collapsed by default on small screens */
   }
 
   main {
@@ -394,7 +420,7 @@ main {
     width: 256px;
   }
 
-  .sidebar.active + main {
+  .sidebar.active+main {
     margin-left: 256px;
   }
 }

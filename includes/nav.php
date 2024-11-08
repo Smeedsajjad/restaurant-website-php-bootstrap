@@ -148,9 +148,29 @@
         </div>
     </div>
 </nav>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+        // Function to update cart count
+        function updateCartCount() {
+            $.ajax({
+                url: 'php/get_cart_count.php', // URL to fetch cart count
+                type: 'GET',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('#cart-count').text(response.count); // Update cart count
+                        $('#cart-count-sm').text(response.count); // Update small cart count
+                    }
+                },
+                error: function() {
+                    console.error('Failed to fetch cart count.');
+                }
+            });
+        }
+
+        updateCartCount(); // Call function to update cart count on page load
+
         $('#logoutButton').on('click', function(event) {
             event.preventDefault(); // Prevent default link action
 
