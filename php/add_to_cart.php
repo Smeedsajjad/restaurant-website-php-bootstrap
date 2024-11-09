@@ -21,25 +21,14 @@ try {
 
             // Check if the product was added successfully
             if ($addToCartResponse['status'] === 'success') {
-                // Fetch the product name from the database using MySQLi
-                $stmt = $dbConnection->prepare("SELECT name FROM products WHERE id = ?");
-                $stmt->bind_param("i", $product_id); // Bind the parameter
-                $stmt->execute();
-                $result = $stmt->get_result(); // Get the result set from the prepared statement
-                $product = $result->fetch_assoc(); // Fetch the product details
-
-                if ($product) {
-                    $response['status'] = 'success';
-                    $response['product_name'] = $product['name']; // Add product name to the response
-                } else {
-                    $response['message'] = 'Product not found.';
-                }
-
-                // Get updated cart count
-                $response['cart_count'] = $cart->getCartCount();
+                $response['status'] = 'success';
+                $response['message'] = 'Product added to cart.';
             } else {
                 $response['message'] = $addToCartResponse['message']; // Use message from addToCart response
             }
+
+            // Get updated cart count
+            $response['cart_count'] = $cart->getCartCount();
         } else {
             $response['message'] = 'Invalid product ID or quantity.';
         }

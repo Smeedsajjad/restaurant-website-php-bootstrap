@@ -32,7 +32,6 @@ a {
     text-decoration: none !important;
     color: #fff;
 }
-
 .hhi:hover {
     color: #fff;
 }
@@ -1102,10 +1101,11 @@ input[type="email"]::placeholder {
     font-weight: bold;
     cursor: pointer;
     z-index: 2;
+    color: #000 !important;
 }
 
 .myCardText:hover {
-    color: var(--primary);
+    color: var(--primary) !important;
 }
 
 .fa-star {
@@ -1115,14 +1115,16 @@ input[type="email"]::placeholder {
 .favorite_icon {
     z-index: 3;
     position: absolute;
-    right: 8px;
+    right: 0;
     color: gray;
     cursor: pointer;
-    top: 5px;
+    top: 0;
+    font-size: 20px;
 }
 
 .favorite_icon:hover {
     background-color: transparent !important;
+    color: #000 !important;
 }
 
 /* other pages */

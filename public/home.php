@@ -1,8 +1,8 @@
 <?php
 session_start();
 // Include necessary configuration and class files
-require_once './admin/config/config.php';
-require_once './admin/php/ProductController.php';
+require_once './config/config.php'; // Adjusted path to config.php
+require_once './admin/php/ProductController.php'; // Adjusted path to ProductController
 
 // Create a new database connection
 $database = new Database();
@@ -15,12 +15,26 @@ $productController = new ProductController($dbConnection);
 $products = $productController->getLimitProducts(6);
 
 // Allow access to the home page even if the user is not logged in
-// Remove the session check that redirects to the login page
-// if (!isset($_SESSION['user_id'])) {
-//     header("Location: index.php?page=login");
-//     exit();
-// }
+if (!isset($_SESSION['session_id'])) {
+    $_SESSION['session_id'] = session_id();
+}
 
+require './php/Wishlist.php'; // Adjusted path to Wishlist.php
+
+// Use the $dbConnection instead of $pdo
+$wishlist = new Wishlist($dbConnection); // Pass the correct mysqli instance
+$sessionId = $_SESSION['session_id'];
+
+// Fetch products
+$query = "SELECT * FROM products"; // Use a simple query string
+$result = $dbConnection->query($query); // Execute the query
+
+if ($result) {
+    $products = $result->fetch_all(MYSQLI_ASSOC); // Fetch results as an associative array
+} else {
+    $products = []; // Handle the case where the query fails
+    error_log("Query execution failed: " . $dbConnection->error);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +47,8 @@ $products = $productController->getLimitProducts(6);
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
     <!-- Font Awesome 5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Jquery -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,15 +67,73 @@ $products = $productController->getLimitProducts(6);
     <link rel="stylesheet" href="assets/shop/css/animation.css">
     <link rel="stylesheet" href="assets/shop/css/navbar.css">
     <title>Shop</title>
+    <style>
+        .underline_btn {
+            text-decoration: underline !important;
+            text-decoration-color: #000 !important;
+            color: var(--primary) !important;
+            text-underline-offset: 4px;
+        }
+
+        .underline_btn:hover {
+            text-decoration-color: var(--secondary) !important;
+            color: var(--secondary) !important;
+        }
+
+        .fa-xmark {
+            cursor: pointer;
+        }
+
+        .product_name {
+            color: var(--primary) !important;
+        }
+
+        .product_name:hover {
+            color: var(--primary) !important;
+        }
+
+        .favorite_icon.active {
+            color: red;
+            border: none !important;
+        }
+    </style>
 </head>
 
 <body>
+
+    <!-- Modal -->
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-dark">
+                        <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close text-secondary-emphasis" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex justify-content-between align-items-center">
+                        <span><i class="fa-solid fa-xmark text-danger"></i></span>
+                        <img src="admin/uploads/products/671fbd6503d1a_Apricot_Chicken.png" alt="Product Image" id="product-image" style="height: 90px;width: 90px;">
+                        <div class="text-muted">
+                            <p class="product_name fw-semibold">Product Name</p>
+                            <p>$34.4</p>
+                            <p>Added At</p>
+                        </div>
+                        <button class="btn btn-primary btn-lg order-now-btn">Add to Cart</button>
+                    </div>
+                    <div class="modal-footer">
+                        <a type="button" class="btn underline_btn position-absolute" style="left: 0px;">Open wishlist page</a>
+                        <button type="button" class="btn underline_btn" data-bs-dismiss="modal">Continue shopping</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- header -->
     <?php include  './includes/header.php'; ?>
 
     <!-- navbar -->
     <?php include  './includes/nav.php'; ?>
-  
+
     <!-- hero section -->
     <section class="hero-section py-5 position-relative">
         <img src="assets/shop/images/h_flour.png" alt="Flour Background" class="hero-background d-none d-lg-block">
@@ -99,92 +173,34 @@ $products = $productController->getLimitProducts(6);
     <!-- main section -->
     <main>
         <!-- category-section -->
+        <?php
+        // Include the CategoryController to fetch categories
+        require_once './admin/php/CategoryController.php';
+
+        // Create a new instance of the CategoryController
+        $categoryController = new CategoryController($dbConnection);
+
+        // Fetch categories from the database
+        $categories = $categoryController->getCategories();
+        ?>
+
         <section class="category-section">
             <div class="container">
                 <div class="row justify-content-center text-center col-lg gap-lg-5 align-items-end">
-                    <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
-                        <a href="#" class="link_category_product">
-                            <div class="img-wrapper position-relative">
-                                <img src="assets/shop/images/category-1.png" alt="Category 1" class="">
-                            </div>
-                            <span class="cat-title text-uppercase">combo</span>
-                            <div class="hover-circle"
-                                style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
-                        <a href="#" class="link_category_product">
-                            <div class="img-wrapper position-relative">
-                                <img src="assets/shop/images/category-2.png" alt="Category 2" class="">
-                            </div>
-                            <span class="cat-title">kids menu</span>
-                            <div class="hover-circle"
-                                style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
-                        <a href="#" class="link_category_product">
-                            <div class="img-wrapper position-relative">
-                                <img src="assets/shop/images/category-3.png" alt="Category 3" class="img-fluid">
-                            </div>
-                            <span class="cat-title">pizza</span>
-                            <div class="hover-circle"
-                                style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
-                        <a href="#" class="link_category_product">
-                            <div class="img-wrapper position-relative">
-                                <img src="assets/shop/images/category-4.png" alt="Category 4" class="img-fluid">
-                            </div>
-                            <span class="cat-title">box meals</span>
-                            <div class="hover-circle"
-                                style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
-                        <a href="#" class="link_category_product">
-                            <div class="img-wrapper position-relative">
-                                <img src="assets/shop/images/category-5.png" alt="Category 5" class="img-fluid">
-                            </div>
-                            <span class="cat-title">burger</span>
-                            <div class="hover-circle"
-                                style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
-                        <a href="#" class="link_category_product">
-                            <div class="img-wrapper position-relative">
-                                <img src="assets/shop/images/category-6.png" alt="Category 6" class="img-fluid">
-                            </div>
-                            <span class="cat-title">chicken</span>
-                            <div class="hover-circle"
-                                style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
-                        <a href="#" class="link_category_product">
-                            <div class="img-wrapper position-relative">
-                                <img src="assets/shop/images/category-7.png" alt="Category 7" class="img-fluid">
-                            </div>
-                            <span class="cat-title">sauces</span>
-                            <div class="hover-circle"
-                                style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
-                        <a href="#" class="link_category_product">
-                            <div class="img-wrapper position-relative">
-                                <img src="assets/shop/images/category-8.png" alt="Category 8" class="img-fluid">
-                            </div>
-                            <span class="cat-title">drinks</span>
-                            <div class="hover-circle"
-                                style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
-                        </a>
-                    </div>
+                    <?php foreach ($categories as $category): ?>
+                        <div class="col-6 col-sm-6 col-md-3 col-lg-1 mb-4 product-cat">
+                            <a href="#" class="link_category_product">
+                                <div class="img-wrapper position-relative">
+                                    <img src="admin/<?php echo $category['cat_img']; ?>" alt="<?php echo $category['cat_name']; ?>">
+                                </div>
+                                <span class="cat-title text-uppercase"><?php echo $category['cat_name']; ?></span>
+                                <div class="hover-circle"
+                                    style="background-image: url('assets/shop/images/hy-circle.png');z-index: -3;"></div>
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
-
         </section>
 
         <!-- offers section -->
@@ -255,7 +271,24 @@ $products = $productController->getLimitProducts(6);
             </div>
         </section>
 
+        <!-- message -->
+        <div class="container">
+            <div class="row mb-5">
+                <!-- Success Message -->
+                <div id="success-message" class="text-white p-3" style="background-color: var(--secondary); display: none;">
+                    <p class="position-relative d-inline" style="text-align: center; top: 6px;">Product has been added successfully</p>
+                    <a class="text-end float-end p-2" style="border-left: 0.5px solid rgba(0, 128, 0, 0.61);" href="index.php?page=cart">VIEW CART</a>
+                </div>
+
+                <!-- Error Message -->
+                <div id="error-message" class="text-white p-3" style="background-color: red; display: none;">
+                    <p class="position-relative d-inline" style="text-align: center; top: 6px;">Try again to add product to cart</p>
+                    <a class="text-end float-end p-2" style="border-left: 0.5px solid rgba(0, 128, 0, 0.61);" href="index.php?page=cart">VIEW CART</a>
+                </div>
+            </div>
+        </div>
         <!-- Products-section -->
+
         <section class="products-section">
             <div class="container">
                 <h1 class="text-center fw-semibold mb-5">Popular dishes</h1>
@@ -265,58 +298,28 @@ $products = $productController->getLimitProducts(6);
                             <div class="col-md-3 col-sm-6">
                                 <div class="card myCard col-sm mt-3" style="width: 100%;border-radius: 15px;">
                                     <div class="card-img-wrapper">
-                                        <i class="fas fa-heart favorite_icon"></i>
                                         <?php
-                                        // Extract the image filename from the 'images' field, in case it includes subdirectories
-                                        $imagePath = basename($product['images']);
+                                        $isInWishlist = $wishlist->isInWishlist($sessionId, $product['id']);
+                                        $heartClass = $isInWishlist ? 'active' : '';
                                         ?>
-                                        <!-- Use only the image filename, prefixed with 'admin/uploads/' -->
-                                        <img src="admin/uploads/products/<?php echo $imagePath; ?>" class="card-img-top card-img" alt="<?php echo $product['name']; ?>">
+                                        <i class="fas fa-heart favorite_icon btn <?php echo $heartClass; ?>" data-id="<?php echo $product['id']; ?>"></i>
+                                        <img src="admin/uploads/products/<?php echo basename($product['images']); ?>" class="card-img-top card-img" alt="<?php echo $product['name']; ?>">
                                     </div>
                                     <div class="card-body">
-                                        <p>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </p>
-                                        <h5 class="card-title myCardText"><?php echo $product['name']; ?></h5>
-                                        <p class="card-text" style="color: #999999; font-size: 13px;">
-                                            <?php
-                                            // Split the tagline into an array of words
-                                            $words = explode(' ', $product['tagline']);
-
-                                            // Get the first 4 words
-                                            $firstFourWords = array_slice($words, 0, 4);
-
-                                            // Join the first 4 words back into a string
-                                            $shortTagline = implode(' ', $firstFourWords);
-
-                                            // Display the first 4 words followed by '...' if there are more than 4 words
-                                            echo (count($words) > 4) ? $shortTagline . '...' : $product['tagline'];
-                                            ?>
-                                        </p>
-
+                                        <h5 class="card-title myCardText" style="color: #000;"><?php echo $product['name']; ?></h5>
                                         <p class="price d-inline fs-3">$<?php echo $product['price']; ?></p>
-                                        <a href="#" class="btn p-0 position-absolute" style="right: 0;margin: 20px;">
-                                            <i class="fas fa-shopping-cart myCart" style="background-color: var(--primary);"></i>
-                                        </a>
                                     </div>
                                 </div>
-
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <div class="col-md-12 mb-6 text-center">
-                            <h2>Explore Other Options</h2>
+                            <h2>No More Products</h2>
                         </div>
                     <?php endif; ?>
                 </div>
             </div>
-            </div>
-
         </section>
-
         <!-- clients section -->
         <section class="clients-section py-5">
             <div class="container">
@@ -557,6 +560,132 @@ $products = $productController->getLimitProducts(6);
             }
         });
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#add-to-cart').on('click', function() {
+                let productId = $(this).data('id');
+                let quantity = $('#quantity').val();
+
+                $('#success-message').hide();
+                $('#error-message').hide();
+                $('.loader-bg').show(); // Show loader
+
+                $.ajax({
+                    url: './php/add_to_cart.php',
+                    method: 'POST',
+                    data: {
+                        product_id: productId,
+                        quantity: quantity
+                    },
+                    success: function(response) {
+                        try {
+                            if (typeof response === 'string') {
+                                response = JSON.parse(response); // Parse if JSON string
+                            }
+
+                            if (response.status === 'success') {
+                                $('#success-message p').text(response.product_name + ' has been added successfully');
+                                $('#success-message').fadeIn();
+                                $('.count-icon').text(response.cart_count); // Update cart count
+                            } else {
+                                $('#error-message p').text(response.message || 'An error occurred');
+                                $('#error-message').fadeIn();
+                            }
+                        } catch (error) {
+                            console.error("Parsing error:", error);
+                            $('#error-message p').text('Unexpected response format');
+                            $('#error-message').fadeIn();
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX error:', status, error);
+                        $('#error-message p').text('Failed to add product to cart');
+                        $('#error-message').fadeIn();
+                    },
+                    complete: function() {
+                        setTimeout(() => {
+                            $('.loader-bg').fadeOut(); // Smoothly hide loader
+                        }, 500); // Optional delay
+                    }
+                });
+            });
+
+            // Function to fetch and update cart count
+            function updateCartCount() {
+                $.ajax({
+                    url: './php/get_cart_count.php',
+                    method: 'GET',
+                    success: function(response) {
+                        try {
+                            if (typeof response === 'string') {
+                                response = JSON.parse(response);
+                            }
+                            if (response.status === 'success') {
+                                $('#cart-count').text(response.count); // Update cart count badge
+                                $('#cart-count-sm').text(response.count); // Update cart count badge
+                            } else {
+                                console.error('Error in response:', response.message);
+                            }
+                        } catch (error) {
+                            console.error("Parsing error:", error);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Failed to fetch cart count:', status, error);
+                    }
+                });
+            }
+
+            // Initial cart count update on page load
+            updateCartCount();
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Fetch all the product IDs and check if they are in the wishlist
+            document.querySelectorAll(".favorite_icon").forEach(icon => {
+                const productId = icon.getAttribute("data-id");
+
+                // Fetch the wishlist status for the product
+                fetch(`php/wishlist_handler.php?product_id=${productId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.is_in_wishlist) {
+                            icon.classList.add("active");
+                            icon.style.color = "red"; // Set color to red if in wishlist
+                        }
+                    })
+                    .catch(error => console.error('Error checking wishlist status:', error));
+
+                // Add event listener for click to add/remove from wishlist
+                icon.addEventListener("click", () => {
+                    const action = icon.classList.contains("active") ? "remove" : "add";
+
+                    fetch("php/wishlist_handler.php", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                product_id: productId,
+                                action: action
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === "added") {
+                                icon.classList.add("active");
+                                icon.style.color = "red"; // Change color to red on add
+                            } else if (data.status === "removed") {
+                                icon.classList.remove("active");
+                                icon.style.color = ""; // Reset color on remove
+                            }
+                        })
+                        .catch(error => console.error('Error adding/removing from wishlist:', error));
+                });
+            });
+        });
     </script>
     <script src="assets/shop/js/animation.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <div class="container bg-white d-flex justify-content-center align-items-center shadow-lg">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 p-4">
                 <div>
                     <a href="index.php?page=home" class="btn position-absolute rounded-pill" style="top: 1rem;"><svg width="22px"
                             height="22px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">

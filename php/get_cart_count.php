@@ -8,7 +8,6 @@ $dbConnection = $database->conn;
 
 $cart = new Cart($dbConnection);
 
-// Default response
 $response = ['status' => 'error', 'count' => 0];
 
 try {
@@ -19,7 +18,6 @@ try {
     $response['message'] = 'Error: ' . $e->getMessage();
 }
 
-// Return JSON response
 header('Content-Type: application/json');
 echo json_encode($response);
 exit();

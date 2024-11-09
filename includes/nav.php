@@ -36,19 +36,29 @@
                 <a href="#" class="text-dark me-4"><i class="fas fa-search"></i></a>
                 <a href="#" class="text-dark me-4"><i class="fas fa-user"></i></a>
 
-                <a href="#" class="text-dark me-4 position-relative">
-                    <i class="fas fa-heart"></i>
-                    <span id="wishlist-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill count-icon">0</span>
-                </a>
+                    <a href="#" class="text-dark me-4 position-relative">
+                        <i class="fas fa-heart"></i>
+                        <span id="wishlist-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill count-icon">0</span>
+                    </a>
                 <a href="index.php?page=cart" class="text-dark position-relative">
                     <i class="fa-solid fa-basket-shopping"></i>
-                    <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill count-icon" style="top: -6px !important;left: 25px !important;">0</span>
+                    <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill count-icon">0</span>
                 </a>
             </div>
         </div>
     </div>
 </nav>
+<style>
+    .fa-basket-shopping {
+        padding: 10px;
+        border-radius: 50%;
+        background-color: transparent;
+    }
 
+    .fa-basket-shopping:hover {
+        background-color: var(--primary);
+    }
+</style>
 <!-- nav for sm -->
 <nav class="navbar navbar-expand-lg d-lg-none bg-light position-sticky top-0" style="z-index: 1000; padding: 15px;">
     <div class="container-fluid">
@@ -131,9 +141,9 @@
                 <h6 class="fw-semibold mb-0">Search</h6>
             </div>
             <div class="text-center icon-item position-relative">
-                <a href="#" class="text-dark">
-                    <i class="fas fa-heart icon-size"></i>
-                    <span id="wishlist-count" class="position-absolute badge rounded-pill count-icon" style="top: -10px; right: 0;">0</span>
+                <a href="#" class="text-dark me-4 position-relative">
+                    <i class="fas fa-heart"></i>
+                    <span id="wishlist-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill count-icon">0</span>
                 </a>
                 <h6 class="fw-semibold mb-0">Wishlist</h6>
             </div>
@@ -152,25 +162,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        // Function to update cart count
-        function updateCartCount() {
-            $.ajax({
-                url: 'php/get_cart_count.php', // URL to fetch cart count
-                type: 'GET',
-                success: function(response) {
-                    if (response.status === 'success') {
-                        $('#cart-count').text(response.count); // Update cart count
-                        $('#cart-count-sm').text(response.count); // Update small cart count
-                    }
-                },
-                error: function() {
-                    console.error('Failed to fetch cart count.');
-                }
-            });
-        }
-
-        updateCartCount(); // Call function to update cart count on page load
-
         $('#logoutButton').on('click', function(event) {
             event.preventDefault(); // Prevent default link action
 

@@ -143,9 +143,7 @@ $product = $productController->getProduct($productId);
                                 </button>
                                 <button class="btn col-1"><i class="fa fa-heart"></i></button>
                             </div>
-                            <div id="cart-loader" style="display: none;">Adding to cart...</div>
-                            <div id="cart-success-message" style="display: none; color: green;">Product added to cart!</div>
-                        </div>
+                                 </div>
 
                         <small class="text-muted d-block"><strong>Category:</strong> <a class="cat_name_p text-muted" href="#">category_name</a></small> <small class="d-inline">Share:</small>
                         <div class="social-share d-inline">
@@ -369,7 +367,6 @@ $product = $productController->getProduct($productId);
         });
     </script>
     
-    <script src="assets/shop/js/product.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
