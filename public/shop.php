@@ -2,6 +2,7 @@
 // Include necessary configuration and class files
 require_once './admin/config/config.php';
 require_once './admin/php/ProductController.php';
+require './php/categoryFilter.php';
 // Create a new database connection
 $database = new Database();
 $dbConnection = $database->conn;
@@ -11,6 +12,11 @@ $productController = new ProductController($dbConnection);
 
 // Get All avilable products
 $products = $productController->getAllProducts();
+
+// Initialize the CategoryData class and fetch categories
+$categoryData = new CategoryData($dbConnection);
+$categoryData->getCategories();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +42,7 @@ $products = $productController->getAllProducts();
     <link href="https://fonts.googleapis.com/css2?family=Norican&display=swap" rel="stylesheet">
     <!-- custom style -->
     <link rel="stylesheet" href="assets/shop/css/style.css">
+    <link rel="stylesheet" href="assets/shop/css/navbar.css">
     <title>Shop</title>
 </head>
 
@@ -75,48 +82,48 @@ $products = $productController->getAllProducts();
                         <?php if (count($products) > 0): ?>
                             <?php foreach ($products as $product): ?>
                                 <div class="col-md-4 col-sm-6">
-                                    <a href="index.php?page=product&id=<?php echo $product['id']; ?>" class="text-decoration-none">
-                                        <div class="card myCard col-sm mt-3" style="width: 100%;border-radius: 15px;">
-                                            <div class="card-img-wrapper">
-                                                <i class="fas fa-heart favorite_icon"></i>
+                                    <div class="card myCard col-sm mt-3" style="width: 100%;border-radius: 15px;">
+                                        <div class="card-img-wrapper">
+                                            <i class="fas fa-heart favorite_icon" style="top: 6px;right: 8px"></i>
+                                            <a href="index.php?page=product&id=<?php echo $product['id']; ?>" class="text-decoration-none">
                                                 <?php
                                                 // Extract the image filename from the 'images' field, in case it includes subdirectories
                                                 $imagePath = basename($product['images']);
                                                 ?>
                                                 <!-- Use only the image filename, prefixed with 'admin/uploads/' -->
                                                 <img src="admin/uploads/products/<?php echo $imagePath; ?>" class="card-img-top card-img" alt="<?php echo $product['name']; ?>">
-                                            </div>
-                                            <div class="card-body">
-                                                <p>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </p>
-                                                <h5 class="card-title myCardText"><?php echo $product['name']; ?></h5>
-                                                <p class="card-text" style="color: #999999; font-size: 13px;">
-                                                    <?php
-                                                    // Split the tagline into an array of words
-                                                    $words = explode(' ', $product['tagline']);
-
-                                                    // Get the first 4 words
-                                                    $firstFourWords = array_slice($words, 0, 4);
-
-                                                    // Join the first 4 words back into a string
-                                                    $shortTagline = implode(' ', $firstFourWords);
-
-                                                    // Display the first 4 words followed by '...' if there are more than 4 words
-                                                    echo (count($words) > 4) ? $shortTagline . '...' : $product['tagline'];
-                                                    ?>
-                                                </p>
-
-                                                <p class="price d-inline fs-3">$<?php echo $product['price']; ?></p>
-                                                <a href="#" class="btn p-0 position-absolute" style="right: 0;margin: 20px;">
-                                                    <i class="fas fa-shopping-cart myCart" style="background-color: var(--primary);"></i>
-                                                </a>
-                                            </div>
                                         </div>
-                                    </a>
+                                        <div class="card-body">
+                                            <p>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </p>
+                                            <h5 class="card-title myCardText"><?php echo $product['name']; ?></h5>
+                                            <p class="card-text" style="color: #999999; font-size: 13px;">
+                                                <?php
+                                                // Split the tagline into an array of words
+                                                $words = explode(' ', $product['tagline']);
+
+                                                // Get the first 4 words
+                                                $firstFourWords = array_slice($words, 0, 4);
+
+                                                // Join the first 4 words back into a string
+                                                $shortTagline = implode(' ', $firstFourWords);
+
+                                                // Display the first 4 words followed by '...' if there are more than 4 words
+                                                echo (count($words) > 4) ? $shortTagline . '...' : $product['tagline'];
+                                                ?>
+                                            </p>
+
+                                            <p class="price d-inline fs-3">$<?php echo $product['price']; ?></p>
+                                            </a>
+                                            <button class="btn p-0 position-absolute" style="right: 0;margin: 20px;" id="add-to-cart" data-id="<?php echo $product['id']; ?>">
+                                                <i class="fa-solid fa-basket-shopping myCart" style="background-color: var(--primary);"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             <?php endforeach; ?>
                         <?php else: ?>
@@ -130,46 +137,12 @@ $products = $productController->getAllProducts();
                 <div class="col-md-3">
                     <aside>
                         <div class="p-3 rounded-4 border border-muted border-1">
-                            <h5 class="fw-bold ">Categories</h5>
-                            <ul class="product-categories list-unstyled">
-                                <li class="cat-item">
-                                    <a href="#" class="text-muted">
-                                        <span>Burgers</span>
-                                        <span class="count">(9)</span>
-                                    </a>
-                                </li>
-                                <li class="cat-item">
-                                    <a href="#" class="text-muted">
-                                        <span>Pizzas</span>
-                                        <span class="count">(12)</span>
-                                    </a>
-                                </li>
-                                <li class="cat-item">
-                                    <a href="#" class="text-muted">
-                                        <span>Salads</span>
-                                        <span class="count">(8)</span>
-                                    </a>
-                                </li>
-                                <li class="cat-item">
-                                    <a href="#" class="text-muted">
-                                        <span>Sandwiches</span>
-                                        <span class="count">(10)</span>
-                                    </a>
-                                </li>
-                                <li class="cat-item">
-                                    <a href="#" class="text-muted">
-                                        <span>Breakfast</span>
-                                        <span class="count">(7)</span>
-                                    </a>
-                                </li>
-                                <li class="cat-item">
-                                    <a href="#" class="text-muted">
-                                        <span>Uncategorized</span>
-                                        <span class="count">(0)</span>
-                                    </a>
-                                </li>
+                            <h5 class="fw-bold">Categories</h5>
+                            <ul class="product-categories list-unstyled" id="categories-list">
+                                <!-- Categories will be inserted here dynamically by JavaScript -->
                             </ul>
                         </div>
+
                         <div class="input-group mt-5 mb-5">
                             <input type="text" placeholder="Search Product" class="afs form-control">
                             <div class="input-group-append">
@@ -193,28 +166,53 @@ $products = $productController->getAllProducts();
     <!-- footer section -->
     <?php include './includes/footer.php' ?>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/shop/js/rangeSlider.js"></script>
+    <script src="./assets/shop/js/cart.js"></script>
+    <script src="./assets/shop/js/wishlist.js"></script>
     <script>
-        const priceRangeSlider = document.getElementById("priceRangeSlider");
-        const priceRange = document.getElementById("priceRange");
+        function loadCategories() {
+            fetch('path_to_your_php_script.php') // Ensure this points to the correct PHP script
+                .then(response => response.text()) // Get the response as text first
+                .then(data => {
+                    // Check if the response is empty or invalid JSON
+                    try {
+                        const categories = JSON.parse(data); // Try parsing the response as JSON
+                        if (!Array.isArray(categories)) {
+                            throw new Error('Invalid JSON format');
+                        }
 
-        const totalMinPrice = 0; // Minimum price in dollars
-        const totalMaxPrice = 20; // Maximum price in dollars
+                        // Process the categories if valid
+                        const categoriesList = document.getElementById('categories-list');
+                        categoriesList.innerHTML = ''; // Clear the list
 
-        function updatePriceRange() {
-            const sliderValue = priceRangeSlider.value; // 0 to 100
-            const minPrice = Math.round((totalMaxPrice - totalMinPrice) * (sliderValue / 100));
-            const maxPrice = totalMaxPrice - minPrice;
-
-            // Display the range
-            priceRange.textContent = `Price: $${minPrice} - $${maxPrice}`;
+                        // Loop through categories and display them
+                        categories.forEach(category => {
+                            const li = document.createElement('li');
+                            li.classList.add('cat-item');
+                            li.innerHTML = `
+                        <a href="#" class="text-muted">
+                            <span>${category.name}</span>
+                            <span class="count">(${category.product_count})</span>
+                        </a>
+                    `;
+                            categoriesList.appendChild(li);
+                        });
+                    } catch (error) {
+                        console.error('Error parsing categories:', error);
+                        alert('Failed to load categories. Please check the console for details.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading categories:', error);
+                    alert('Failed to load categories. Please check the console for details.');
+                });
         }
 
-        // Update the range display on input change
-        priceRangeSlider.addEventListener("input", updatePriceRange);
-
-        // Initialize display
-        updatePriceRange();
+        // Call the function to load categories when the page loads
+        window.onload = loadCategories;
     </script>
+
+
 </body>
 
 </html>

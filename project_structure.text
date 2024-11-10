@@ -34,10 +34,12 @@
   - uploads
     - categories
       - category-3.png
+      - category-9.png
       - category5.png
     - default.png
     - products
       - 671fbd6503d1a_Apricot_Chicken.png
+      - 6730e7d324df4_50-1.png
   - views
     - add-category.php
     - add-products.php
@@ -60,10 +62,58 @@
       - Norican.zip
       - Poppins.zip
     - images
-    
+      - avatar-2.jpg
+      - avatar-3.jpg
+      - avatar-4.jpg
+      - bg-pizza-firt.jpg
+      - bg-pizza.png
+      - bg_login.png
+      - blog-1.jpg
+      - blog-2.jpg
+      - blog-3.jpg
+      - breadcrumb1.jpg
+      - c2.jpg
+      - c3.jpg
+      - category-1.png
+      - category-2.png
+      - category-3.png
+      - category-4.png
+      - category-5.png
+      - category-6.png
+      - category-7.png
+      - category-8.png
+      - footer_img1.png
+      - garante_checkoutd.png
+      - h1_left_leaf.png
+      - h1_mint.png
+      - h1_think.png
+      - h1_thunder-1.png
+      - h1_thunder-2.png
+      - h1_tomato.png
+      - h2-1.png
+      - h2-2.png
+      - h2-3.png
+      - h2h-b.png
+      - h2_mushroom.png
+      - h2_right_leaf.png
+      - hr-circle.png
+      - hw_circle.png
+      - hy-circle.png
+      - h_flour.png
+      - h_pizza.png
+      - h_sprinkle.png
+      - lc.png
+      - location.png
+      - logo_svg.svg
+      - offer-c2bg.jpg
+      - offer1.png
+      - offer2.png
+      - scooter.svg
+      - shape_dot.png
+      - shop-com.svg
     - js
       - animation.js
-      - product.js
+      - cart.js
       - script.js
 - config
   - config.php
@@ -77,14 +127,18 @@
 - php
   - add_to_cart.php
   - Cart.php
-  - cart_action.php
-  - fetch_cart.php
+  - get_cart.php
   - get_cart_count.php
   - ProductController.php
+  - remove_cart.php
+  - update_cart.php
   - UserController.php
+  - wishlist.php
+  - WishlistController.php
 - public
   - 404.php
   - about.html
+  - cart.php
   - contact.html
   - home.php
   - login.php
@@ -96,7 +150,50 @@
 - README.md
 - vendor
   - bootstrap
-    - css    
+    - css
+      - bootstrap-grid.css
+      - bootstrap-grid.css.map
+      - bootstrap-grid.min.css
+      - bootstrap-grid.min.css.map
+      - bootstrap-grid.rtl.css
+      - bootstrap-grid.rtl.css.map
+      - bootstrap-grid.rtl.min.css
+      - bootstrap-grid.rtl.min.css.map
+      - bootstrap-reboot.css
+      - bootstrap-reboot.css.map
+      - bootstrap-reboot.min.css
+      - bootstrap-reboot.min.css.map
+      - bootstrap-reboot.rtl.css
+      - bootstrap-reboot.rtl.css.map
+      - bootstrap-reboot.rtl.min.css
+      - bootstrap-reboot.rtl.min.css.map
+      - bootstrap-utilities.css
+      - bootstrap-utilities.css.map
+      - bootstrap-utilities.min.css
+      - bootstrap-utilities.min.css.map
+      - bootstrap-utilities.rtl.css
+      - bootstrap-utilities.rtl.css.map
+      - bootstrap-utilities.rtl.min.css
+      - bootstrap-utilities.rtl.min.css.map
+      - bootstrap.css
+      - bootstrap.css.map
+      - bootstrap.min.css
+      - bootstrap.min.css.map
+      - bootstrap.rtl.css
+      - bootstrap.rtl.css.map
+      - bootstrap.rtl.min.css
+      - bootstrap.rtl.min.css.map
     - js
-
+      - bootstrap.bundle.js
+      - bootstrap.bundle.js.map
+      - bootstrap.bundle.min.js
+      - bootstrap.bundle.min.js.map
+      - bootstrap.esm.js
+      - bootstrap.esm.js.map
+      - bootstrap.esm.min.js
+      - bootstrap.esm.min.js.map
+      - bootstrap.js
+      - bootstrap.js.map
+      - bootstrap.min.js
+      - bootstrap.min.js.map
   - fonts

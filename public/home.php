@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_clean();
 // Include necessary configuration and class files
 require_once './config/config.php'; // Adjusted path to config.php
 require_once './admin/php/ProductController.php'; // Adjusted path to ProductController
@@ -13,28 +14,6 @@ $productController = new ProductController($dbConnection);
 
 // Get 6 products
 $products = $productController->getLimitProducts(6);
-
-// Allow access to the home page even if the user is not logged in
-if (!isset($_SESSION['session_id'])) {
-    $_SESSION['session_id'] = session_id();
-}
-
-require './php/Wishlist.php'; // Adjusted path to Wishlist.php
-
-// Use the $dbConnection instead of $pdo
-$wishlist = new Wishlist($dbConnection); // Pass the correct mysqli instance
-$sessionId = $_SESSION['session_id'];
-
-// Fetch products
-$query = "SELECT * FROM products"; // Use a simple query string
-$result = $dbConnection->query($query); // Execute the query
-
-if ($result) {
-    $products = $result->fetch_all(MYSQLI_ASSOC); // Fetch results as an associative array
-} else {
-    $products = []; // Handle the case where the query fails
-    error_log("Query execution failed: " . $dbConnection->error);
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -288,7 +267,6 @@ if ($result) {
             </div>
         </div>
         <!-- Products-section -->
-
         <section class="products-section">
             <div class="container">
                 <h1 class="text-center fw-semibold mb-5">Popular dishes</h1>
@@ -298,18 +276,45 @@ if ($result) {
                             <div class="col-md-3 col-sm-6">
                                 <div class="card myCard col-sm mt-3" style="width: 100%;border-radius: 15px;">
                                     <div class="card-img-wrapper">
-                                        <?php
-                                        $isInWishlist = $wishlist->isInWishlist($sessionId, $product['id']);
-                                        $heartClass = $isInWishlist ? 'active' : '';
-                                        ?>
-                                        <i class="fas fa-heart favorite_icon btn <?php echo $heartClass; ?>" data-id="<?php echo $product['id']; ?>"></i>
-                                        <img src="admin/uploads/products/<?php echo basename($product['images']); ?>" class="card-img-top card-img" alt="<?php echo $product['name']; ?>">
+                                        <i class="fas fa-heart favorite_icon"></i>
+                                        <a href="index.php?page=product&id=<?php echo $product['id']; ?>" class="text-decoration-none">
+                                            <?php
+                                            $imagePath = basename($product['images']);
+                                            ?>
+                                            <img src="admin/uploads/products/<?php echo $imagePath; ?>" class="card-img-top card-img" alt="<?php echo $product['name']; ?>">
                                     </div>
                                     <div class="card-body">
+                                        <p>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </p>
                                         <h5 class="card-title myCardText" style="color: #000;"><?php echo $product['name']; ?></h5>
+                                        <p class="card-text" style="color: #999999; font-size: 13px;">
+                                            <?php
+                                            // Split the tagline into an array of words
+                                            $words = explode(' ', $product['tagline']);
+
+                                            // Get the first 4 words
+                                            $firstFourWords = array_slice($words, 0, 4);
+
+                                            // Join the first 4 words back into a string
+                                            $shortTagline = implode(' ', $firstFourWords);
+
+                                            // Display the first 4 words followed by '...' if there are more than 4 words
+                                            echo (count($words) > 4) ? $shortTagline . '...' : $product['tagline'];
+                                            ?>
+                                        </p>
+
                                         <p class="price d-inline fs-3">$<?php echo $product['price']; ?></p>
+                                        </a>
+                                        <button class="btn p-0 position-absolute" style="right: 0;margin: 20px;" id="add-to-cart" data-id="<?php echo $product['id']; ?>">
+                                            <i class="fa-solid fa-basket-shopping myCart" style="background-color: var(--primary);"></i>
+                                        </button>
                                     </div>
                                 </div>
+
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -319,6 +324,8 @@ if ($result) {
                     <?php endif; ?>
                 </div>
             </div>
+            </div>
+
         </section>
         <!-- clients section -->
         <section class="clients-section py-5">
@@ -585,7 +592,8 @@ if ($result) {
                             }
 
                             if (response.status === 'success') {
-                                $('#success-message p').text(response.product_name + ' has been added successfully');
+                                $('#success-message p').text('Product has been added successfully');
+                                // $('#success-message p').text(response.product_name + ' has been added successfully');
                                 $('#success-message').fadeIn();
                                 $('.count-icon').text(response.cart_count); // Update cart count
                             } else {
@@ -641,52 +649,7 @@ if ($result) {
             updateCartCount();
         });
     </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Fetch all the product IDs and check if they are in the wishlist
-            document.querySelectorAll(".favorite_icon").forEach(icon => {
-                const productId = icon.getAttribute("data-id");
-
-                // Fetch the wishlist status for the product
-                fetch(`php/wishlist_handler.php?product_id=${productId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.is_in_wishlist) {
-                            icon.classList.add("active");
-                            icon.style.color = "red"; // Set color to red if in wishlist
-                        }
-                    })
-                    .catch(error => console.error('Error checking wishlist status:', error));
-
-                // Add event listener for click to add/remove from wishlist
-                icon.addEventListener("click", () => {
-                    const action = icon.classList.contains("active") ? "remove" : "add";
-
-                    fetch("php/wishlist_handler.php", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                product_id: productId,
-                                action: action
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === "added") {
-                                icon.classList.add("active");
-                                icon.style.color = "red"; // Change color to red on add
-                            } else if (data.status === "removed") {
-                                icon.classList.remove("active");
-                                icon.style.color = ""; // Reset color on remove
-                            }
-                        })
-                        .catch(error => console.error('Error adding/removing from wishlist:', error));
-                });
-            });
-        });
-    </script>
+    <script src="./assets/shop/js/wishlist.js"></script>
     <script src="assets/shop/js/animation.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
