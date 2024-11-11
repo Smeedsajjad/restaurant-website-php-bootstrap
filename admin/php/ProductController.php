@@ -23,12 +23,24 @@ class ProductController
         return $stmt->execute();
     }
 
-    // Get all products
-    // public function getProducts()
-    // {
-    //     $result = $this->connection->query("SELECT * FROM products");
-    //     return $result->fetch_all(MYSQLI_ASSOC);
-    // }
+    // Filtering
+    public function getProductsByCategory($categoryId) {
+        $query = "SELECT * FROM products WHERE category_id = ?";
+        $stmt = $this->connection->prepare($query);
+    
+        if ($stmt) {
+            $stmt->bind_param("i", $categoryId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $products = $result->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+            return $products;
+        } else {
+            throw new Exception("Failed to prepare SQL statement.");
+        }
+    }
+    
+  
     public function getProducts()
     {
         // Assuming the primary key in the 'categories' table is 'category_id'
@@ -81,41 +93,41 @@ class ProductController
     // Update a product
     public function updateProduct($id, $name, $tagline, $desc, $category_id, $ingredients, $images, $price, $is_available)
     {
-       try {
-        //code...
-        // Get the current product images
-        $currentProduct = $this->getProduct($id);
-        $oldImages = explode(',', $currentProduct['images']);
-        $newImages = explode(',', $images);
+        try {
+            //code...
+            // Get the current product images
+            $currentProduct = $this->getProduct($id);
+            $oldImages = explode(',', $currentProduct['images']);
+            $newImages = explode(',', $images);
 
-        // Remove old images that are not in the new images list
-        $imagesToRemove = array_diff($oldImages, $newImages);
-        foreach ($imagesToRemove as $imageToRemove) {
-            if (file_exists($imageToRemove)) {
-                unlink($imageToRemove);
+            // Remove old images that are not in the new images list
+            $imagesToRemove = array_diff($oldImages, $newImages);
+            foreach ($imagesToRemove as $imageToRemove) {
+                if (file_exists($imageToRemove)) {
+                    unlink($imageToRemove);
+                }
             }
+
+            // Set the current time for the updated_at field
+            $updated_at = date('Y-m-d H:i:s');
+            // Set created_at to the existing value or current time
+            $created_at = $currentProduct['created_at']; // Use existing created_at value
+
+            // Example of an update query
+            $update_query = "UPDATE products SET name = ?, tagline = ?, `desc` = ?, category_id = ?, ingredients = ?, images = ?, price = ?, is_available = ?, updated_at = NOW() WHERE id = ?";
+
+            // Prepare the statement
+            $stmt = $this->connection->prepare($update_query);
+
+            // Bind parameters
+            $stmt->bind_param("sssissdis", $name, $tagline, $desc, $category_id, $ingredients, $images, $price, $is_available, $id);
+
+            // Execute the statement
+            $stmt->execute();
+            return true; // Return true on success
+        } catch (\Throwable $th) {
+            return "Error updating product: " . $th->getMessage(); // Return error message
         }
-
-        // Set the current time for the updated_at field
-        $updated_at = date('Y-m-d H:i:s');
-        // Set created_at to the existing value or current time
-        $created_at = $currentProduct['created_at']; // Use existing created_at value
-
-        // Example of an update query
-        $update_query = "UPDATE products SET name = ?, tagline = ?, `desc` = ?, category_id = ?, ingredients = ?, images = ?, price = ?, is_available = ?, updated_at = NOW() WHERE id = ?";
-
-        // Prepare the statement
-        $stmt = $this->connection->prepare($update_query);
-
-        // Bind parameters
-        $stmt->bind_param("sssissdis", $name, $tagline, $desc, $category_id, $ingredients, $images, $price, $is_available, $id);
-
-        // Execute the statement
-        $stmt->execute();
-        return true; // Return true on success
-       } catch (\Throwable $th) {
-           return "Error updating product: " . $th->getMessage(); // Return error message
-       }
     }
 
     // Delete a product
@@ -137,14 +149,25 @@ class ProductController
         return $stmt->execute();
     }
 
-    // Search for products by name, description, or tagline
-    public function searchProducts($searchTerm)
+    // Search products by name, category, tagline, or description
+    public function searchProducts($searchQuery)
     {
-        $searchTerm = "%$searchTerm%";
-        $stmt = $this->connection->prepare("SELECT * FROM products WHERE name LIKE ? OR `desc` LIKE ? OR tagline LIKE ?");
-        $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $query = "SELECT products.*, categories.cat_name FROM products 
+                  JOIN categories ON products.category_id = categories.category_id
+                  WHERE products.name LIKE ? OR categories.cat_name LIKE ? OR products.tagline LIKE ? OR products.desc LIKE ?";
+        $stmt = $this->connection->prepare($query);
+        
+        if ($stmt) {
+            $searchTerm = '%' . $searchQuery . '%';
+            $stmt->bind_param("ssss", $searchTerm, $searchTerm, $searchTerm, $searchTerm);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $products = $result->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+            return $products;
+        } else {
+            throw new Exception("Failed to prepare SQL statement.");
+        }
     }
+
 }

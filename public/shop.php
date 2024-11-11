@@ -12,10 +12,11 @@ $productController = new ProductController($dbConnection);
 
 // Get All avilable products
 $products = $productController->getAllProducts();
-
-// Initialize the CategoryData class and fetch categories
+// Assuming $dbConnection is already initialized and available here
 $categoryData = new CategoryData($dbConnection);
-$categoryData->getCategories();
+
+// Fetch categories
+$categories = $categoryData->getCategories();
 
 ?>
 <!DOCTYPE html>
@@ -47,6 +48,9 @@ $categoryData->getCategories();
 </head>
 
 <body>
+    <div class="loader-bg">
+        <div class="loader"></div>
+    </div>
     <!-- header -->
     <?php include  './includes/header.php'; ?>
 
@@ -138,26 +142,32 @@ $categoryData->getCategories();
                     <aside>
                         <div class="p-3 rounded-4 border border-muted border-1">
                             <h5 class="fw-bold">Categories</h5>
+                            <!-- Category Links -->
                             <ul class="product-categories list-unstyled" id="categories-list">
-                                <!-- Categories will be inserted here dynamically by JavaScript -->
+                                <?php foreach ($categories as $category): ?>
+                                    <li class="cat-item">
+                                        <a href="#" class="text-muted category-link" data-category-id="<?php echo $category['id']; ?>">
+                                            <span><?php echo htmlspecialchars($category['name']); ?></span>
+                                            <span class="count">(<?php echo $category['product_count']; ?>)</span>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
                             </ul>
-                        </div>
 
-                        <div class="input-group mt-5 mb-5">
-                            <input type="text" placeholder="Search Product" class="afs form-control">
-                            <div class="input-group-append">
-                                <i class="fas fa-search"></i>
+                            <!-- Search Input -->
+                            <div class="input-group mt-5 mb-5">
+                                <input type="text" placeholder="Search Product" class="afs form-control">
+                                <div class="input-group-append">
+                                    <i class="fas fa-search"></i>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <form class="text-center mb-5">
+
+                            <div class="text-center mb-5">
                                 <h5 class="fw-bold text-start mb-3">Filter by price</h5>
                                 <input type="range" id="priceRangeSlider" min="0" max="100" step="1" value="50">
                                 <p id="priceRange" class="text-muted text-start mb-3 mt-2">Price: $0 - $1000</p>
-                                <button type="submit"
-                                    class="filter_submit_btn btn d-flex justify-content-start rounded-3 fw-bold">FILTER</button>
-                            </form>
-                        </div>
+                                <button type="submit" class="filter_submit_btn btn d-flex justify-content-start rounded-3 fw-bold">FILTER</button>
+                            </div>
                     </aside>
                 </div>
             </div>
@@ -169,49 +179,229 @@ $categoryData->getCategories();
     <script src="./assets/shop/js/rangeSlider.js"></script>
     <script src="./assets/shop/js/cart.js"></script>
     <script src="./assets/shop/js/wishlist.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function loadCategories() {
-            fetch('path_to_your_php_script.php') // Ensure this points to the correct PHP script
-                .then(response => response.text()) // Get the response as text first
-                .then(data => {
-                    // Check if the response is empty or invalid JSON
-                    try {
-                        const categories = JSON.parse(data); // Try parsing the response as JSON
-                        if (!Array.isArray(categories)) {
-                            throw new Error('Invalid JSON format');
+        $(document).ready(function() {
+            // Function to show loader
+            function showLoader() {
+                $('.loader-bg').show();
+            }
+
+            // Function to hide loader
+            function hideLoader() {
+                $('.loader-bg').hide();
+            }
+
+            // Fetch and set the maximum price for the range slider
+            $.ajax({
+                url: 'php/filterProducts.php',
+                type: 'POST',
+                data: {
+                    get_max_price: true
+                },
+                success: function(response) {
+                    let data = JSON.parse(response);
+                    let maxPrice = data.max_price || 1000; // Default to 1000 if no max price is found
+                    $('#priceRangeSlider').attr('max', maxPrice);
+                    $('#priceRange').text(`Price: $0 - $${maxPrice}`);
+                },
+                error: function() {
+                    alert('Error retrieving maximum price');
+                }
+            });
+
+            $('.category-link').on('click', function(e) {
+                e.preventDefault();
+                let categoryId = $(this).data('category-id');
+
+                showLoader(); // Show loader when the category link is clicked
+
+                $.ajax({
+                    url: 'php/filterProducts.php',
+                    type: 'POST',
+                    data: {
+                        category_id: categoryId
+                    },
+                    success: function(response) {
+                        let products = JSON.parse(response);
+                        let productsContainer = $('.col-md-9 .row:last');
+
+                        productsContainer.empty();
+
+                        if (products.length > 0) {
+                            products.forEach(function(product) {
+                                productsContainer.append(`
+                        <div class="col-md-4 col-sm-6">
+                            <div class="card myCard col-sm mt-3" style="width: 100%; border-radius: 15px;">
+                                <div class="card-img-wrapper">
+                                    <i class="fas fa-heart favorite_icon" style="top: 6px;right: 8px"></i>
+                                    <a href="index.php?page=product&id=${product.id}" class="text-decoration-none">
+                                        <img src="admin/${product.images}" class="card-img-top card-img" alt="${product.name}">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </p>
+                                    <h5 class="card-title myCardText">${product.name}</h5>
+                                    <p class="card-text" style="color: #999999; font-size: 13px;">
+                                        ${product.tagline.split(' ').slice(0, 4).join(' ')}...
+                                    </p>
+                                    <p class="price d-inline fs-3">$${product.price}</p>
+                                    <button class="btn p-0 position-absolute" style="right: 0;margin: 20px;" id="add-to-cart" data-id="${product.id}">
+                                        <i class="fa-solid fa-basket-shopping myCart" style="background-color: var(--primary);"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                            });
+                        } else {
+                            productsContainer.append('<div class="col-md-12 text-center"><h2>No products found in this category</h2></div>');
                         }
-
-                        // Process the categories if valid
-                        const categoriesList = document.getElementById('categories-list');
-                        categoriesList.innerHTML = ''; // Clear the list
-
-                        // Loop through categories and display them
-                        categories.forEach(category => {
-                            const li = document.createElement('li');
-                            li.classList.add('cat-item');
-                            li.innerHTML = `
-                        <a href="#" class="text-muted">
-                            <span>${category.name}</span>
-                            <span class="count">(${category.product_count})</span>
-                        </a>
-                    `;
-                            categoriesList.appendChild(li);
-                        });
-                    } catch (error) {
-                        console.error('Error parsing categories:', error);
-                        alert('Failed to load categories. Please check the console for details.');
+                        hideLoader(); // Hide loader after the search is complete
+                    },
+                    error: function() {
+                        alert('Error retrieving products');
+                        hideLoader(); // Hide loader in case of error
                     }
-                })
-                .catch(error => {
-                    console.error('Error loading categories:', error);
-                    alert('Failed to load categories. Please check the console for details.');
                 });
-        }
+            });
 
-        // Call the function to load categories when the page loads
-        window.onload = loadCategories;
+            // Handle search input
+            $('.afs').on('keypress', function(e) {
+                if (e.which == 13) { // Enter key pressed
+                    e.preventDefault();
+                    let searchQuery = $(this).val();
+
+                    showLoader(); // Show loader when the search is initiated
+
+                    $.ajax({
+                        url: 'php/filterProducts.php',
+                        type: 'POST',
+                        data: {
+                            search_query: searchQuery
+                        },
+                        success: function(response) {
+                            let products = JSON.parse(response);
+                            let productsContainer = $('.col-md-9 .row:last');
+
+                            productsContainer.empty();
+
+                            if (products.length > 0) {
+                                products.forEach(function(product) {
+                                    productsContainer.append(`
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="card myCard col-sm mt-3" style="width: 100%; border-radius: 15px;">
+                                                <div class="card-img-wrapper">
+                                                    <i class="fas fa-heart favorite_icon" style="top: 6px;right: 8px"></i>
+                                                    <a href="index.php?page=product&id=${product.id}" class="text-decoration-none">
+                                                        <img src="admin/${product.images}" class="card-img-top card-img" alt="${product.name}">
+                                                    </a>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </p>
+                                                    <h5 class="card-title myCardText">${product.name}</h5>
+                                                    <p class="card-text" style="color: #999999; font-size: 13px;">
+                                                        ${product.tagline.split(' ').slice(0, 4).join(' ')}...
+                                                    </p>
+                                                    <p class="price d-inline fs-3">$${product.price}</p>
+                                                    <button class="btn p-0 position-absolute" style="right: 0;margin: 20px;" id="add-to-cart" data-id="${product.id}">
+                                                        <i class="fa-solid fa-basket-shopping myCart" style="background-color: var(--primary);"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `);
+                                });
+                            } else {
+                                productsContainer.append('<div class="col-md-12 text-center"><h2>No products found</h2></div>');
+                            }
+                            hideLoader(); // Hide loader after the search is complete
+                        },
+                        error: function() {
+                            alert('Error retrieving products');
+                            hideLoader(); // Hide loader in case of error
+                        }
+                    });
+                }
+            });
+
+            // Handle price range filter
+            $('.filter_submit_btn').on('click', function(e) {
+                e.preventDefault();
+                let priceMin = 0; // Set your minimum price
+                let priceMax = $('#priceRangeSlider').val();
+
+                showLoader(); // Show loader when the filter is applied
+
+                $.ajax({
+                    url: 'php/filterProducts.php',
+                    type: 'POST',
+                    data: {
+                        price_min: priceMin,
+                        price_max: priceMax
+                    },
+                    success: function(response) {
+                        let products = JSON.parse(response);
+                        let productsContainer = $('.col-md-9 .row:last');
+
+                        productsContainer.empty();
+
+                        if (products.length > 0) {
+                            products.forEach(function(product) {
+                                productsContainer.append(`
+                            <div class="col-md-4 col-sm-6">
+                                <div class="card myCard col-sm mt-3" style="width: 100%; border-radius: 15px;">
+                                    <div class="card-img-wrapper">
+                                        <i class="fas fa-heart favorite_icon" style="top: 6px;right: 8px"></i>
+                                        <a href="index.php?page=product&id=${product.id}" class="text-decoration-none">
+                                            <img src="admin/${product.images}" class="card-img-top card-img" alt="${product.name}">
+                                        </a>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </p>
+                                        <h5 class="card-title myCardText">${product.name}</h5>
+                                        <p class="card-text" style="color: #999999; font-size: 13px;">
+                                            ${product.tagline.split(' ').slice(0, 4).join(' ')}...
+                                        </p>
+                                        <p class="price d-inline fs-3">$${product.price}</p>
+                                        <button class="btn p-0 position-absolute" style="right: 0;margin: 20px;" id="add-to-cart" data-id="${product.id}">
+                                            <i class="fa-solid fa-basket-shopping myCart" style="background-color: var(--primary);"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                    });
+                } else {
+                    productsContainer.append('<div class="col-md-12 text-center"><h2>No products found in this price range</h2></div>');
+                }
+                hideLoader(); // Hide loader after the filter is applied
+            },
+            error: function() {
+                alert('Error retrieving products');
+                hideLoader(); // Hide loader in case of error
+            }
+        });
+
+        });
+        });
     </script>
-
+    <!-- <script src="./assets/shop/js/filterProducts.js"></script> -->
 
 </body>
 
