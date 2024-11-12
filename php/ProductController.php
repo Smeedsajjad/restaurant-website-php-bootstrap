@@ -23,7 +23,8 @@ class ProductController
         return $stmt->execute();
     }
 
-    public function getAllProduct() {
+    public function getAllProduct()
+    {
         $query = "SELECT * FROM products";
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
@@ -161,5 +162,23 @@ class ProductController
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    public function getProductsLoadMore($offset, $limit)
+    {
+        $query = "SELECT * FROM products LIMIT ? OFFSET ?";
+        $stmt = $this->connection->prepare($query);
+
+        // Bind the offset and limit as integers
+        $stmt->bind_param("ii", $limit, $offset);
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $products = [];
+        while ($row = $result->fetch_assoc()) {
+            $products[] = $row;
+        }
+
+        return $products;
     }
 }

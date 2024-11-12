@@ -34,7 +34,17 @@
 
             <div class="d-flex align-items-center p-3">
                 <a href="#" class="text-dark me-4"><i class="fas fa-search"></i></a>
-                <a href="#" class="text-dark me-4"><i class="fas fa-user"></i></a>
+                <div class="dropdown">
+                    <button class="dropdown-toggle text-dark me-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: none;">
+                        <i class="fas fa-user"></i>
+                    </button>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
 
                     <a href="#" class="text-dark me-4 position-relative">
                         <i class="fas fa-heart"></i>
@@ -57,6 +67,9 @@
 
     .fa-basket-shopping:hover {
         background-color: var(--primary);
+    }
+    .dropdown-toggle::after {
+        display: none;
     }
 </style>
 <!-- nav for sm -->
@@ -163,7 +176,7 @@
 <script>
     $(document).ready(function() {
         $('#logoutButton').on('click', function(event) {
-            event.preventDefault(); // Prevent default link action
+            event.preventDefault();
 
             $.ajax({
                 url: 'ajax.php',
@@ -175,7 +188,7 @@
                     $('#response').html(response.message);
                     if (response.status) {
                         setTimeout(function() {
-                            window.location.href = 'index.php'; // Redirect after logout
+                            window.location.href = 'index.php';
                         }, 1000);
                     }
                 },

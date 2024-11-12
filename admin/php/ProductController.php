@@ -2,7 +2,6 @@
 class ProductController
 {
     private $connection;
-
     public function __construct($dbConnection)
     {
         $this->connection = $dbConnection;

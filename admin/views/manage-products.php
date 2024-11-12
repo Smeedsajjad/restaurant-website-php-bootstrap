@@ -136,7 +136,7 @@ if (isset($_POST['delete_product'])) {
             </div>
             <div class="row m-3">
                 <?php foreach ($products as $product): ?>
-                    <div class="col-md-12 menage-cat-card col-lg-6 col-xl-4 p-0 m-2">
+                    <div class="col-md-12 menage-cat-card col-lg-6 col-xl-4 p-0  mb-4 mx-auto position-relative">
                         <div class="content" style="width: 100%;">
                             <img src="<?php echo explode(',', $product['images'])[0]; ?>" class="content-image card-img-top img-fluid" alt="">
                             <div class="content-details fadeIn-bottom">

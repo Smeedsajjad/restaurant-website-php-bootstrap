@@ -4,7 +4,7 @@ include_once '../config/config.php';
 include_once 'Cart.php';
 
 $database = new Database();
-$dbConnection = $database->conn; // This should be a MySQLi connection
+$dbConnection = $database->conn;
 
 $cart = new Cart($dbConnection);
 
