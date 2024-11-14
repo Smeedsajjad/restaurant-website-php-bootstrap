@@ -57,3 +57,49 @@ restaurant-website/
     <?php if (!isset($_SESSION['user_id'])): ?>
         <p><a href="index.php?page=login">Login</a> or <a href="index.php?page=signup">Sign Up</a> to enjoy more features.</p>
     <?php endif; ?>
+
+
+      <div class="col-md-4 fw-semibold p-4" style="border: 6px solid #e5e5e5;">
+                        <h2 class="text-capitalize border-bottom mb-2">Cart Totals</h2>
+                        <?php
+                        // Initialize subtotal and total
+                        $subtotal = 0;
+
+                        // Calculate subtotal
+                        foreach ($cartData as $item) {
+                            $subtotal += $item['price'] * $item['quantity'];
+                        }
+
+                        // Calculate total
+                        $shippingCost = 0; // Set shipping cost if applicable
+                        $total = $subtotal + $shippingCost;
+
+                        // Format the values for display
+                        $formattedSubtotal = number_format($subtotal, 2);
+                        $formattedTotal = number_format($total, 2);
+                        ?>
+
+                        <form action="" method="post">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr class="cart-subtotal mb-2">
+                                        <th>Subtotal</th>
+                                        <td class="text-end"><span id="subtotal">£<?php echo $formattedSubtotal; ?></span></td>
+                                    </tr>
+                                    <tr class="shipping-totals shipping">
+                                        <th>Shipping</th>
+                                        <td class="text-end">
+                                            <span class="text-muted" style="font-size: 14px;">Shipping costs are calculated during checkout.</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="order-total">
+                                        <th>Total</th>
+                                        <td class="text-end"><strong><span id="total">£<?php echo $formattedTotal; ?></span></strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-warning text-capitalize w-100 mt-3" style="font-weight: bold;">
+                                Proceed to checkout
+                            </button>
+                        </form>
+                    </div>

@@ -1,4 +1,7 @@
 <?php
+session_start();
+
+
 // Include necessary configuration and class files
 require_once './admin/config/config.php';
 require_once './admin/php/ProductController.php';
@@ -46,6 +49,17 @@ $categories = $categoryData->getCategories();
     <link rel="stylesheet" href="assets/shop/css/style.css">
     <link rel="stylesheet" href="assets/shop/css/navbar.css">
     <title>Shop</title>
+    <style>
+.page-link {
+    border: none;
+    color: #000;
+    font-weight: 600;
+}
+.active>.page-link, .page-link.active  {
+    border-radius: 50%;
+    background: var(--primary);
+}
+    </style>
 </head>
 
 <body>
@@ -172,9 +186,24 @@ $categories = $categoryData->getCategories();
                     </aside>
                 </div>
             </div>
-            <!-- Load More -->
-            <div class="row mt-5 d-flex justify-content-center align-items-center">
-                <button class="btn order-now-btn bg-warning load-more-btn" type="button">Load More</button>
+            <!-- Pagination -->
+            <div class="row mt-5 justify-content-center align-items-center d-flex ">
+                <!-- Pagination -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <button id="prev-page" class="page-link" disabled>Previous</button>
+                        </li>
+                        <!-- Dynamic page links will be inserted here -->
+                        <li class="page-item">
+                            <span id="page-info">Page 1</span>
+                        </li>
+                        <li class="page-item">
+                            <button id="next-page" class="page-link">Next</button>
+                        </li>
+                    </ul>
+                </nav>
+
             </div>
 
         </div>
@@ -188,18 +217,17 @@ $categories = $categoryData->getCategories();
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Function to show loader
+            // Loader visibility functions
             function showLoader() {
                 $('.loader-bg').show();
             }
 
-            // Function to hide loader
             function hideLoader() {
                 $('.loader-bg').hide();
             }
 
             // Function to update products display and results count
-            function updateProductsDisplay(products, append = false) {
+            function updateProductsDisplay(products, offset, append = false) {
                 let productsContainer = $('.col-md-9 .row:last');
 
                 if (!append) {
@@ -209,45 +237,85 @@ $categories = $categoryData->getCategories();
                 if (products.length > 0) {
                     products.forEach(function(product) {
                         productsContainer.append(`
-                            <div class="col-md-4 col-sm-6">
-                                <div class="card myCard col-sm mt-3" style="width: 100%; border-radius: 15px;">
-                                    <div class="card-img-wrapper">
-                                        <i class="fas fa-heart favorite_icon" style="top: 6px;right: 8px"></i>
-                                        <a href="index.php?page=product&id=${product.id}" class="text-decoration-none">
-                                            <img src="admin/${product.images}" class="card-img-top card-img" alt="${product.name}">
-                                        </a>
-                                    </div>
-                                    <div class="card-body">
-                                        <p>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </p>
-                                        <h5 class="card-title myCardText">${product.name}</h5>
-                                        <p class="card-text" style="color: #999999; font-size: 13px;">
-                                            ${product.tagline.split(' ').slice(0, 4).join(' ')}...
-                                        </p>
-                                        <p class="price d-inline fs-3">$${product.price}</p>
-                                        <button class="btn p-0 position-absolute" style="right: 0;margin: 20px;" id="add-to-cart" data-id="${product.id}">
-                                            <i class="fa-solid fa-basket-shopping myCart" style="background-color: var(--primary);"></i>
-                                        </button>
-                                    </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="card myCard col-sm mt-3" style="width: 100%; border-radius: 15px;">
+                                <div class="card-img-wrapper">
+                                    <i class="fas fa-heart favorite_icon" style="top: 6px;right: 8px"></i>
+                                    <a href="index.php?page=product&id=${product.id}" class="text-decoration-none">
+                                        <img src="admin/${product.images}" class="card-img-top card-img" alt="${product.name}">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </p>
+                                    <h5 class="card-title myCardText">${product.name}</h5>
+                                    <p class="card-text" style="color: #999999; font-size: 13px;">
+                                        ${product.tagline.split(' ').slice(0, 4).join(' ')}...
+                                    </p>
+                                    <p class="price d-inline fs-3">$${product.price}</p>
+                                    <button class="btn p-0 position-absolute" style="right: 0;margin: 20px;" id="add-to-cart" data-id="${product.id}">
+                                        <i class="fa-solid fa-basket-shopping myCart" style="background-color: var(--primary);"></i>
+                                    </button>
                                 </div>
                             </div>
-                        `);
+                        </div>
+                    `);
                     });
-                    $('#results-count').text(`Showing 1-${offset + products.length} Results`);
+                    $('#results-count').text(`Showing ${offset + 1}-${offset + products.length} Results`);
                 } else {
                     productsContainer.append('<div class="col-md-12 text-center"><h2>No more products available</h2></div>');
                     $('#results-count').text('Showing 0 of 0 Results');
                 }
             }
-            let offset = 0; // Set the initial offset to 0
-            const limit = 9; // Limit to 9 products per load
 
-            // Function to load products from server
-            function loadProducts(append = false) {
+            let currentPage = 1;
+            let totalProducts = 0; // Define totalProducts globally
+            const limit = 6; // Number of products per page
+
+            function updatePagination(totalProducts) {
+                const totalPages = Math.ceil(totalProducts / limit); // Calculate total pages
+                const paginationContainer = $('.pagination');
+
+                // Clear existing page links (except Previous and Next buttons)
+                paginationContainer.find('.page-item:not(:first-child):not(:last-child)').remove();
+
+                // Generate page links based on total pages
+                for (let i = 1; i <= totalPages; i++) {
+                    const pageItem = $('<li class="page-item"></li>');
+                    const pageLink = $(`<a class="page-link" href="#">${i}</a>`);
+
+                    // Add active class to the current page
+                    if (i === currentPage) {
+                        pageItem.addClass('active');
+                    }
+
+                    // Click event for page link to load selected page
+                    pageLink.on('click', function(e) {
+                        e.preventDefault();
+                        currentPage = i; // Update current page
+                        loadProducts(currentPage); // Load products for the selected page
+                        updatePagination(totalProducts); // Refresh pagination
+                    });
+
+                    pageItem.append(pageLink);
+                    paginationContainer.find('#next-page').parent().before(pageItem); // Insert before Next button
+                }
+
+                // Update page info
+                $('#page-info').text(`Page ${currentPage} of ${totalPages}`);
+
+                // Enable or disable Previous and Next buttons based on the current page
+                $('#prev-page').prop('disabled', currentPage === 1);
+                $('#next-page').prop('disabled', currentPage === totalPages);
+            }
+
+            function loadProducts(page) {
+                const offset = (page - 1) * limit; // Calculate offset for the current page
+
                 $.ajax({
                     url: 'php/load_more_products.php',
                     type: 'POST',
@@ -257,52 +325,46 @@ $categories = $categoryData->getCategories();
                     },
                     beforeSend: showLoader,
                     success: function(response) {
-                        console.log('Server response:', response);
                         try {
-                            let products = JSON.parse(response);
-
-                            // Check if products were returned
-                            if (products.length > 0) {
-                                updateProductsDisplay(products, append);
-                                offset += limit; // Increment offset for the next load
-                            } else {
-                                // Hide load more button if no more products
-                                $('.load-more-btn').hide();
-                            }
+                            const data = JSON.parse(response);
+                            const products = data.products;
+                            totalProducts = data.total; // Update total products globally
+                            updateProductsDisplay(products, offset); // Display products
+                            updatePagination(totalProducts); // Refresh pagination
+                            $('#page-info').text(`Page ${page}`);
                         } catch (e) {
-                            console.error('Error parsing JSON:', e);
+                            console.error('Error parsing JSON:', e, response);
                             alert('Error loading products');
                         }
                     },
                     complete: hideLoader,
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.error('AJAX error:', textStatus, errorThrown);
-                        alert('Error loading products');
+                        alert('Failed to load products');
                     }
                 });
             }
 
-            // Initial load of only 9 products
-            loadProducts(); // Call without append to load the initial set
+            // Initial load for the first page
+            loadProducts(currentPage);
 
-            function updateProductsDisplay(products, append = false) {
-                let productContainer = $('#product-container'); // Assuming #product-container is the target
-
-                if (!append) {
-                    productContainer.empty(); // Clear products if not appending
+            // Event listeners for Previous and Next buttons
+            $('#prev-page').on('click', function(e) {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    loadProducts(currentPage);
                 }
+            });
 
-                products.forEach(product => {
-                    let productHTML = `
-                        <div class="product-item">
-                            <h3>${product.name}</h3>
-                            <p>${product.description}</p>
-                            <span>${product.price}</span>
-                        </div>
-                    `;
-                    productContainer.append(productHTML); // Append product
-                });
-            }
+            $('#next-page').on('click', function(e) {
+                e.preventDefault();
+                if (currentPage < Math.ceil(totalProducts / limit)) {
+                    currentPage++;
+                    loadProducts(currentPage);
+                }
+            });
+
             // Fetch and set the maximum price for the range slider
             $.ajax({
                 url: 'php/filterProducts.php',
@@ -336,7 +398,7 @@ $categories = $categoryData->getCategories();
                     },
                     success: function(response) {
                         let products = JSON.parse(response);
-                        updateProductsDisplay(products);
+                        updateProductsDisplay(products, 0); // Reset offset for category filter
                         hideLoader(); // Hide loader after the search is complete
                     },
                     error: function() {
@@ -362,7 +424,7 @@ $categories = $categoryData->getCategories();
                         },
                         success: function(response) {
                             let products = JSON.parse(response);
-                            updateProductsDisplay(products);
+                            updateProductsDisplay(products, 0); // Reset offset for search
                             hideLoader(); // Hide loader after the search is complete
                         },
                         error: function() {
@@ -390,7 +452,7 @@ $categories = $categoryData->getCategories();
                     },
                     success: function(response) {
                         let products = JSON.parse(response);
-                        updateProductsDisplay(products);
+                        updateProductsDisplay(products, 0); // Reset offset for price filter
                         hideLoader(); // Hide loader after the filter is applied
                     },
                     error: function() {
@@ -399,6 +461,50 @@ $categories = $categoryData->getCategories();
                     }
                 });
             });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Use event delegation for dynamically generated elements
+            $(document).on('click', '#add-to-cart', function() {
+                let productId = $(this).data('id');
+
+                // Check if user is logged in
+                if (!<?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>) {
+                    alert('You are not logged in. Please log in to add items to your cart.');
+                    return; // Exit the function if not logged in
+                }
+
+                $.ajax({
+                    url: './php/add_to_cart.php',
+                    method: 'POST',
+                    data: {
+                        product_id: productId,
+                        quantity: 1
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            $('#cart-count').text(response.cart_count);
+                        } else {
+                            alert(response.message); // Show the specific error message
+                        }
+                    }
+                });
+            });
+
+            function updateCartCount() {
+                $.ajax({
+                    url: './php/get_cart_count.php',
+                    method: 'GET',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            $('#cart-count').text(response.count);
+                        }
+                    }
+                });
+            }
+
+            updateCartCount();
         });
     </script>
     <!-- <script src="./assets/shop/js/filterProducts.js"></script> -->

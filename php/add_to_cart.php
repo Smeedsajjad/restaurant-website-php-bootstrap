@@ -1,46 +1,51 @@
 <?php
 session_start();
-include_once '../config/config.php';
-include_once 'Cart.php';
+require_once '../config/config.php';
+require_once 'Cart.php';
+
+$response = ['status' => 'error', 'message' => 'Unknown error'];
+
+if (!isset($_SESSION['user_id'])) {
+    // If user is not logged in, send a specific response
+    $response = [
+        'status' => 'not_logged_in',
+        'message' => 'Please log in to add items to your cart.'
+    ];
+    echo json_encode($response);
+    exit();
+}
 
 $database = new Database();
 $dbConnection = $database->conn;
-
 $cart = new Cart($dbConnection);
-
-$response = ['status' => 'error', 'message' => 'Unknown error']; // Default response
 
 try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $product_id = isset($_POST['product_id']) ? (int)$_POST['product_id'] : null;
-        $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
+        $product_id = $_POST['product_id'] ?? null;
+        $quantity = $_POST['quantity'] ?? 1;
 
-        if ($product_id && $quantity > 0) {
-            // Attempt to add the product to the cart
-            $addToCartResponse = $cart->addToCart($product_id, $quantity);
+        if ($product_id) {
+            $addToCartResponse = $cart->addToCart($product_id, $quantity, $_SESSION['user_id']);
 
-            // Check if the product was added successfully
             if ($addToCartResponse['status'] === 'success') {
-                $response['status'] = 'success';
-                $response['message'] = 'Product added to cart.';
+                $response = [
+                    'status' => 'success',
+                    'message' => 'Product added to cart.',
+                    'cart_count' => $cart->getCartCount($_SESSION['user_id'])
+                ];
             } else {
-                $response['message'] = $addToCartResponse['message']; // Use message from addToCart response
+                $response['message'] = $addToCartResponse['message'];
             }
-
-            // Get updated cart count
-            $response['cart_count'] = $cart->getCartCount();
         } else {
-            $response['message'] = 'Invalid product ID or quantity.';
+            $response['message'] = 'Invalid product ID.';
         }
     } else {
         $response['message'] = 'Invalid request method.';
     }
 } catch (Exception $e) {
-    // Catch any exceptions and report
     $response['message'] = 'Error: ' . $e->getMessage();
 }
 
-// Return the JSON response
 header('Content-Type: application/json');
 echo json_encode($response);
-exit(); // Ensure no further output after JSON response
+exit();

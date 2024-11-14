@@ -27,7 +27,7 @@ class UserController
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
         $stmt = $this->db->conn->prepare("INSERT INTO users (full_name, username, email, password, phone) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssss", $full_name, $username, $email, $hashedPassword, $phone);
-        
+
         if ($stmt->execute()) {
             // Get the user_id of the newly registered user
             $user_id = $this->db->conn->insert_id;
@@ -35,6 +35,7 @@ class UserController
             // Store user_id in session
             session_start();
             $_SESSION['user_id'] = $user_id;
+            $_SESSION['username'] = $username;
 
             // Return the user object
             return [
@@ -45,7 +46,7 @@ class UserController
                 'phone' => $phone
             ];
         }
-        
+
         return false; // Return false if registration fails
     }
 
@@ -60,7 +61,8 @@ class UserController
 
         if ($user && password_verify($password, $user['password'])) {
             session_start();
-            $_SESSION['user_id'] = $user['id'];  // Store user_id in session
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
             return $user;  // Return user object if login is successful
         }
         return false; // Return false if login fails
@@ -125,5 +127,42 @@ class UserController
         $checkStmt->store_result();
 
         return $checkStmt->num_rows > 0; // Return true if email exists, false otherwise
+    }
+    public function addToUserCart($productId, $quantity)
+    {
+        session_start();
+        if (!isset($_SESSION['user_id'])) {
+            return ['status' => 'error', 'message' => 'User not logged in.'];
+        }
+
+        $userId = $_SESSION['user_id'];
+        $cart = new Cart($this->db->conn); // Assuming Database instance is passed
+        return $cart->addToCart($userId, $productId, $quantity);
+    }
+
+
+    public function getCartSubtotal($userId)
+    {
+        $stmt = $this->db->conn->prepare("SELECT SUM(p.price * c.quantity) AS subtotal 
+                                      FROM cart c 
+                                      JOIN products p ON c.product_id = p.id 
+                                      WHERE c.user_id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        return $row['subtotal'] ?? 0.00;
+    }
+
+    public function getCartCount($userId)
+    {
+        $stmt = $this->db->conn->prepare("SELECT SUM(quantity) AS count FROM cart WHERE user_id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        return $row['count'] ?? 0;
     }
 }

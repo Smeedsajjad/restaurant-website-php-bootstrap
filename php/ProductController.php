@@ -163,14 +163,21 @@ class ProductController
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-    public function getProductsLoadMore($offset, $limit)
+
+    public function getCartProducts($userId)
     {
-        $query = "SELECT * FROM products LIMIT ? OFFSET ?";
+        // Prepare the SQL statement to fetch cart products for the given user ID
+        $stmt = $this->connection->prepare("SELECT * FROM cart WHERE user_id = :user_id");
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->execute();
+
+        // Fetch all cart products
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getProductsLoadMore($offset, $limit) {
+        $query = "SELECT * FROM products LIMIT ?, ?";
         $stmt = $this->connection->prepare($query);
-
-        // Bind the offset and limit as integers
-        $stmt->bind_param("ii", $limit, $offset);
-
+        $stmt->bind_param("ii", $offset, $limit);
         $stmt->execute();
         $result = $stmt->get_result();
 

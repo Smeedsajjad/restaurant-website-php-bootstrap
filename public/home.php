@@ -144,7 +144,7 @@ $products = $productController->getLimitProducts(6);
     <div class="container position-relative">
         <div class="row align-items-center">
             <div class="d-flex justify-content-center position-relative" style="top: -28px;">
-                <a href="#" class="btn order-now-btn fs-5">MENU</a>
+                <a href="index.php?page=shop" class="btn order-now-btn fs-5">MENU</a>
             </div>
         </div>
     </div>
@@ -274,14 +274,12 @@ $products = $productController->getLimitProducts(6);
                     <?php if (count($products) > 0): ?>
                         <?php foreach ($products as $product): ?>
                             <div class="col-md-3 col-sm-6">
-                                <div class="card myCard col-sm mt-3" style="width: 100%;border-radius: 15px;">
+                                <div class="card myCard col-sm mt-3" style="width: 100%; border-radius: 15px;">
                                     <div class="card-img-wrapper">
                                         <i class="fas fa-heart favorite_icon"></i>
                                         <a href="index.php?page=product&id=<?php echo $product['id']; ?>" class="text-decoration-none">
-                                            <?php
-                                            $imagePath = basename($product['images']);
-                                            ?>
-                                            <img src="admin/uploads/products/<?php echo $imagePath; ?>" class="card-img-top card-img" alt="<?php echo $product['name']; ?>">
+                                            <img src="admin/uploads/products/<?php echo basename($product['images']); ?>" class="card-img-top card-img" alt="<?php echo $product['name']; ?>">
+                                        </a>
                                     </div>
                                     <div class="card-body">
                                         <p>
@@ -306,15 +304,14 @@ $products = $productController->getLimitProducts(6);
                                             echo (count($words) > 4) ? $shortTagline . '...' : $product['tagline'];
                                             ?>
                                         </p>
-
-                                        <p class="price d-inline fs-3">$<?php echo $product['price']; ?></p>
-                                        </a>
-                                        <button class="btn p-0 position-absolute" style="right: 0;margin: 20px;" id="add-to-cart" data-id="<?php echo $product['id']; ?>">
-                                            <i class="fa-solid fa-basket-shopping myCart" style="background-color: var(--primary);"></i>
-                                        </button>
+                                        <div class="d-flex justify-content-between">
+                                            <p class="price fs-3">$<?php echo $product['price']; ?></p>
+                                            <button class="btn p-0" id="add-to-cart" data-id="<?php echo $product['id']; ?>">
+                                                <i class="fa-solid fa-basket-shopping myCart" style="background-color: var(--primary);"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -324,9 +321,8 @@ $products = $productController->getLimitProducts(6);
                     <?php endif; ?>
                 </div>
             </div>
-            </div>
-
         </section>
+
         <!-- clients section -->
         <section class="clients-section py-5">
             <div class="container">
@@ -570,82 +566,47 @@ $products = $productController->getLimitProducts(6);
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#add-to-cart').on('click', function() {
+            // Use event delegation for dynamically generated elements
+            $(document).on('click', '#add-to-cart', function() {
                 let productId = $(this).data('id');
-                let quantity = $('#quantity').val();
 
-                $('#success-message').hide();
-                $('#error-message').hide();
-                $('.loader-bg').show(); // Show loader
+                // Check if user is logged in
+                if (!<?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>) {
+                    alert('You are not logged in. Please log in to add items to your cart.');
+                    return; // Exit the function if not logged in
+                }
 
                 $.ajax({
                     url: './php/add_to_cart.php',
                     method: 'POST',
                     data: {
                         product_id: productId,
-                        quantity: quantity
+                        quantity: 1
                     },
                     success: function(response) {
-                        try {
-                            if (typeof response === 'string') {
-                                response = JSON.parse(response); // Parse if JSON string
-                            }
-
-                            if (response.status === 'success') {
-                                $('#success-message p').text('Product has been added successfully');
-                                // $('#success-message p').text(response.product_name + ' has been added successfully');
-                                $('#success-message').fadeIn();
-                                $('.count-icon').text(response.cart_count); // Update cart count
-                            } else {
-                                $('#error-message p').text(response.message || 'An error occurred');
-                                $('#error-message').fadeIn();
-                            }
-                        } catch (error) {
-                            console.error("Parsing error:", error);
-                            $('#error-message p').text('Unexpected response format');
-                            $('#error-message').fadeIn();
+                        console.log(response); // Log the response to the console
+                        if (response.status === 'success') {
+                            $('#cart-count').text(response.cart_count);
+                        } else {
+                            alert(response.message); // Show the specific error message
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('AJAX error:', status, error);
-                        $('#error-message p').text('Failed to add product to cart');
-                        $('#error-message').fadeIn();
-                    },
-                    complete: function() {
-                        setTimeout(() => {
-                            $('.loader-bg').fadeOut(); // Smoothly hide loader
-                        }, 500); // Optional delay
                     }
                 });
             });
 
-            // Function to fetch and update cart count
             function updateCartCount() {
                 $.ajax({
                     url: './php/get_cart_count.php',
                     method: 'GET',
                     success: function(response) {
-                        try {
-                            if (typeof response === 'string') {
-                                response = JSON.parse(response);
-                            }
-                            if (response.status === 'success') {
-                                $('#cart-count').text(response.count); // Update cart count badge
-                                $('#cart-count-sm').text(response.count); // Update cart count badge
-                            } else {
-                                console.error('Error in response:', response.message);
-                            }
-                        } catch (error) {
-                            console.error("Parsing error:", error);
+                        console.log(response); // Log the response to the console
+                        if (response.status === 'success') {
+                            $('#cart-count').text(response.count);
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Failed to fetch cart count:', status, error);
                     }
                 });
             }
 
-            // Initial cart count update on page load
             updateCartCount();
         });
     </script>

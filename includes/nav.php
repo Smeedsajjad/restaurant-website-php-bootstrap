@@ -1,3 +1,6 @@
+<?php
+$_SESSION['logged_in'] = true;
+?>
 <!-- Navbar for large screens -->
 <nav class="navbar navbar-expand-lg d-none d-lg-flex" style="position: sticky; top: 0; z-index: 1000;background-color: #fff;">
     <div class="container">
@@ -40,9 +43,9 @@
                     </button>
 
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li><p class="dropdown-item" style="font-size: small;"><span class="fw-bold">Hi, </span><?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest'; ?></p></li>
+                    <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-primary" href="#">Menage Profile</a></li>
                     </ul>
                 </div>
 
