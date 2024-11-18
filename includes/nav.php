@@ -43,20 +43,26 @@ $_SESSION['logged_in'] = true;
                     </button>
 
                     <ul class="dropdown-menu">
-                    <li><p class="dropdown-item" style="font-size: small;"><span class="fw-bold">Hi, </span><?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest'; ?></p></li>
-                    <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <p class="dropdown-item" style="font-size: small;"><span class="fw-bold">Hi, </span><?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest'; ?></p>
+                        </li>   
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <li><a class="dropdown-item text-primary" href="#">Menage Profile</a></li>
                     </ul>
                 </div>
 
-                    <a href="#" class="text-dark me-4 position-relative">
-                        <i class="fas fa-heart"></i>
-                        <span id="wishlist-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill count-icon">0</span>
-                    </a>
-                <a href="index.php?page=cart" class="text-dark position-relative">
-                    <i class="fa-solid fa-basket-shopping"></i>
-                    <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill count-icon">0</span>
+                <a href="#" class="text-dark me-4 position-relative">
+                    <i class="fas fa-heart"></i>
+                    <span id="wishlist-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill count-icon">0</span>
                 </a>
+                <!-- Cart Icon -->
+                <a data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" class="text-dark position-relative" style="cursor: pointer;">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                    <span class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-pill count-icon" id="cart-count">0</span>
+                </a>
+
             </div>
         </div>
     </div>
@@ -71,6 +77,7 @@ $_SESSION['logged_in'] = true;
     .fa-basket-shopping:hover {
         background-color: var(--primary);
     }
+
     .dropdown-toggle::after {
         display: none;
     }

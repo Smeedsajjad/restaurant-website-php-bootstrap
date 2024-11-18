@@ -1,4 +1,6 @@
 <?php
+error_reporting(0); // Disable error reporting for production
+header('Content-Type: application/json');
 require_once '../config/config.php';
 
 $response = ['status' => 'error', 'message' => 'Invalid request'];
@@ -28,4 +30,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cart_id'])) {
 $dbConnection->close();
 
 echo json_encode($response);
-?>
+exit;

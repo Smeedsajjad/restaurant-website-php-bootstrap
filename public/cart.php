@@ -113,26 +113,27 @@
                 // Return the response as JSON
                 echo json_encode($response);
                 exit; // End execution to avoid further script processing
-            }}
-
-            // SQL to get the cart items with the related product information
-            $sql = "SELECT cart.id AS cart_id, cart.quantity, products.id AS product_id, products.name, products.price, products.images FROM cart INNER JOIN products ON cart.product_id = products.id WHERE cart.user_id = ?";
-            $stmt = $dbConnection->prepare($sql);
-            $stmt->bind_param("i", $_SESSION['user_id']);
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            // Prepare an array to store the data
-            $cartData = [];
-
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $cartData[] = $row;
-                }
             }
+        }
 
-            // Close the database connection after all operations
-            $dbConnection->close();
+        // SQL to get the cart items with the related product information
+        $sql = "SELECT cart.id AS cart_id, cart.quantity, products.id AS product_id, products.name, products.price, products.images FROM cart INNER JOIN products ON cart.product_id = products.id WHERE cart.user_id = ?";
+        $stmt = $dbConnection->prepare($sql);
+        $stmt->bind_param("i", $_SESSION['user_id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Prepare an array to store the data
+        $cartData = [];
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $cartData[] = $row;
+            }
+        }
+
+        // Close the database connection after all operations
+        $dbConnection->close();
         ?>
         <!-- Check if the cart is empty -->
         <?php if (empty($cartData)) { ?>
@@ -320,7 +321,7 @@
             });
         });
     </script>
-      <script>
+    <script>
         $(document).ready(function() {
             // Use event delegation for dynamically generated elements
             $(document).on('click', '#add-to-cart', function() {
@@ -334,34 +335,46 @@
 
                 $.ajax({
                     url: './php/add_to_cart.php',
+
                     method: 'POST',
+
                     data: {
                         product_id: productId,
                         quantity: 1
+
                     },
                     success: function(response) {
+
                         if (response.status === 'success') {
-                            $('#cart-count').text(response.cart_count);
+
+                            $('.cart-count').text(response.cart_count); // Update both cart counts
+
                         } else {
+
                             alert(response.message); // Show the specific error message
                         }
+
                     }
                 });
+
             });
+
 
             function updateCartCount() {
                 $.ajax({
                     url: './php/get_cart_count.php',
+
                     method: 'GET',
                     success: function(response) {
                         if (response.status === 'success') {
-                            $('#cart-count').text(response.count);
+                            $('.cart-count').text(response.count); // Update both cart counts
                         }
                     }
                 });
             }
 
             updateCartCount();
+
         });
     </script>
 </body>

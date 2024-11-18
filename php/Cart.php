@@ -43,20 +43,26 @@ class Cart {
         return $row['count'] ?? 0;
     }
 
-    // New method to fetch cart items for a specific user
-    // public function getCartItems($userId) {
-    //     $stmt = $this->conn->prepare("SELECT cart.id, cart.product_id, cart.quantity, products.name, products.price FROM cart INNER JOIN products ON cart.product_id = products.id WHERE cart.user_id = ?");
-    //     $stmt->bind_param("i", $userId);
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
+    // Method to get the cart count
+    public function getCartCountSlider($userId) {
+        $query = "SELECT COUNT(*) AS count FROM cart WHERE user_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result['count'];
+    }
 
-    //     $cartItems = [];
-    //     while ($row = $result->fetch_assoc()) {
-    //         $cartItems[] = $row; // Add each item to the array
-    //     }
-
-    //     $stmt->close();
-    //     return $cartItems; // Return the array of cart items
-    // }
+    // Method to get cart items
+    public function getCartItems($userId) {
+        $query = "SELECT c.id, p.name AS product_name, c.quantity, p.price, p.images AS product_image
+                  FROM cart c
+                  JOIN products p ON c.product_id = p.id
+                  WHERE c.user_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
 }
 ?>

@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 require_once 'UserController.php';
 
-header('Content-Type: application/json'); // Set JSON header only once
+header('Content-Type: application/json');
 
 $response = [];
 
