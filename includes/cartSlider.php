@@ -17,7 +17,7 @@
                 <span id="cart-subtotal">$0.00</span>
             </p>
             <div class="mt-3">
-                <a href="checkout.php" class="btn invers_btn d-block">Checkout</a>
+                <a href="index.php?page=checkout" class="btn invers_btn d-block">Checkout</a>
                 <a href="index.php?page=cart" class="btn outline_btn d-block mb-3 mt-3">View Cart</a>
             </div>
         </div>

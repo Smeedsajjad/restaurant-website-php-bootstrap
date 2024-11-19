@@ -129,7 +129,7 @@ class ProductController
             // Execute the statement
             $stmt->execute();
             return true; // Return true on success
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return "Error updating product: " . $th->getMessage(); // Return error message
         }
     }

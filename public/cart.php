@@ -243,9 +243,9 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <button type="submit" class="btn btn-warning text-capitalize w-100 mt-3" style="font-weight: bold;">
+                            <a href="index.php?page=checkout" type="submit" class="btn btn-warning text-capitalize w-100 mt-3" style="font-weight: bold;">
                                 Proceed to checkout
-                            </button>
+                            </a>        
                         </form>
                     </div>
                 </div>
