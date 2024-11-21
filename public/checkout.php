@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once '../admin/config/config.php';
+require_once 'admin/config/config.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    header('Location: index.php?page=login');
     exit;
 }
 
@@ -39,6 +39,30 @@ $db = $database->conn;
     <link rel="stylesheet" href="assets/shop/css/navbar.css">
     <title>Checkout</title>
     <style>
+        input[type="text"] {
+            width: 100%;
+            height: 50px;
+            padding: 0 15px;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary);
+        }
+
+
+        datalist {
+            display: none;
+        }
+
+        .text-container {
+            position: relative;
+        }
+
         .accordion-button:not(.collapsed) {
             background-color: #ffc2224d !important;
         }
@@ -157,241 +181,170 @@ $db = $database->conn;
                                 <input type="text" class="form-control" id="lastName" name="lastName" required>
                                 <div class="invalid-feedback">Please enter your last name.</div>
                             </div>
-
                             <!-- Country -->
+
                             <div class="col-12">
-                                <label for="country" class="form-label">Country / Region <span class="text-danger">*</span></label>
-                                <div class="dropdown">
-                                    <input type="text" class="form-control" id="countrySearch" placeholder="Select your country" data-bs-toggle="dropdown" readonly>
-                                    <input type="hidden" name="country" id="country" required>
-                                    <ul class="dropdown-menu w-100" style="max-height: 250px; overflow-y: auto;">
-                                        <li data-value="afghanistan">Afghanistan</li>
-                                        <li data-value="albania">Albania</li>
-                                        <li data-value="algeria">Algeria</li>
-                                        <li data-value="andorra">Andorra</li>
-                                        <li data-value="angola">Angola</li>
-                                        <li data-value="antigua-and-barbuda">
+                                <div class="text-container">
+                                    <select name="country" class="form-select" aria-label="Default select example" id="country" required>
+                                        <option value="">Select your country</option>
+                                        <option value="afghanistan">Afghanistan</option>
+                                        <option value="albania">Albania</option>
+                                        <option value="algeria">Algeria</option>
+                                        <option value="andorra">Andorra</option>
+                                        <option value="angola">Angola</option>
+                                        <option value="antigua-and-barbuda">
                                             Antigua and Barbuda
-                                        </li>
-                                        <li data-value="argentina">Argentina</li>
-                                        <li data-value="armenia">Armenia</li>
-                                        <li data-value="australia">Australia</li>
-                                        <li data-value="austria">Austria</li>
-                                        <li data-value="azerbaijan">Azerbaijan</li>
-                                        <li data-value="bahamas">Bahamas</li>
-                                        <li data-value="bahrain">Bahrain</li>
-                                        <li data-value="bangladesh">Bangladesh</li>
-                                        <li data-value="barbados">Barbados</li>
-                                        <li data-value="belarus">Belarus</li>
-                                        <li data-value="belgium">Belgium</li>
-                                        <li data-value="belize">Belize</li>
-                                        <li data-value="benin">Benin</li>
-                                        <li data-value="bhutan">Bhutan</li>
-                                        <li data-value="bolivia">Bolivia</li>
-                                        <li data-value="bosnia-and-herzegovina">
+                                        </option>
+                                        <option value="argentina">Argentina</option>
+                                        <option value="armenia">Armenia</option>
+                                        <option value="australia">Australia</option>
+                                        <option value="austria">Austria</option>
+                                        <option value="azerbaijan">Azerbaijan</option>
+                                        <option value="bahamas">Bahamas</option>
+                                        <option value="bahrain">Bahrain</option>
+                                        <option value="bangladesh">Bangladesh</option>
+                                        <option value="barbados">Barbados</option>
+                                        <option value="belarus">Belarus</option>
+                                        <option value="belgium">Belgium</option>
+                                        <option value="belize">Belize</option>
+                                        <option value="benin">Benin</option>
+                                        <option value="bhutan">Bhutan</option>
+                                        <option value="bolivia">Bolivia</option>
+                                        <option value="bosnia-and-herzegovina">
                                             Bosnia and Herzegovina
-                                        </li>
-                                        <li data-value="botswana">Botswana</li>
-                                        <li data-value="brazil">Brazil</li>
-                                        <li data-value="brunei">Brunei</li>
-                                        <li data-value="bulgaria">Bulgaria</li>
-                                        <li data-value="burkina-faso">Burkina Faso</li>
-                                        <li data-value="burundi">Burundi</li>
-                                        <li data-value="cabo-verde">Cabo Verde</li>
-                                        <li data-value="cambodia">Cambodia</li>
-                                        <li data-value="cameroon">Cameroon</li>
-                                        <li data-value="canada">Canada</li>
-                                        <li data-value="central-african-republic">
+                                        </option>
+                                        <option value="botswana">Botswana</option>
+                                        <option value="brazil">Brazil</option>
+                                        <option value="brunei">Brunei</option>
+                                        <option value="bulgaria">Bulgaria</option>
+                                        <option value="burkina-faso">Burkina Faso</option>
+                                        <option value="burundi">Burundi</option>
+                                        <option value="cabo-verde">Cabo Verde</option>
+                                        <option value="cambodia">Cambodia</option>
+                                        <option value="cameroon">Cameroon</option>
+                                        <option value="canada">Canada</option>
+                                        <option value="central-african-republic">
                                             Central African Republic
-                                        </li>
-                                        <li data-value="chad">Chad</li>
-                                        <li data-value="chile">Chile</li>
-                                        <li data-value="china">China</li>
-                                        <li data-value="colombia">Colombia</li>
-                                        <li data-value="comoros">Comoros</li>
-                                        <li data-value="congo-brazzaville">
+                                        </option>
+                                        <option value="chad">Chad</option>
+                                        <option value="chile">Chile</option>
+                                        <option value="china">China</option>
+                                        <option value="colombia">Colombia</option>
+                                        <option value="comoros">Comoros</option>
+                                        <option value="congo-brazzaville">
                                             Congo (Brazzaville)
-                                        </li>
-                                        <li data-value="congo-kinshasa">
+                                        </option>
+                                        <option value="congo-kinshasa">
                                             Congo (Kinshasa)
-                                        </li>
-                                        <li data-value="costa-rica">Costa Rica</li>
-                                        <li data-value="croatia">Croatia</li>
-                                        <li data-value="cuba">Cuba</li>
-                                        <li data-value="cyprus">Cyprus</li>
-                                        <li data-value="czech-republic">
+                                        </option>
+                                        <option value="costa-rica">Costa Rica</option>
+                                        <option value="croatia">Croatia</option>
+                                        <option value="cuba">Cuba</option>
+                                        <option value="cyprus">Cyprus</option>
+                                        <option value="czech-republic">
                                             Czech Republic
-                                        </li>
-                                        <li data-value="denmark">Denmark</li>
-                                        <li data-value="djibouti">Djibouti</li>
-                                        <li data-value="dominica">Dominica</li>
-                                        <li data-value="dominican-republic">
+                                        </option>
+                                        <option value="denmark">Denmark</option>
+                                        <option value="djibouti">Djibouti</option>
+                                        <option value="dominica">Dominica</option>
+                                        <option value="dominican-republic">
                                             Dominican Republic
-                                        </li>
-                                        <li data-value="east-timor">East Timor</li>
-                                        <li data-value="ecuador">Ecuador</li>
-                                        <li data-value="egypt">Egypt</li>
-                                        <li data-value="el-salvador">El Salvador</li>
-                                        <li data-value="equatorial-guinea">
+                                        </option>
+                                        <option value="east-timor">East Timor</option>
+                                        <option value="ecuador">Ecuador</option>
+                                        <option value="egypt">Egypt</option>
+                                        <option value="el-salvador">El Salvador</option>
+                                        <option value="equatorial-guinea">
                                             Equatorial Guinea
-                                        </li>
-                                        <li data-value="eritrea">Eritrea</li>
-                                        <li data-value="estonia">Estonia</li>
-                                        <li data-value="eswatini">Eswatini</li>
-                                        <li data-value="ethiopia">Ethiopia</li>
-                                        <li data-value="fiji">Fiji</li>
-                                        <li data-value="finland">Finland</li>
-                                        <li data-value="france">France</li>
-                                        <li data-value="gabon">Gabon</li>
-                                        <li data-value="gambia">Gambia</li>
-                                        <li data-value="georgia">Georgia</li>
-                                        <li data-value="germany">Germany</li>
-                                        <li data-value="ghana">Ghana</li>
-                                        <li data-value="greece">Greece</li>
-                                        <li data-value="grenada">Grenada</li>
-                                        <li data-value="guatemala">Guatemala</li>
-                                        <li data-value="guinea">Guinea</li>
-                                        <li data-value="guinea-bissau">Guinea-Bissau</li>
-                                        <li data-value="guyana">Guyana</li>
-                                        <li data-value="haiti">Haiti</li>
-                                        <li data-value="honduras">Honduras</li>
-                                        <li data-value="hungary">Hungary</li>
-                                        <li data-value="iceland">Iceland</li>
-                                        <li data-value="india">India</li>
-                                        <li data-value="indonesia">Indonesia</li>
-                                        <li data-value="iran">Iran</li>
-                                        <li data-value="iraq">Iraq</li>
-                                        <li data-value="ireland">Ireland</li>
-                                        <li data-value="israel">Israel</li>
-                                        <li data-value="italy">Italy</li>
-                                        <li data-value="ivory-coast">Ivory Coast</li>
-                                        <li data-value="jamaica">Jamaica</li>
-                                        <li data-value="japan">Japan</li>
-                                        <li data-value="jordan">Jordan</li>
-                                        <li data-value="kazakhstan">Kazakhstan</li>
-                                        <li data-value="kenya">Kenya</li>
-                                        <li data-value="kiribati">Kiribati</li>
-                                        <li data-value="kosovo">Kosovo</li>
-                                        <li data-value="kuwait">Kuwait</li>
-                                        <li data-value="kyrgyzstan">Kyrgyzstan</li>
-                                        <li data-value="laos">Laos</li>
-                                        <li data-value="latvia">Latvia</li>
-                                        <li data-value="lebanon">Lebanon</li>
-                                        <li data-value="lesotho">Lesotho</li>
-                                        <li data-value="liberia">Liberia</li>
-                                        <li data-value="libya">Libya</li>
-                                        <li data-value="liechtenstein">Liechtenstein</li>
-                                        <li data-value="lithuania">Lithuania</li>
-                                        <li data-value="luxembourg">Luxembourg</li>
-                                        <li data-value="north-macedonia">North Macedonia</li>
-                                        <li data-value="madagascar">Madagascar</li>
-                                        <li data-value="malawi">Malawi</li>
-                                        <li data-value="malaysia">Malaysia</li>
-                                        <li data-value="maldives">Maldives</li>
-                                        <li data-value="mali">Mali</li>
-                                        <li data-value="malta">Malta</li>
-                                        <li data-value="marshall-islands">Marshall Islands</li>
-                                        <li data-value="mauritania">Mauritania</li>
-                                        <li data-value="mauritius">Mauritius</li>
-                                        <li data-value="mexico">Mexico</li>
-                                        <li data-value="micronesia">Micronesia</li>
-                                        <li data-value="moldova">Moldova</li>
-                                        <li data-value="monaco">Monaco</li>
-                                        <li data-value="mongolia">Mongolia</li>
-                                        <li data-value="montenegro">Montenegro</li>
-                                        <li data-value="morocco">Morocco</li>
-                                        <li data-value="mozambique">Mozambique</li>
-                                        <li data-value="myanmar">Myanmar</li>
-                                        <li data-value="namibia">Namibia</li>
-                                        <li data-value="nauru">Nauru</li>
-                                        <li data-value="nepal">Nepal</li>
-                                        <li data-value="netherlands">Netherlands</li>
-                                        <li data-value="new-zealand">New Zealand</li>
-                                        <li data-value="nicaragua">Nicaragua</li>
-                                        <li data-value="niger">Niger</li>
-                                        <li data-value="nigeria">Nigeria</li>
-                                        <li data-value="north-korea">North Korea</li>
-                                        <li data-value="norway">Norway</li>
-                                        <li data-value="oman">Oman</li>
-                                        <li data-value="pakistan">Pakistan</li>
-                                        <li data-value="palau">Palau</li>
-                                        <li data-value="palestine">Palestine</li>
-                                        <li data-value="panama">Panama</li>
-                                        <li data-value="papua-new-guinea">Papua New Guinea</li>
-                                        <li data-value="paraguay">Paraguay</li>
-                                        <li data-value="peru">Peru</li>
-                                        <li data-value="philippines">Philippines</li>
-                                        <li data-value="poland">Poland</li>
-                                        <li data-value="portugal">Portugal</li>
-                                        <li data-value="qatar">Qatar</li>
-                                        <li data-value="romania">Romania</li>
-                                        <li data-value="russia">Russia</li>
-                                        <li data-value="rwanda">Rwanda</li>
-                                        <li data-value="saint-kitts-and-nevis">
-                                            Saint Kitts and Nevis
-                                        </li>
-                                        <li data-value="saint-lucia">Saint Lucia</li>
-                                        <li data-value="saint-vincent-and-the-grenadines">
-                                            Saint Vincent and the Grenadines
-                                        </li>
-                                        <li data-value="samoa">Samoa</li>
-                                        <li data-value="san-marino">San Marino</li>
-                                        <li data-value="sao-tome-and-principe">
-                                            Sao Tome and Principe
-                                        </li>
-                                        <li data-value="saudi-arabia">Saudi Arabia</li>
-                                        <li data-value="senegal">Senegal</li>
-                                        <li data-value="serbia">Serbia</li>
-                                        <li data-value="seychelles">Seychelles</li>
-                                        <li data-value="sierra-leone">Sierra Leone</li>
-                                        <li data-value="singapore">Singapore</li>
-                                        <li data-value="slovakia">Slovakia</li>
-                                        <li data-value="slovenia">Slovenia</li>
-                                        <li data-value="solomon-islands">Solomon Islands</li>
-                                        <li data-value="somalia">Somalia</li>
-                                        <li data-value="south-africa">South Africa</li>
-                                        <li data-value="south-korea">South Korea</li>
-                                        <li data-value="south-sudan">South Sudan</li>
-                                        <li data-value="spain">Spain</li>
-                                        <li data-value="sri-lanka">Sri Lanka</li>
-                                        <li data-value="sudan">Sudan</li>
-                                        <li data-value="suriname">Suriname</li>
-                                        <li data-value="sweden">Sweden</li>
-                                        <li data-value="switzerland">Switzerland</li>
-                                        <li data-value="syria">Syria</li>
-                                        <li data-value="taiwan">Taiwan</li>
-                                        <li data-value="tajikistan">Tajikistan</li>
-                                        <li data-value="tanzania">Tanzania</li>
-                                        <li data-value="thailand">Thailand</li>
-                                        <li data-value="togo">Togo</li>
-                                        <li data-value="tonga">Tonga</li>
-                                        <li data-value="trinidad-and-tobago">
-                                            Trinidad and Tobago
-                                        </li>
-                                        <li data-value="tunisia">Tunisia</li>
-                                        <li data-value="turkey">Turkey</li>
-                                        <li data-value="turkmenistan">Turkmenistan</li>
-                                        <li data-value="tuvalu">Tuvalu</li>
-                                        <li data-value="uganda">Uganda</li>
-                                        <li data-value="ukraine">Ukraine</li>
-                                        <li data-value="united-arab-emirates">
-                                            United Arab Emirates
-                                        </li>
-                                        <li data-value="united-kingdom">United Kingdom</li>
-                                        <li data-value="united-states">United States</li>
-                                        <li data-value="uruguay">Uruguay</li>
-                                        <li data-value="uzbekistan">Uzbekistan</li>
-                                        <li data-value="vanuatu">Vanuatu</li>
-                                        <li data-value="vatican-city">Vatican City</li>
-                                        <li data-value="venezuela">Venezuela</li>
-                                        <li data-value="vietnam">Vietnam</li>
-                                        <li data-value="yemen">Yemen</li>
-                                        <li data-value="zambia">Zambia</li>
-                                        <li data-value="zimbabwe">Zimbabwe</li>
-                                    </ul>
-                                    <div id="selectedCountry" class="text-success text-center mt-2"></div>
+                                        </option>
+                                        <option value="eritrea">Eritrea</option>
+                                        <option value="estonia">Estonia</option>
+                                        <option value="eswatini">Eswatini</option>
+                                        <option value="ethiopia">Ethiopia</option>
+                                        <option value="fiji">Fiji</option>
+                                        <option value="finland">Finland</option>
+                                        <option value="france">France</option>
+                                        <option value="gabon">Gabon</option>
+                                        <option value="gambia">Gambia</option>
+                                        <option value="georgia">Georgia</option>
+                                        <option value="germany">Germany</option>
+                                        <option value="ghana">Ghana</option>
+                                        <option value="greece">Greece</option>
+                                        <option value="grenada">Grenada</option>
+                                        <option value="guatemala">Guatemala</option>
+                                        <option value="guinea">Guinea</option>
+                                        <option value="guinea-bissau">Guinea-Bissau</option>
+                                        <option value="guyana">Guyana</option>
+                                        <option value="haiti">Haiti</option>
+                                        <option value="honduras">Honduras</option>
+                                        <option value="hungary">Hungary</option>
+                                        <option value="iceland">Iceland</option>
+                                        <option value="india">India</option>
+                                        <option value="indonesia">Indonesia</option>
+                                        <option value="iran">Iran</option>
+                                        <option value="iraq">Iraq</option>
+                                        <option value="ireland">Ireland</option>
+                                        <option value="israel">Israel</option>
+                                        <option value="italy">Italy</option>
+                                        <option value="ivory-coast">Ivory Coast</option>
+                                        <option value="jamaica">Jamaica</option>
+                                        <option value="japan">Japan</option>
+                                        <option value="jordan">Jordan</option>
+                                        <option value="kazakhstan">Kazakhstan</option>
+                                        <option value="kenya">Kenya</option>
+                                        <option value="kiribati">Kiribati</option>
+                                        <option value="kosovo">Kosovo</option>
+                                        <option value="kuwait">Kuwait</option>
+                                        <option value="kyrgyzstan">Kyrgyzstan</option>
+                                        <option value="laos">Laos</option>
+                                        <option value="latvia">Latvia</option>
+                                        <option value="lebanon">Lebanon</option>
+                                        <option value="lesotho">Lesotho</option>
+                                        <option value="liberia">Liberia</option>
+                                        <option value="libya">Libya</option>
+                                        <option value="liechtenstein">Liechtenstein</option>
+                                        <option value="lithuania">Lithuania</option>
+                                        <option value="luxembourg">Luxembourg</option>
+                                        <option value="north-macedonia">North Macedonia</option>
+                                        <option value="madagascar">Madagascar</option>
+                                        <option value="malawi">Malawi</option>
+                                        <option value="malaysia">Malaysia</option>
+                                        <option value="maldives">Maldives</option>
+                                        <option value="mali">Mali</option>
+                                        <option value="malta">Malta</option>
+                                        <option value="marshall-islands">Marshall Islands</option>
+                                        <option value="mauritania">Mauritania</option>
+                                        <option value="mauritius">Mauritius</option>
+                                        <option value="mexico">Mexico</option>
+                                        <option value="micronesia">Micronesia</option>
+                                        <option value="moldova">Moldova</option>
+                                        <option value="monaco">Monaco</option>
+                                        <option value="mongolia">Mongolia</option>
+                                        <option value="montenegro">Montenegro</option>
+                                        <option value="morocco">Morocco</option>
+                                        <option value="mozambique">Mozambique</option>
+                                        <option value="myanmar">Myanmar</option>
+                                        <option value="namibia">Namibia</option>
+                                        <option value="nauru">Nauru</option>
+                                        <option value="nepal">Nepal</option>
+                                        <option value="netherlands">Netherlands</option>
+                                        <option value="new-zealand">New Zealand</option>
+                                        <option value="nicaragua">Nicaragua</option>
+                                        <option value="niger">Niger</option>
+                                        <option value="nigeria">Nigeria</option>
+                                        <option value="north-korea">North Korea</option>
+                                        <option value="norway">Norway</option>
+                                        <option value="oman">Oman</option>
+                                        <option value="pakistan">Pakistan</option>
+                                        <option value="palau">Palau</option>
+                                        <option value="palestine">Palestine</option>
+                                        <option value="panama">Panama</option>
+                                        <option value="papua-new-guinea">Papua New Guinea</option>
+                                        <option value="paraguay">Paraguay</option>
+                                        <option value="peru">Peru</option>
+                                        <option value="philippines">Philippines</option>
+                                        <option value="poland">Poland</option>
                                 </div>
-                                <div class="invalid-feedback">Please select a country.</div>
                             </div>
 
                             <!-- Street Address -->
@@ -458,7 +411,7 @@ $db = $database->conn;
                                     </div>
                                     <hr class="my-3">
                                     <?php
-                                    require_once '../php/Cart.php';
+                                    require_once 'php/Cart.php';
                                     $cart = new Cart($db);
                                     $cartItems = $cart->getCartItems($_SESSION['user_id']);
                                     $subtotal = 0;
@@ -467,13 +420,13 @@ $db = $database->conn;
                                         $itemTotal = $item['price'] * $item['quantity'];
                                         $subtotal += $itemTotal;
                                     ?>
-                                    <div class="d-flex justify-content-between mb-3 mt-4">
-                                        <div>
-                                            <h6 class="fw-light"><?php echo htmlspecialchars($item['name']); ?> × <?php echo $item['quantity']; ?></h6>
+                                        <div class="d-flex justify-content-between mb-3 mt-4">
+                                            <div>
+                                                <h6 class="fw-light"><?php echo htmlspecialchars($item['product_name']); ?> × <?php echo $item['quantity']; ?></h6>
+                                            </div>
+                                            <span class="fw-semibold">£<?php echo number_format($itemTotal, 2); ?></span>
                                         </div>
-                                        <span class="fw-semibold">£<?php echo number_format($itemTotal, 2); ?></span>
-                                    </div>
-                                    <hr class="my-3">
+                                        <hr class="my-3">
                                     <?php endforeach; ?>
 
                                     <div class="d-flex justify-content-between mb-3">
@@ -597,6 +550,7 @@ $db = $database->conn;
     <?php include './includes/footer.php' ?>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="js/country-select.js"></script> -->
     <script>
         $(document).ready(function() {
             // Open cart slider and load cart items
@@ -722,10 +676,10 @@ $db = $database->conn;
             // Handle form submission
             document.getElementById('checkout-form').addEventListener('submit', function(e) {
                 e.preventDefault();
-                
+
                 // Clear previous error messages
                 clearErrors();
-                
+
                 // Validate form
                 if (!validateForm()) {
                     return false;
@@ -752,18 +706,61 @@ $db = $database->conn;
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        // Redirect to order confirmation page
-                        window.location.href = 'order-confirmation.php?order_id=' + data.order_id;
+                        // Show success alert
+                        Swal.fire({
+                            title: 'Order Placed Successfully!',
+                            text: 'Thank you for your order. You will be redirected to the order confirmation page.',
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false
+                        }).then(() => {
+                            // Update all cart count elements
+                            document.querySelectorAll('.cart-count, #cart-count').forEach(el => {
+                                el.textContent = '0';
+                            });
+
+                            // Clear cart slider if it exists
+                            if (document.getElementById('cartItems')) {
+                                document.getElementById('cartItems').innerHTML = '';
+                            }
+                            
+                            // Update cart total
+                            document.querySelectorAll('.cart-total').forEach(el => {
+                                el.textContent = '£0.00';
+                            });
+
+                            // Clear the checkout form
+                            document.getElementById('checkout-form').reset();
+
+                            // Clear cart session
+                            fetch('../php/clear-cart.php')
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log('Cart cleared:', data);
+                                })
+                                .catch(error => console.error('Error clearing cart:', error));
+
+                            // Redirect to order confirmation page
+                            window.location.href = 'order-confirmation.php?order_id=' + data.order_id;
+                        });
                     } else {
                         // Show error message
-                        showError(data.message);
+                        Swal.fire({
+                            title: 'Error',
+                            text: data.message,
+                            icon: 'error'
+                        });
                         submitBtn.disabled = false;
                         submitBtn.innerHTML = originalBtnText;
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    showError('An error occurred while processing your order. Please try again.');
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'An error occurred while processing your order. Please try again.',
+                        icon: 'error'
+                    });
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = originalBtnText;
                 });
@@ -781,8 +778,6 @@ $db = $database->conn;
                 errorDiv.textContent = '';
                 errorDiv.style.display = 'none';
             }
-
-            // ... rest of your code ...
         });
     </script>
     <script>
@@ -820,6 +815,71 @@ $db = $database->conn;
                     }
                 });
             });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#checkout-form').on('submit', function(e) {
+                e.preventDefault();
+
+                // Get form data
+                var formData = new FormData(this);
+
+                // Get the submit button
+                var submitBtn = document.querySelector('button[type="submit"]');
+                var originalBtnText = submitBtn.innerHTML;
+
+                // Disable submit button and show loading state
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+
+                // Submit form via AJAX
+                $.ajax({
+                    url: '../php/checkout.php',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        try {
+                            var data = JSON.parse(response);
+                            if (data.status === 'success') {
+                                // Update cart count to 0
+                                $('.cart-count').text('0');
+
+                                // Clear cart slider if it exists
+                                $('#cartItems').empty();
+                                $('.cart-total').text('£0.00');
+
+                                // Redirect to order confirmation page
+                                window.location.href = 'order-confirmation.php?order_id=' + data.order_id;
+                            } else {
+                                showError(data.message);
+                                submitBtn.disabled = false;
+                                submitBtn.innerHTML = originalBtnText;
+                            }
+                        } catch (e) {
+                            showError('Invalid response from server');
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = originalBtnText;
+                        }
+                    },
+                    error: function() {
+                        showError('An error occurred while processing your order. Please try again.');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalBtnText;
+                    }
+                });
+            });
+
+            function showError(message) {
+                const errorDiv = document.getElementById('error-message');
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+                errorDiv.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         });
     </script>
 </body>

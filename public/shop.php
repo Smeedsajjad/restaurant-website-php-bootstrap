@@ -219,7 +219,6 @@ $categories = $categoryData->getCategories();
     <?php include './includes/footer.php' ?>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/shop/js/rangeSlider.js"></script>
-    <script src="./assets/shop/js/cart.js"></script>
     <script src="./assets/shop/js/shop.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -346,7 +345,6 @@ $categories = $categoryData->getCategories();
             updateCartCount(); // Update the cart count on page load
         });
     </script>
-    <!-- <script src="./assets/shop/js/filterProducts.js"></script> -->
 </body>
 
 </html>

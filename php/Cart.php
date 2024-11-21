@@ -49,13 +49,26 @@ class Cart {
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $userId);
         $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc();
-        return $result['count'];
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row['count'];
+    }
+
+    public function clearCart($userId) {
+        $stmt = $this->conn->prepare("DELETE FROM cart WHERE user_id = ?");
+        $stmt->bind_param("i", $userId);
+        $success = $stmt->execute();
+        $stmt->close();
+        
+        if (!$success) {
+            throw new Exception("Failed to clear cart");
+        }
+        return true;
     }
 
     // Method to get cart items
     public function getCartItems($userId) {
-        $query = "SELECT c.id, p.name AS product_name, c.quantity, p.price, p.images AS product_image
+        $query = "SELECT c.id, c.product_id, p.name AS product_name, c.quantity, p.price, p.images AS product_image
                   FROM cart c
                   JOIN products p ON c.product_id = p.id
                   WHERE c.user_id = ?";
