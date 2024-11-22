@@ -30,6 +30,9 @@ $_SESSION['logged_in'] = true;
                     </li>
                 <?php else: ?>
                     <li class="nav-item">
+                        <a class="nav-link fw-bold text-dark" href="index.php?page=orders">Orders</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link fw-bold text-dark" href="index.php?page=logout">Logout</a>
                     </li>
                 <?php endif; ?>
@@ -45,11 +48,15 @@ $_SESSION['logged_in'] = true;
                     <ul class="dropdown-menu">
                         <li>
                             <p class="dropdown-item" style="font-size: small;"><span class="fw-bold">Hi, </span><?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest'; ?></p>
-                        </li>   
+                        </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item text-primary" href="#">Menage Profile</a></li>
+                        <?php if (!isset($_SESSION['user_id'])): ?>
+                            <li><a class="dropdown-item text-dark fw-bold" href="index.php?page=signup">Create Account</a></li>                           
+                            <?php else: ?>
+                                <li><a class="dropdown-item text-dark fw-bold" href="#">Menage Profile</a></li>
+                        <?php endif; ?>
                     </ul>
                 </div>
 

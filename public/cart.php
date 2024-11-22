@@ -40,6 +40,8 @@
 
     <!-- navbar -->
     <?php include  './includes/nav.php'; ?>
+    <!-- Cart Slider -->
+    <?php include  './includes/cartSlider.php'; ?>
     <!-- Hero section -->
 
     <section class="op_hero_section" style="margin-bottom: 15vh;background-image: url(./assets/shop/images/breadcrumb1.jpg);">

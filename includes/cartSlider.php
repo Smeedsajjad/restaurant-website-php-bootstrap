@@ -17,7 +17,11 @@
                 <span id="cart-subtotal">$0.00</span>
             </p>
             <div class="mt-3">
-                <a href="index.php?page=checkout" class="btn invers_btn d-block">Checkout</a>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="index.php?page=checkout" class="btn invers_btn d-block">Checkout</a>
+                <?php else: ?>
+                    <a href="index.php?page=login" class="btn invers_btn d-block">Login to Checkout</a>
+                <?php endif; ?>
                 <a href="index.php?page=cart" class="btn outline_btn d-block mb-3 mt-3">View Cart</a>
             </div>
         </div>
