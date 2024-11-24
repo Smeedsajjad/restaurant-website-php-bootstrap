@@ -18,9 +18,6 @@ switch ($page) {
     case 'logout':
         $pageContent = $baseViewPath . 'logout.php';
         break;
-    case 'shop':
-        $pageContent = $baseViewPath . 'shop.php';
-        break;
     case 'product':
         $pageContent = $baseViewPath . 'product.php';
         break;

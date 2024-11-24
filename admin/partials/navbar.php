@@ -9,7 +9,7 @@
         </svg>
       </div>
       <div class="logo-img logo-wrap ms-3">
-      <a href="./index.php">  <img src="./assets/images/logo.png" alt="Logo" class="logo-img" /></a>
+        <a href="./index.php"> <img src="./assets/images/logo.png" alt="Logo" class="logo-img" /></a>
       </div>
     </div>
 
@@ -98,6 +98,32 @@
                   <span class="text">Manage Products</span>
                 </a>
               </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="icons">
+                <svg class="dashboard-icon" width="24px" height="24px" id="Layer_1" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                  <g id="Icon">
+                    <path d="M8.261,3.75l-0.761,0c-0.414,0 -0.75,0.336 -0.75,0.75l-0,2.5c-0,0.414 0.336,0.75 0.75,0.75l9,0c0.414,0 0.75,-0.336 0.75,-0.75l0,-2.5c0,-0.414 -0.336,-0.75 -0.75,-0.75l-0.761,0c-0.127,-1.402 -1.305,-2.5 -2.739,-2.5l-2,0c-1.434,0 -2.612,1.098 -2.739,2.5Z" />
+                    <path d="M5.75,4.75l-0.25,0c-0.967,0 -1.75,0.784 -1.75,1.75l0,14.5c0,0.967 0.784,1.75 1.75,1.75c2.727,0 10.273,0 13,0c0.966,0 1.75,-0.783 1.75,-1.75l0,-14.5c-0,-0.966 -0.783,-1.75 -1.75,-1.75l-0.25,0l0,2.25c0,0.966 -0.784,1.75 -1.75,1.75c-0,0 -9,0 -9,0c-0.966,0 -1.75,-0.784 -1.75,-1.75l0,-2.25Zm2.25,14l8,0c0.414,0 0.75,-0.336 0.75,-0.75c0,-0.414 -0.336,-0.75 -0.75,-0.75l-8,0c-0.414,0 -0.75,0.336 -0.75,0.75c0,0.414 0.336,0.75 0.75,0.75Zm0,-3.5l8,0c0.414,0 0.75,-0.336 0.75,-0.75c0,-0.414 -0.336,-0.75 -0.75,-0.75l-8,0c-0.414,0 -0.75,0.336 -0.75,0.75c0,0.414 0.336,0.75 0.75,0.75Zm1.5,-3.5l5,0c0.414,0 0.75,-0.336 0.75,-0.75c0,-0.414 -0.336,-0.75 -0.75,-0.75l-5,0c-0.414,0 -0.75,0.336 -0.75,0.75c0,0.414 0.336,0.75 0.75,0.75Z" />
+                  </g>
+                </svg>
+              </span>
+              <span class="text">Orders</span>
+              <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 256 256">
+                <rect width="256" height="256" fill="none" />
+                <polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+              </svg>
+            </a>
+            <ul class="sub-menu">
+              <li>
+                <a href="index.php?page=orders">
+                  <span class="text">Orders</span>
+                </a>
+              </li>
+
             </ul>
           </li>
         </ul>

@@ -36,8 +36,14 @@ switch ($page) {
     case 'edit-products':
         $pageContent = $baseViewPath . 'edit-products.php'; // Page to manage Products
         break;
+    case 'orders':
+        $pageContent = $baseViewPath . 'orders.php'; // Page to manage orders
+        break;
+    case 'order-view':
+        $pageContent = $baseViewPath . 'order-view.php'; // Page to view order details
+        break;
     default:
-        $pageContent = $baseViewPath . 'dashboard.php'; // Default to dashboard if no valid page is found
+        $pageContent = $baseViewPath . '404.php'; // Default to 404 page if no valid page is found
 }
 
 // Include the selected page content

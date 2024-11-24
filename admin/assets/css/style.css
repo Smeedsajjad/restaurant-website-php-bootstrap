@@ -9,6 +9,9 @@
   --white-color: #b5b5c3;
   --body-font: 'Nunito', sans-serif;
   --box-body: #0c1a33;
+  --pg-active: #4c95dd;
+  --pg-nactive: #172b4c;
+  --pg-hover: #4C95DC;
 }
 
 body {
@@ -601,3 +604,4 @@ body {
 .card-body {
   flex: 0;
 }
+/* ## Oeders ## */

@@ -1,0 +1,284 @@
+.form-control {
+    color: #c8c9d4 !important;
+  }
+  
+  .dataTables_wrapper .dataTables_filter input {
+    color: #fff !important;
+  }
+  
+  .dt-buttons {
+    margin-bottom: 15px;
+  }
+  
+  .dropdown-toggle {
+    color: #fff !important;
+    border: none !important;
+  }
+  
+  .dropdown-toggle::after {
+    display: none !important;
+  }
+  
+  .dropdown-menu {
+    background-color: var(--box-body) !important;
+    color: #fff !important;
+  }
+  
+  .dropdown-menu>li>a {
+    color: #fff !important;
+  }
+  
+  .dropdown-menu>li>a:hover {
+    color: #20304c !important;
+  
+  }
+  
+  li.paginate_button.page-item>a {
+    background-color: #172b4c !important;
+    border: none !important;
+  }
+  
+  li.paginate_button.page-item>a {
+    background-color: #4c95dd !important;
+    border: none !important;
+  }
+  
+  li.paginate_button.page-item.active>a {
+    background-color: #4c95dd !important;
+    border: none !important;
+  }
+  
+  li.paginate_button.page-item>a:hover {
+    background-color: #172b4c !important;
+    border: none !important;
+  }
+  
+  .paginate_button.page-item.previous.disabled>a {
+    background-color: transparent !important;
+    border: none !important;
+    color: #fff !important;
+  }
+  
+  .paginate_button.page-item.previous.disabled>a:hover {
+    background-color: #4C95DC !important;
+  }
+  
+  .paginate_button.page-item.next.disabled>a {
+    background-color: #4C95DC !important;
+    border: none !important;
+  }
+  
+  .dt-button {
+    background-color: #007bff !important;
+    color: white !important;
+    border: none !important;
+    padding: 5px 15px !important;
+    border-radius: 4px !important;
+    margin-right: 5px !important;
+  }
+  
+  .dt-button:hover {
+    background-color: #0056b3 !important;
+    color: white !important;
+  }
+  
+  /* Make table background transparent */
+  .table {
+    background-color: transparent !important;
+  }
+  
+  .table thead th {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  .table tbody td {
+    background-color: transparent !important;
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+  }
+  
+  .dataTables_wrapper .dataTables_length,
+  .dataTables_wrapper .dataTables_filter,
+  .dataTables_wrapper .dataTables_info,
+  .dataTables_wrapper .dataTables_processing,
+  .dataTables_wrapper .dataTables_paginate {
+    color: #fff !important;
+  }
+  
+  .dataTables_wrapper .dataTables_paginate .paginate_button {
+    color: #fff !important;
+  }
+  
+  .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+  .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+  }
+  
+  .card-header {
+    background-color: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  input.form-control.form-control-sm {
+    background: transparent;
+    border-radius: 15px;
+    color: #fff;
+  }
+  
+  .status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    display: inline-block;
+  }
+  
+  .status-pending {
+    background-color: #ffd700;
+    color: #000;
+  }
+  
+  .status-processing {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .status-shipped {
+    background-color: #17a2b8;
+    color: #fff;
+  }
+  
+  .status-delivered {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .status-cancelled {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  #currentStatusBadge .status-badge {
+    font-size: 1rem;
+  }
+  
+  .status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    display: inline-block;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .status-badge:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  
+  .status-option .status-badge {
+    opacity: 0.7;
+  }
+  
+  .status-option .status-badge.active {
+    opacity: 1;
+    border-color: #fff;
+    box-shadow: 0 0 0 2px #666;
+  }
+  
+  .status-pending {
+    background-color: #ffd700;
+    color: #000;
+  }
+  
+  .status-processing {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .status-shipped {
+    background-color: #17a2b8;
+    color: #fff;
+  }
+  
+  .status-delivered {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .status-cancelled {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  #currentStatusBadge .status-badge {
+    font-size: 1rem;
+    cursor: default;
+  }
+  
+  #currentStatusBadge .status-badge:hover {
+    transform: none;
+  }
+  
+  .modal-content {
+    background-color: #2b3035;
+    color: #fff;
+  }
+  
+  .modal-header {
+    border-bottom-color: #454d55;
+  }
+  
+  .modal-footer {
+    border-top-color: #454d55;
+  }
+  
+  .form-label {
+    color: #adb5bd;
+  }
+  
+  .form-select {
+    background-color: var(--box-body) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  }
+  
+  .form-select option {
+    background-color: var(--box-body) !important;
+    color: #fff !important;
+  }
+  
+  .form-select option:checked {
+    background-color: #4C95DC !important;
+  }
+  
+  .form-select option.status-processing {
+    color: #007bff !important;
+  }
+  
+  .form-select option.status-shipped {
+    color: #17a2b8 !important;
+  }
+  
+  .form-select option.status-delivered {
+    color: #28a745 !important;
+  }
+  
+  .form-select option.status-cancelled {
+    color: #dc3545 !important;
+  }
+  .button.btn.btn-primary.text-white.dropdown-item.edit-status-btn:hover ,.dropdown-item:focus, .dropdown-item:hover{
+    color: #000 !important;
+  }

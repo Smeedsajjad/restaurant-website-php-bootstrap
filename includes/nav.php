@@ -16,10 +16,10 @@ $_SESSION['logged_in'] = true;
                     <a class="nav-link fw-bold text-dark" href="index.php?page=about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fw-bold text-dark" href="index.php?page=shop">Shop</a>
+                    <a class="nav-link fw-bold text-dark" href="index.php?page=contact">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fw-bold text-dark" href="index.php?page=blog">Blog</a>
+                    <a class="nav-link fw-bold text-dark" href="index.php?page=shop">Shop</a>
                 </li>
                 <?php if (!isset($_SESSION['user_id'])): ?>
                     <li class="nav-item">
@@ -53,9 +53,9 @@ $_SESSION['logged_in'] = true;
                             <hr class="dropdown-divider">
                         </li>
                         <?php if (!isset($_SESSION['user_id'])): ?>
-                            <li><a class="dropdown-item text-dark fw-bold" href="index.php?page=signup">Create Account</a></li>                           
-                            <?php else: ?>
-                                <li><a class="dropdown-item text-dark fw-bold" href="#">Menage Profile</a></li>
+                            <li><a class="dropdown-item text-dark fw-bold" href="index.php?page=signup">Create Account</a></li>
+                        <?php else: ?>
+                            <li><a class="dropdown-item text-dark fw-bold" href="#">Menage Profile</a></li>
                         <?php endif; ?>
                     </ul>
                 </div>
