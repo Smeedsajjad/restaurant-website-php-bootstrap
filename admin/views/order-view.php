@@ -153,7 +153,7 @@ try {
 <body>
     <?php include __DIR__ . '/../partials/navbar.php'; ?>
 
-    <main class="content px-3 py-2">
+    <main class="main-content content px-3 py-2">
         <div class="container-fluid">
             <div class="mb-3">
                 <h2 class="text-white">Order<?php echo isset($_GET['id']) ? ' #' . htmlspecialchars($_GET['id']) : 's'; ?></h2>

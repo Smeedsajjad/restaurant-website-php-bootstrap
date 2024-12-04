@@ -66,7 +66,7 @@ $_SESSION['last_activity'] = time();
     <?php
     include './partials/navbar.php';
     ?>
-    <main>
+    <main class="main-content">
         <h2 class="text-capitalize" >
             <?php
         if (isset($_SESSION['username'])) {

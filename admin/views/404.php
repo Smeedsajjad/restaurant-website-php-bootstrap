@@ -55,17 +55,19 @@
 <body>
     <?php include __DIR__ . '/../partials/navbar.php'; ?>
 
-    <main class="content px-3 py-2">
-        <div class="container-fluid">
-            <div class="error-container">
-                <div class="error-code">404</div>
+    <main class="main-content">
+        <div class="content px-3 py-2">
+            <div class="container-fluid">
+                <div class="error-container">
+                    <div class="error-code">404</div>
                 <div class="error-message">Oops! The page you're looking for doesn't exist.</div>
                 <a href="index.php" class="btn btn-primary back-button">
                     <i class="fas fa-home me-2"></i>Back to Dashboard
                 </a>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

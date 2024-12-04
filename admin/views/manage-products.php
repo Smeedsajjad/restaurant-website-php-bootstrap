@@ -101,7 +101,7 @@ if (isset($_POST['delete_product'])) {
     include __DIR__ . '/../partials/navbar.php';
     ?>
 
-    <main>
+    <main class="main-content">
         <!-- Delete Modal -->
         <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">

@@ -90,7 +90,7 @@ if (isset($_POST['delete_category'])) {
     include __DIR__ . '/../partials/navbar.php';
     ?>
 
-    <main>
+    <main class="main-content">
 
 
         <!-- Modal -->
