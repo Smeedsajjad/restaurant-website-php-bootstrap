@@ -1,105 +1,99 @@
 ```bash
-restaurant-website/
-│
-├── admin/                         # Admin panel for managing restaurant content
-│   ├── css/                       # Admin CSS files
-│   ├── js/                        # Admin JavaScript files
-│   ├── php/                       # PHP scripts for admin functionalities
-│   │   ├── ProductController.php
-│   │   ├── CategoryController.php
-│   │   ├── UserController.php
-│   │   └── Database.php
-│   ├── views/                     # Admin panel views
-│   │   ├── add-products.php
-│   │   ├── edit-products.php
-│   │   ├── product-list.php
-│   │   └── dashboard.php
-│   └── index.php                  # Entry point for the admin panel
-│
-├── assets/                        # Public assets for the restaurant website
-│   ├── css/                       # Stylesheets for the frontend
-│   ├── js/                        # JavaScript
-│   ├── images/                    # Images used in the website
-│   └── fonts/                     # Custom fonts if any
-│
-├── includes/                      # Commonly used files
-│   ├── header.php                 # Header HTML
-│   ├── footer.php                 # Footer HTML
-│   └── nav.php                    # It includ cart navbar etc...
-│
-├── php/
-|                        # Controller & other php code
-|
-├── public/                        # Publicly accessible files
-│   ├── index.php                  # Home page
-│   ├── menu.php                   # Menu page
-│   ├── about.php                  # About page
-│   ├── contact.php                # Contact page
-│   ├── signup.php                # SignUp page
-│   ├── reservations.php           # Reservation page
-│   ├── gallery.php                # Gallery page
-│   └── 404.php                    # 404 error page
-│
-├── .htaccess                      # Apache configuration for URL rewriting
-├── composer.json                  # Composer dependencies (if using)
-├── package.json                   # Node.js dependencies (if using)
-└── README.md                      # Project documentation
-```
+# Admin Dashboard with Checkout and Transaction Functionality
 
-<h1>Later Add this code</h1>
-  <h2>Welcome to the Restaurant Management System</h2>
-    <p>Hello,<?php
-                // Check if the user is logged in and display the username or a default message
-                echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Guest';
-                ?>!
-    </p>
+This is a web-based **Admin Dashboard** application that includes analytics, charts, user authentication, Google login functionality, and a fully functional checkout process with transaction support. It is deployed on [Railway.app](https://railway.app) and linked to a Git repository for continuous deployment.
 
-    <?php if (!isset($_SESSION['user_id'])): ?>
-        <p><a href="index.php?page=login">Login</a> or <a href="index.php?page=signup">Sign Up</a> to enjoy more features.</p>
-    <?php endif; ?>
+## Features
 
+- **Admin Dashboard**: Includes charts, analytics, and user management.
+- **User Authentication**:
+  - Login/Registration
+- **Session Management**:
+  - Session timeout after a configurable duration.
+- **Responsive Design**:
+  - Built with Bootstrap and custom CSS.
+- **Customizable Views**:
+  - Dynamic page rendering based on the URL.
 
-      <div class="col-md-4 fw-semibold p-4" style="border: 6px solid #e5e5e5;">
-                        <h2 class="text-capitalize border-bottom mb-2">Cart Totals</h2>
-                        <?php
-                        // Initialize subtotal and total
-                        $subtotal = 0;
+## Tech Stack
 
-                        // Calculate subtotal
-                        foreach ($cartData as $item) {
-                            $subtotal += $item['price'] * $item['quantity'];
-                        }
+- **Frontend**: HTML, CSS, Bootstrap
+- **Backend**: PHP
+- **Database**: MySQL
+- **Version Control**: Git
 
-                        // Calculate total
-                        $shippingCost = 0; // Set shipping cost if applicable
-                        $total = $subtotal + $shippingCost;
+## Installation
 
-                        // Format the values for display
-                        $formattedSubtotal = number_format($subtotal, 2);
-                        $formattedTotal = number_format($total, 2);
-                        ?>
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/your-repo.git
+   cd your-repo
 
-                        <form action="" method="post">
-                            <table class="table table-borderless">
-                                <tbody>
-                                    <tr class="cart-subtotal mb-2">
-                                        <th>Subtotal</th>
-                                        <td class="text-end"><span id="subtotal">£<?php echo $formattedSubtotal; ?></span></td>
-                                    </tr>
-                                    <tr class="shipping-totals shipping">
-                                        <th>Shipping</th>
-                                        <td class="text-end">
-                                            <span class="text-muted" style="font-size: 14px;">Shipping costs are calculated during checkout.</span>
-                                        </td>
-                                    </tr>
-                                    <tr class="order-total">
-                                        <th>Total</th>
-                                        <td class="text-end"><strong><span id="total">£<?php echo $formattedTotal; ?></span></strong></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button type="submit" class="btn btn-warning text-capitalize w-100 mt-3" style="font-weight: bold;">
-                                Proceed to checkout
-                            </button>
-                        </form>
-                    </div>
+Install dependencies:
+
+Ensure you have a server like XAMPP or Laragon to run PHP locally.
+Install Composer dependencies (if applicable).
+Configure the environment:
+
+Create a .env file for database credentials and other configurations.
+env
+Copy code
+DB_HOST=your-database-host
+DB_NAME=your-database-name
+DB_USER=your-database-username
+DB_PASSWORD=your-database-password
+Run the application:
+
+Locally: Start your server and navigate to http://localhost/your-project.
+Deployed: Access your Railway.app URL.
+Deployment on Railway.app
+Link your Git repository to Railway.
+
+Set environment variables in the Railway dashboard:
+
+Database credentials.
+API keys for Google OAuth and payment gateways.
+Push changes to the linked Git repository.
+
+bash
+Copy code
+git add .
+git commit -m "Initial commit"
+git push origin main
+Access your deployed app via the provided Railway URL.
+
+Usage
+Dashboard
+Log in with your admin credentials or use the Google login feature.
+Access analytics, charts, and user management tools.
+Checkout Process
+Add items to your cart.
+Proceed to checkout.
+Complete the transaction using the integrated payment gateway.
+Screenshots
+Dashboard Overview
+
+Checkout Page
+
+Contributing
+Fork the repository.
+Create a new branch for your feature:
+bash
+Copy code
+git checkout -b feature-name
+Commit your changes and open a pull request.
+License
+This project is licensed under the MIT License.
+
+Contact
+If you encounter any issues or have suggestions, feel free to reach out:
+
+Email: your-email@example.com
+LinkedIn: Your LinkedIn Profile
+markdown
+Copy code
+
+### How to Use
+1. Replace placeholders like `your-username`, `your-repo`, `your-email@example.com`, etc., with actual details.
+2. Add screenshots of your application to showcase its features.
+3. Save this file as `README.md` in the root of your Git repository.
