@@ -34,16 +34,16 @@ switch ($page) {
         $pageContent = $baseViewPath . 'checkout.php';
         break;
     case 'menu':
-        $pageContent = $baseViewPath . 'menu.html';
+        $pageContent = $baseViewPath . 'menu.php';
         break;
     case 'contact':
-        $pageContent = $baseViewPath . 'contact.html';
+        $pageContent = $baseViewPath . 'contact.php';
         break;
     case 'shop':
-        $pageContent = $baseViewPath . 'shop.html';
+        $pageContent = $baseViewPath . 'shop.php';
         break;
     case 'about':
-        $pageContent = $baseViewPath . 'about.html';
+        $pageContent = $baseViewPath . 'about.php';
         break;
     case '404':
         $pageContent = $baseViewPath . '404.php';

@@ -10,7 +10,7 @@ $_SESSION['logged_in'] = true;
         <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active fw-bold text-dark" aria-current="page" href="index.php?page=home">Home</a>
+                    <a class="nav-link fw-bold text-dark" aria-current="page" href="index.php?page=home">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fw-bold text-dark" href="index.php?page=about">About</a>

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 :root {
     --primary: #ffc222;
     --primary_hover: #eeac00;
@@ -17,6 +18,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
 }
 
 body {
@@ -1451,6 +1453,12 @@ input[type="range"]::-moz-range-thumb {
     .zoom-area {
         left: 0px;
     }
+    .md-none{
+        display: none !important;
+    }
+    .md-center{
+        text-align: center !important;
+    }
 }
 
 /* for create magnify glass */
@@ -1620,4 +1628,191 @@ input[type="range"]::-moz-range-thumb {
 }
 #tableImg{
     width: 90px !important;
+}
+/* ## About Us ## */
+.norican{
+    font-family: 'Norican', sans-serif;
+    color: var(--primary);
+}
+.img-hover{
+    transition: transform 0.3s ease;
+}
+.img-hover:hover{
+    transform: translateY(-7px);
+}
+
+.video-section {
+    position: relative; /* Ensure child elements position correctly */
+    height: 70vh;
+    background-image: url(../images/bg-video.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+}
+
+.video-container-fluid {
+    position: relative;
+    height: 100%; /* Matches the height of the parent section */
+}
+
+.video-container-fluid::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* Background overlay */
+    opacity: 0.6; /* Adjust opacity for the overlay */
+    z-index: 1; /* Stays behind other elements */
+}
+
+.video-container-fluid > div {
+    position: relative;
+    z-index: 2; /* Ensures content appears above the overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.video-play-button {
+    position: relative;
+    z-index: 3; /* Ensures the button appears above everything */
+    margin: 30px;
+    box-sizing: content-box;
+    display: block;
+    width: 32px;
+    height: 44px;
+    background: var(--primary_hover);
+    border-radius: 50%;
+    padding: 18px 20px 18px 28px;
+}
+
+.video-play-button:before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: block;
+    width: 80px;
+    height: 80px;
+    background: var(--primary);
+    border-radius: 50%;
+    animation: pulse-border 1500ms ease-out infinite;
+}
+
+.video-play-button:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: block;
+    width: 80px;
+    height: 80px;
+    background: var(--primary);
+    border-radius: 50%;
+    transition: all 200ms;
+}
+
+.video-play-button:hover:after {
+    background-color: darken(var(--primary), 10%);
+}
+
+.video-play-button span {
+    display: block;
+    position: relative;
+    z-index: 3;
+    width: 0;
+    height: 0;
+    border-left: 32px solid #fff;
+    border-top: 22px solid transparent;
+    border-bottom: 22px solid transparent;
+}
+
+@keyframes pulse-border {
+    0% {
+        transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.5);
+        opacity: 0;
+    }
+}
+.animated-image {
+    opacity: 0; /* Initially hidden */
+    transform: translateY(50px); /* Start position */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animated-image.animate {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* End position */
+}
+@media (min-width: 768px) {
+    .lg-none {
+        display: none;
+    }
+}
+/* Default animation styles */
+.animate {
+    opacity: 0;
+    transform: translateX(0);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.from-left {
+    transform: translateX(-50px);
+}
+
+.from-right {
+    transform: translateX(50px);
+}
+
+.animate.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+.text-hover{
+    transition: color 0.1s ease;
+}
+.text-hover:hover{
+    color: var(--primary);
+}
+.staf-badge {
+    background-color: var(--primary);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    height: 30px;
+    width: fit-content;
+    position: relative;
+    top: -15px;
+    margin: 0 auto; /* Center horizontally */
+}
+.contact-container {
+    display: flex;
+    justify-content: space-around; /* Distribute space evenly */
+    align-items: center; /* Center items vertically */
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    text-align: center; /* Center text */
+}
+
+.contact-info svg {
+    fill: var(--primary_hover); /* Set the SVG color */
+    color: var(--primary_hover); /* Set the SVG color */
+    margin-bottom: 1rem; /* Add space below the SVG */
 }

@@ -99,39 +99,40 @@ function handleMouseLeave() {
 // Initial animations on page load
 function startAnimations() {
   const elements = [
-    '.h1_tomato',
-    '.h1_left_leaf',
-    '.h2_right_leaf',
-    '.h1_mint',
-    '.h2_mushroom'
+    ".h1_tomato",
+    ".h1_left_leaf",
+    ".h2_right_leaf",
+    ".h1_mint",
+    ".h2_mushroom",
   ];
 
-  elements.forEach(selector => {
+  elements.forEach((selector) => {
     const element = document.querySelector(selector);
     if (element) {
-      element.classList.add('animate');
+      element.classList.add("animate");
     }
   });
 }
 
 function setupInitialAnimations() {
   // Set initial styles for elements
-  leftLeaf.style.transform = 'translateY(100px)';
-  rightLeaf.style.transform = 'translateY(100px)';
-  sprinkleImage.style.transform = 'rotate(0deg) translateY(0px)';
-  mushroomImage.style.transform = 'rotate(0deg) translateY(0px)';
-  tomatoImage.style.transform = 'translateX(0) translateY(0)';
-  mintImage.style.transform = 'rotateX(0) rotateY(0) translateX(0) translateY(0)';
-  pizzaImage.style.transform = 'translateY(0)';
+  leftLeaf.style.transform = "translateY(100px)";
+  rightLeaf.style.transform = "translateY(100px)";
+  sprinkleImage.style.transform = "rotate(0deg) translateY(0px)";
+  mushroomImage.style.transform = "rotate(0deg) translateY(0px)";
+  tomatoImage.style.transform = "translateX(0) translateY(0)";
+  mintImage.style.transform =
+    "rotateX(0) rotateY(0) translateX(0) translateY(0)";
+  pizzaImage.style.transform = "translateY(0)";
 
   // Add transition properties for smooth animations
-  leftLeaf.style.transition = 'transform 0.5s ease-out';
-  rightLeaf.style.transition = 'transform 0.5s ease-out';
-  sprinkleImage.style.transition = 'transform 0.5s ease-out';
-  mushroomImage.style.transition = 'transform 0.5s ease-out';
-  tomatoImage.style.transition = 'transform 0.5s ease';
-  mintImage.style.transition = 'transform 1s ease';
-  pizzaImage.style.transition = 'transform 0.5s ease-out';
+  leftLeaf.style.transition = "transform 0.5s ease-out";
+  rightLeaf.style.transition = "transform 0.5s ease-out";
+  sprinkleImage.style.transition = "transform 0.5s ease-out";
+  mushroomImage.style.transition = "transform 0.5s ease-out";
+  tomatoImage.style.transition = "transform 0.5s ease";
+  mintImage.style.transition = "transform 1s ease";
+  pizzaImage.style.transition = "transform 0.5s ease-out";
 }
 
 // Event listeners
@@ -157,46 +158,29 @@ sprinkleImage.style.transition = "transform 0.1s ease-out";
 pizzaImage.style.transform = "translateY(var(--translateY))";
 pizzaImage.style.setProperty("--e-transform-transition-duration", "100ms");
 
-
-document.addEventListener("DOMContentLoaded", function() {
-  const products = document.querySelectorAll('.product-cat');
+document.addEventListener("DOMContentLoaded", function () {
+  const products = document.querySelectorAll(".product-cat");
   let delay = 0; // Initialize delay
 
   // Create an IntersectionObserver to detect when elements are visible in the viewport
-  let observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-          if (entry.isIntersecting) {
-              // Add a delay to each product before making it visible
-              setTimeout(() => {
-                  entry.target.classList.add('visible'); // Add class to animate
-              }, delay);
-              delay += 150; // Increase delay for the next product (150ms)
-          }
+  let observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Add a delay to each product before making it visible
+          setTimeout(() => {
+            entry.target.classList.add("visible"); // Add class to animate
+          }, delay);
+          delay += 150; // Increase delay for the next product (150ms)
+        }
       });
-  }, { threshold: 0.1 }); // Trigger when 10% of the element is in view
+    },
+    { threshold: 0.1 }
+  ); // Trigger when 10% of the element is in view
 
   // Observe each product category
-  products.forEach(product => {
-      observer.observe(product);
+  products.forEach((product) => {
+    observer.observe(product);
   });
 });
 
-
-document.addEventListener("DOMContentLoaded", function () {
-  const contents = document.querySelectorAll('.hero2-content-1, .hero2-content-2, .hero2-content-3, .content');
-  
-  // Observer to trigger animations when elements enter the viewport
-  const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-          if (entry.isIntersecting) {
-              entry.target.style.animationPlayState = 'running';
-              observer.unobserve(entry.target); // Only observe once
-          }
-      });
-  });
-
-  contents.forEach(content => {
-      content.style.animationPlayState = 'paused'; // Initially pause the animation
-      observer.observe(content);
-  });
-});
