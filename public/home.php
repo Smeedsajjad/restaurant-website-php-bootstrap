@@ -2,12 +2,8 @@
 session_start();
 ob_clean();
 // Include necessary configuration and class files
-require_once './config/config.php'; // Adjusted path to config.php
 require_once './admin/php/ProductController.php'; // Adjusted path to ProductController
 
-// Create a new database connection
-$database = new Database();
-$dbConnection = $database->conn;
 
 // Pass the database connection to the ProductController
 $productController = new ProductController($dbConnection);

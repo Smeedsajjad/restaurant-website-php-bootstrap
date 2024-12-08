@@ -1,17 +1,21 @@
 <?php
 // Include necessary configuration and class files
 require_once './admin/config/config.php';
-require './admin/php/ProductController.php';
+require_once './admin/php/ProductController.php';
+require_once './php/Contact.php';
 // Create a new database connection
 $database = new Database();
 $dbConnection = $database->conn;
-
 
 // Create a new instance of ProductController
 $productController = new ProductController($dbConnection);
 // Get the product ID from the URL
 $productId = isset($_GET['id']) ? $_GET['id'] : null;
 $product = $productController->getProduct($productId);
+$contactController = new ContactController($dbConnection);
+if (isset($product['id'])) {
+    $reviews = $contactController->getReviews($product['id']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -44,11 +48,7 @@ $product = $productController->getProduct($productId);
     <link rel="stylesheet" href="assets/shop/css/style.css">
     <link rel="stylesheet" href="assets/shop/css/navbar.css">
     <title><?php echo htmlspecialchars($product['name']); ?></title>
-    <style>
-        .small {
-            display: block;
-        }
-    </style>
+
 </head>
 
 <body>
@@ -115,35 +115,60 @@ $product = $productController->getProduct($productId);
                     <div class="rating d-inline">
                         <div class="rating d-inline">
                             <?php
-                            // Check if the product has a rating
-                            $rating = isset($product['rating']) ? $product['rating'] : 0; // Default to 0 if not set
-                            $reviewCount = isset($product['review_count']) ? $product['review_count'] : 0; // Assuming you have a review count field
+                            // Assuming you already have a database connection in $dbConnection
 
-                            // Display stars based on product rating
-                            for ($i = 1; $i <= 5; $i++) {
-                                // Set star color based on rating
-                                $starClass = ($i <= $rating) ? 'fa-star checked' : 'fa-star text-muted';
-                                echo '<span class="fa ' . $starClass . '"></span>';
+                            // Check if product_id is set and valid
+                            if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+                                $product_id = intval($_GET['id']); // Sanitize product_id
+
+                                // Fetch average rating and review count for the product
+                                $stmt = $dbConnection->prepare("SELECT AVG(rating) AS average_rating, COUNT(*) AS review_count FROM reviews WHERE product_id = ?");
+                                $stmt->bind_param("i", $product_id); // Bind the product ID
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                                $data = $result->fetch_assoc();
+
+                                // Handle data
+                                $averageRating = isset($data['average_rating']) ? round($data['average_rating'], 1) : 0; // Round to 1 decimal
+                                $reviewCount = isset($data['review_count']) ? intval($data['review_count']) : 0;
+                            } else {
+                                $averageRating = 0;
+                                $reviewCount = 0;
                             }
-
-                            echo " </div>";
-                            echo ' <p class="customer_reviews_trigger mx-2 text-muted d-inline">(' . htmlspecialchars($reviewCount) . ' customer reviews)</p>';
                             ?>
-                            <p class="text-muted mt-3"><?php echo htmlspecialchars($product['tagline']); ?></p>
-                            <h3 class="mb-0 price fw-bold">£<?php echo htmlspecialchars($product['price']); ?></h3>
-                            <hr>
-                            <div class="row">
-                                <div class="quantity col-4">
-                                    <button class="btn fw-semibold" id="decrease-quantity">-</button>
-                                    <input class="fw-semibold" type="number" id="quantity" value="1" min="1" style="width: 50px; text-align: center;" />
-                                    <button class="btn fw-semibold" id="increase-quantity">+</button>
-                                </div>
-                                <button class="btn bg-warning col-6 invers_btn" id="add-to-cart" data-id="<?php echo $product['id']; ?>">
-                                    <i class="fa-solid fa-basket-shopping mx-2"></i>Add to cart
-                                </button>
-                                <button class="btn col-1"><i class="fa fa-heart"></i></button>
+
+                            <!-- Display the average rating and review count -->
+                            <p class="customer_reviews_trigger mx-2 text-muted d-inline">
+                                <?php if ($reviewCount > 0): ?>
+                                    <span>
+                                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                                            <i
+                                                class="fa fa-star" aria-hidden="true" style="color: <?php echo ($i <= $averageRating) ? 'warning' : 'gray'; ?>;">
+                                            </i>
+                                        <?php endfor; ?>
+                                    </span>
+                            <p><small class="text-muted text-hover">(<?php echo htmlspecialchars($reviewCount); ?> customer reviews)</small></p>
+                        <?php else: ?>
+                            <span>No reviews yet</span>
+                        <?php endif; ?>
+                        </p>
+
+
+                        <p class="text-muted mt-3"><?php echo htmlspecialchars($product['tagline']); ?></p>
+                        <h3 class="mb-0 price fw-bold">£<?php echo htmlspecialchars($product['price']); ?></h3>
+                        <hr>
+                        <div class="row">
+                            <div class="quantity col-4">
+                                <button class="btn fw-semibold" id="decrease-quantity">-</button>
+                                <input class="fw-semibold" type="number" id="quantity" value="1" min="1" style="width: 50px; text-align: center;" />
+                                <button class="btn fw-semibold" id="increase-quantity">+</button>
                             </div>
-                                 </div>
+                            <button class="btn bg-warning col-6 invers_btn" id="add-to-cart" data-id="<?php echo $product['id']; ?>">
+                                <i class="fa-solid fa-basket-shopping mx-2"></i>Add to cart
+                            </button>
+                            <button class="btn col-1"><i class="fa fa-heart"></i></button>
+                        </div>
+                        </div>
 
                         <small class="text-muted d-block"><strong>Category:</strong> <a class="cat_name_p text-muted" href="#">category_name</a></small> <small class="d-inline">Share:</small>
                         <div class="social-share d-inline">
@@ -169,7 +194,7 @@ $product = $productController->getProduct($productId);
                 </div>
             </div>
 
-            <div class="container-fluid mt-5 mb-5">
+            <div class="container mt-5 mb-5">
                 <div class="row">
                     <div class="mb-5" style="display: flex; justify-content: center; gap: 20px;">
                         <button class="btn btn-lg drb" style="flex: 1; max-width: 150px;" id="btn-description">Description</button>
@@ -177,45 +202,45 @@ $product = $productController->getProduct($productId);
                     </div>
                     <div class="row">
                         <div class="description text-muted" id="description-section">
-                            <p><?php echo htmlspecialchars($product['desc']); ?></p>
-                            <p><strong>Ingredients:</strong> Dr. Praeger’s Black Bean Burger, Focaccia bun, Balsamic
-                                Vinaigrette, Pesto, Tomato, Swiss Cheese</p>
+                            <p><?php echo htmlspecialchars($product['desc']); ?></p><br>
+                            <p><strong>Ingredients:</strong> <?php echo htmlspecialchars($product['ingredients']); ?></p>
                         </div>
-                        <div class="customer_review mt-5" id="reviews-section customer_review" style="display: none;">
+                        <div class="customer_review mt-5" id="reviews-section">
                             <div class="row">
                                 <div class="col-md-6 mb-5">
-                                    <div class="review">
-                                        <div class="d-flex align-items-center"> <!-- Flex container -->
-                                            <!-- <img src="../admin/uploads/default.png" alt="Duc Pham" class="profile-img" /> -->
-                                            <div class="ms-2"> <!-- Margin start for spacing -->
-                                                <div>
-                                                    <span class="fa fa-star text-warning"></span>
-                                                    <span class="fa fa-star text-warning"></span>
-                                                    <span class="fa fa-star text-warning"></span>
-                                                    <span class="fa fa-star text-warning"></span>
-                                                    <span class="fa fa-star text-warning"></span>
-                                                </div>
-                                                <p><strong class="me-3">Duc Pham</strong> <span><i class="fa fa-clock"></i>
-                                                        September 4, 2020</span></p>
-                                            </div>
-                                        </div>
-                                        <p class="text-muted">I am 6 feet tall and 220 lbs. This shirt fit me perfectly in
-                                            the chest and
-                                            shoulders. My only complaint is that it is so long! I like to wear polo shirts
-                                            untucked. This shirt goes completely past my rear end. If I wore it with
-                                            ordinary shorts, you probably wouldn't be able to see the shorts at all –
-                                            completely hidden by the shirt. It needs to be 4 to 5 inches shorter in terms of
-                                            length to suit me. I have many RL polo shirts, and this one is by far the
-                                            longest. I don't understand why.</p>
-                                    </div>
+                                    <?php
+                                    if (!empty($reviews)) {
+                                        foreach ($reviews as $review) {
+                                            echo '<div class="review border p-4 rounded shadow-sm mb-4">';
+                                            echo '<div class="d-flex align-items-center">';
+                                            echo '<img src="assets/shop/images/profile.png" alt="' . htmlspecialchars($review['name']) . '" class="profile-img rounded-circle" style="width: 50px; height: 50px; object-fit: cover;" />';
+                                            echo '<div class="ms-3">';
+                                            echo '<p><strong class="me-3">' . htmlspecialchars($review['name']) . '</strong>';
+                                            echo '<span><i class="fa fa-clock"></i> ' . date('F j, Y, g:i a', strtotime($review['created_at'])) . '</span></p>';
+                                            echo '<div>';
+                                            for ($i = 1; $i <= 5; $i++) {
+                                                echo '<span class="fa fa-star' . (($i <= $review['rating']) ? ' text-warning' : ' text-muted') . '"></span>';
+                                            }
+                                            echo '</div>';
+                                            echo '<p class="text-muted mt-2">' . nl2br(htmlspecialchars($review['review'])) . '</p>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                        }
+                                    } else {
+                                        echo '<h1 class="text-dark text-center mt-5 text-bold">No reviews yet.</h1>';
+                                    }
+                                    ?>
                                 </div>
+
+
                                 <div class="col-md-6">
                                     <p class="text-muted mb-3">Your email address will not be published. Required fields are
                                         marked <small class="text-danger">*</small></p>
-                                    <form>
+                                    <form id="review-form" novalidate>
+                                        <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($_GET['id']); ?>" />
                                         <div class="form-group">
-                                            <label for="rating text-dark fw-semibold">Your rating <small
-                                                    class="text-danger">*</small></label>
+                                            <label for="rating text-dark fw-semibold">Your rating <small class="text-danger">*</small></label>
                                             <div id="star-rating" class="star-rating" required>
                                                 <span class="fa fa-star" data-value="1"></span>
                                                 <span class="fa fa-star" data-value="2"></span>
@@ -224,69 +249,65 @@ $product = $productController->getProduct($productId);
                                                 <span class="fa fa-star" data-value="5"></span>
                                             </div>
                                             <input type="hidden" id="rating-value" name="rating" value="0" required>
-                                            <small class="text-danger" id="rating-error" style="display: none;">Please
-                                                select a rating.</small>
+                                            <small class="text-danger" id="rating-error" style="display: none;">Please select a rating.</small>
                                         </div>
                                         <div class="form-group mt-2">
                                             <label for="review">Your review <small class="text-danger">*</small></label>
-                                            <textarea id="review" class="form-control" rows="4" required></textarea>
+                                            <textarea id="review" class="form-control" rows="4" minlength="10" required></textarea>
+                                            <div class="invalid-feedback">Please enter at least 10 characters for your review.</div>
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Name <small class="text-danger">*</small></label>
-                                            <input type="text" id="name" class="form-control" required />
+                                            <input type="text" id="name" class="form-control" minlength="3" required />
+                                            <div class="invalid-feedback">Please enter your name (at least 3 characters).</div>
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Email <small class="text-danger">*</small></label>
                                             <input type="email" id="email" class="form-control" required />
+                                            <div class="invalid-feedback">Please enter a valid email address.</div>
                                         </div>
                                         <button class="btn btn-warning btn-lg order-now-btn" type="submit">Submit</button>
                                     </form>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Related Products -->
-            <div class="container-fluid mt-5 mb-5">
-                <div class="row">
-                    <div class="text-center">
-                        <h1 class="mb-5">Related products</h1>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card myCard" style="width: 100%;border-radius: 15px;">
-                            <div class="card-img-wrapper">
-                                <i class="fas fa-heart favorite_icon"></i>
-                                <img src="../admin/uploads/products/671fbd6503d1a_Apricot_Chicken.png"
-                                    class="card-img-top card-img" alt="">
-                            </div>
-                            <div class="card-body">
-                                <p>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </p>
-                                <h5 class="card-title myCardText">Vegge Lover</h5>
-                                <p class="card-text" style="color: #999999; font-size: 13px;">Extra-virgin olive oil,
-                                    garlic,...</p>
-                                <p class="price d-inline fs-3">$14.90</p>
-                                <a href="#" class="btn p-0 position-absolute" style="right: 0;margin: 20px;">
-                                    <i class="fa-solid fa-basket-shopping myCart"
-                                        style="background-color: var(--primary);"></i>
-                                </a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
             </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100;"></div>
     </main>
     <?php include './includes/footer.php' ?>
     <!-- Include jQuery from a CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const descriptionButton = document.getElementById('btn-description');
+            const reviewsButton = document.getElementById('btn-reviews');
+            const descriptionSection = document.getElementById('description-section');
+            const reviewsSection = document.getElementById('reviews-section');
+
+            // Show description and hide reviews by default
+            descriptionSection.style.display = 'block';
+            reviewsSection.style.display = 'none';
+
+            descriptionButton.addEventListener('click', function() {
+                descriptionSection.style.display = 'block';
+                reviewsSection.style.display = 'none';
+            });
+
+            reviewsButton.addEventListener('click', function() {
+                reviewsSection.style.display = 'block';
+                descriptionSection.style.display = 'none';
+            });
+        });
+
         $(document).ready(function() {
             $('#add-to-cart').on('click', function() {
                 let productId = $(this).data('id');
@@ -365,8 +386,110 @@ $product = $productController->getProduct($productId);
             // Initial cart count update on page load
             updateCartCount();
         });
+        document.querySelectorAll('#star-rating .fa-star').forEach(star => {
+            star.addEventListener('click', function() {
+                const ratingValue = this.getAttribute('data-value');
+                document.getElementById('rating-value').value = ratingValue;
+                document.getElementById('rating-error').style.display = 'none';
+                document.querySelectorAll('#star-rating .fa-star').forEach(s => s.classList.remove('text-warning'));
+                for (let i = 0; i < ratingValue; i++) {
+                    document.querySelectorAll('#star-rating .fa-star')[i].classList.add('text-warning');
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('review-form');
+
+            form.addEventListener('submit', function(event) {
+                // Check if the form is valid
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                // Add Bootstrap validation classes
+                form.classList.add('was-validated');
+            });
+
+            // Handle star rating selection
+            document.querySelectorAll('#star-rating .fa-star').forEach(star => {
+                star.addEventListener('click', function() {
+                    const ratingValue = this.getAttribute('data-value');
+                    document.getElementById('rating-value').value = ratingValue;
+                    document.getElementById('rating-error').style.display = 'none';
+                    document.querySelectorAll('#star-rating .fa-star').forEach(s => s.classList.remove('text-warning'));
+                    for (let i = 0; i < ratingValue; i++) {
+                        document.querySelectorAll('#star-rating .fa-star')[i].classList.add('text-warning');
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function() {
+            // Check if the review was successfully submitted
+            if (sessionStorage.getItem('reviewSubmitted') === 'true') {
+                // Show success toast
+                showToast('Success', 'Review submitted successfully.', 'bg-success');
+                // Remove the flag from session storage
+                sessionStorage.removeItem('reviewSubmitted');
+            }
+
+            $('form').on('submit', function(e) {
+                e.preventDefault();
+
+                const formData = {
+                    name: $('#name').val(),
+                    email: $('#email').val(),
+                    rating: $('#rating-value').val(),
+                    review: $('#review').val(),
+                    product_id: $('#product-id').val() || new URLSearchParams(window.location.search).get('id') // Fallback to URL parameter
+                };
+
+
+                $.ajax({
+                    url: './php/submit_review.php', // Adjust the path as necessary
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        if (response.success) {
+                            // Store a flag in session storage
+                            sessionStorage.setItem('reviewSubmitted', 'true');
+                            // Reload the page
+                            location.reload();
+                        } else {
+                            showToast('Error', response.message, 'bg-danger');
+                            console.error(response.message);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        showToast('Error', 'An error occurred while submitting your review.', 'bg-danger');
+                        console.error('Error: ' + textStatus + ', ' + errorThrown);
+                        console.error(jqXHR.responseText); // Log the error response for debugging
+                    }
+                });
+            });
+
+            function showToast(title, message, className) {
+                const toastHtml = `
+        <div class="toast ${className}" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+            <div class="toast-header">
+                <strong class="me-auto">${title}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                ${message}
+            </div>
+        </div>
+    `;
+
+                $('#toast-container').append(toastHtml);
+                const toast = new bootstrap.Toast($('#toast-container .toast').last()[0]);
+                toast.show();
+            }
+        });
     </script>
-    
+
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 

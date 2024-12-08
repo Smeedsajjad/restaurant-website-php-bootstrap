@@ -45,47 +45,181 @@ $_SESSION['last_activity'] = time();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Admin Dashboard</title>
     <!-- ICONS -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="./assets/css/nav.css"> <!-- Correct path for nav.css -->
-    <link rel="stylesheet" href="./assets/css/style.css"> <!-- Correct path for style.css -->
+    <link rel="stylesheet" href="./assets/css/nav.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
-    <!-- Make sure to include the Phosphor Icons library -->
-    <link href="https://unpkg.com/phosphor-icons@1.4.1/css/phosphor.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .welcome-message {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background-color: var(--navbg);
+            color: #fff !important;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .card .number {
+            font-size: 36px;
+            color: #fff;
+            margin: 10px 0;
+        }
+
+        .chart-container {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #aaa;
+        }
+        .chart-container{
+            background: var(--navbg)
+        }
+    </style>
 </head>
 
 <body>
-    <?php
-    include './partials/navbar.php';
-    ?>
+    <?php include './partials/navbar.php'; ?>
+
     <main class="main-content">
-        <h2 class="text-capitalize" >
+        <h2 class="welcome-message">
             <?php
-        if (isset($_SESSION['username'])) {
-            echo "Welcome, " . htmlspecialchars($_SESSION['username']) . "!";
-        } else {
-            header("Location: index.php?page=login");
-            exit;
-        }
-        ?>
+            if (isset($_SESSION['username'])) {
+                echo "Welcome, " . htmlspecialchars($_SESSION['username']) . "!";
+            } else {
+                header("Location: index.php?page=login");
+                exit;
+            }
+            ?>
         </h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit impedit quo aut earum assumenda ipsa adipisci culpa quia. Consequatur eum eveniet quo facere ea modi corrupti optio voluptatem quia exercitationem?</p>
+
+        <!-- Statistics Cards -->
+        <section class="stats-cards ">
+            <div class="card">
+                <h3>Total Users</h3>
+                <div class="number">1,245</div>
+            </div>
+            <div class="card">
+                <h3>Orders Today</h3>
+                <div class="number">348</div>
+            </div>
+            <div class="card">
+                <h3>Revenue</h3>
+                <div class="number">$12,400</div>
+            </div>
+            <div class="card">
+                <h3>New Messages</h3>
+                <div class="number">15</div>
+            </div>
+        </section>
+
+        <!-- Chart Section -->
+        <section class="chart-container">
+            <canvas id="salesChart"></canvas>
+        </section>
     </main>
 
-    <!-- Add jQuery from a CDN -->
+    <footer class="footer">
+        <p>&copy; 2024 Admin Dashboard. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Chart.js Configuration
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                datasets: [{
+                    label: 'Sales Over Time',
+                    data: [300, 400, 200, 500, 700, 600, 800],
+                    backgroundColor: 'rgba(97, 51, 189, 0.2)',
+                    borderColor: '#0d6dfc',
+                    borderWidth: 2,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Months'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Sales ($)'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+        <script src="assets/js/nav.js"></script>
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!-- Custom JS -->
-    <script src="./assets/js/nav.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

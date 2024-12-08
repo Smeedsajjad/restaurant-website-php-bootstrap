@@ -1,8 +1,65 @@
 <?php
+require_once './admin/config/config.php';
+
+$database = new Database();
+$dbConnection = $database->conn;
+
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
 // Define the base path for views
 $baseViewPath = './public/';
+
+// Initialize the flag for invalid pages
+$invalidPage = false;
+
+// Define the `id` if provided in the URL
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+// Check the validity of the `id` for specific pages
+if ($id > 0) {
+    switch ($page) {
+        case 'product':
+            $stmt = $dbConnection->prepare("SELECT id FROM products WHERE id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows === 0) $invalidPage = true; // No product found
+            break;
+
+        case 'orders':
+            $stmt = $dbConnection->prepare("SELECT id FROM orders WHERE id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows === 0) $invalidPage = true; // No order found
+            break;
+
+        case 'order-details':
+            $stmt = $dbConnection->prepare("SELECT id FROM billingdetails WHERE id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows === 0) $invalidPage = true; // No order details found
+            break;
+
+        case 'cart':
+            $stmt = $dbConnection->prepare("SELECT id FROM cart WHERE id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows === 0) $invalidPage = true; // No cart entry found
+            break;
+
+            default:
+            // Do nothing for other pages
+            break;
+    }
+}
+
+// Redirect to 404 if the page is invalid
+if ($invalidPage) {
+    $page = '404';
+}
 
 // Determine the content to include based on the `page` parameter
 switch ($page) {
@@ -54,3 +111,4 @@ switch ($page) {
 
 // Include the selected page content
 include $pageContent;
+?>

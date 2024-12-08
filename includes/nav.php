@@ -159,19 +159,19 @@ $_SESSION['logged_in'] = true;
     <div class="container-fluid p-0">
         <div class="d-flex justify-content-between align-items-center w-100 icon-container">
             <div class="text-center icon-item">
-                <a href="#" class="text-dark"><i class="fa-solid fa-store icon-size"></i></a>
+                <a href="index.php?page=shop" class="text-dark"><i class="fa-solid fa-store icon-size"></i></a>
                 <h6 class="fw-semibold mb-0">Shop</h6>
             </div>
             <div class="text-center icon-item">
-                <a href="#" class="text-dark"><i class="fas fa-user icon-size"></i></a>
+                <a href="index.php?page=login" class="text-dark"><i class="fas fa-user icon-size"></i></a>
                 <h6 class="fw-semibold mb-0">Account</h6>
             </div>
             <div class="text-center icon-item">
-                <a href="#" class="text-dark"><i class="fas fa-search icon-size"></i></a>
+                <a href="index.php?page=search" class="text-dark"><i class="fas fa-search icon-size"></i></a>
                 <h6 class="fw-semibold mb-0">Search</h6>
             </div>
             <div class="text-center icon-item position-relative">
-                <a href="#" class="text-dark me-4 position-relative">
+                <a href="index.php?page=wishlist" class="text-dark me-4 position-relative">
                     <i class="fas fa-heart"></i>
                     <span id="wishlist-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill count-icon">0</span>
                 </a>
