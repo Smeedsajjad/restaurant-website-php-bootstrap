@@ -31,10 +31,10 @@ This is a web-based **Admin Dashboard** application that includes analytics, cha
 Install dependencies:
 
 ```bash
-Copy code
 git add .
 git commit -m "Initial commit"
 git push origin main
+```
 Access your deployed app via the provided Railway URL.
 
 Usage
