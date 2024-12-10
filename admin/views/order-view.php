@@ -76,7 +76,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Orders</title>
+    <title>Order Details</title>
 
     <!-- ICONS -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -153,7 +153,7 @@ try {
 <body>
     <?php include __DIR__ . '/../partials/navbar.php'; ?>
 
-    <main class="main-content content px-3 py-2">
+    <main class="main-content px-3 py-2">
         <div class="container-fluid">
             <div class="mb-3">
                 <h2 class="text-white">Order<?php echo isset($_GET['id']) ? ' #' . htmlspecialchars($_GET['id']) : 's'; ?></h2>
@@ -191,7 +191,6 @@ try {
                                     ?>
                                     <span class="badge bg-<?php echo $statusClass; ?>"><?php echo ucfirst($order['order_status']); ?></span>
                                 </p>
-                                <p><strong>Payment Method:</strong> <?php echo ucfirst(htmlspecialchars($order['payment_method'])); ?></p>
                                 <p><strong>Total Amount:</strong> <span class="fw-bold">$<?php echo number_format($order['total_amount'], 2); ?></span></p>
                             </div>
                             <div class="col-md-6">

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'admin/config/config.php';
+require_once './admin/config/config.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
@@ -164,191 +164,179 @@ $db = $database->conn;
         <div class="container">
             <form id="checkout-form" class="needs-validation" novalidate>
                 <div class="row">
+                <div id="error-message" class="alert alert-danger" style="display:none;"></div>
+                    <h2 class="mb-4">Billing Details</h2>
                     <div class="col-md-7">
                         <!-- Billing Details -->
-                        <h2 class="mb-4">Billing Details</h2>
-                        <div class="row g-3">
+                        <div class="row">
                             <!-- First Name -->
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-3">
                                 <label for="firstName" class="form-label">First name <span class="text-danger">* </span></label>
                                 <input type="text" class="form-control" id="firstName" name="firstName" required>
                                 <div class="invalid-feedback">Please enter your first name.</div>
                             </div>
 
                             <!-- Last Name -->
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-3">
                                 <label for="lastName" class="form-label">Last name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="lastName" name="lastName" required>
                                 <div class="invalid-feedback">Please enter your last name.</div>
                             </div>
                             <!-- Country -->
-
-                            <div class="col-12">
-                                <div class="text-container">
-                                    <select name="country" class="form-select" aria-label="Default select example" id="country" required>
-                                        <option value="">Select your country</option>
-                                        <option value="afghanistan">Afghanistan</option>
-                                        <option value="albania">Albania</option>
-                                        <option value="algeria">Algeria</option>
-                                        <option value="andorra">Andorra</option>
-                                        <option value="angola">Angola</option>
-                                        <option value="antigua-and-barbuda">
-                                            Antigua and Barbuda
-                                        </option>
-                                        <option value="argentina">Argentina</option>
-                                        <option value="armenia">Armenia</option>
-                                        <option value="australia">Australia</option>
-                                        <option value="austria">Austria</option>
-                                        <option value="azerbaijan">Azerbaijan</option>
-                                        <option value="bahamas">Bahamas</option>
-                                        <option value="bahrain">Bahrain</option>
-                                        <option value="bangladesh">Bangladesh</option>
-                                        <option value="barbados">Barbados</option>
-                                        <option value="belarus">Belarus</option>
-                                        <option value="belgium">Belgium</option>
-                                        <option value="belize">Belize</option>
-                                        <option value="benin">Benin</option>
-                                        <option value="bhutan">Bhutan</option>
-                                        <option value="bolivia">Bolivia</option>
-                                        <option value="bosnia-and-herzegovina">
-                                            Bosnia and Herzegovina
-                                        </option>
-                                        <option value="botswana">Botswana</option>
-                                        <option value="brazil">Brazil</option>
-                                        <option value="brunei">Brunei</option>
-                                        <option value="bulgaria">Bulgaria</option>
-                                        <option value="burkina-faso">Burkina Faso</option>
-                                        <option value="burundi">Burundi</option>
-                                        <option value="cabo-verde">Cabo Verde</option>
-                                        <option value="cambodia">Cambodia</option>
-                                        <option value="cameroon">Cameroon</option>
-                                        <option value="canada">Canada</option>
-                                        <option value="central-african-republic">
-                                            Central African Republic
-                                        </option>
-                                        <option value="chad">Chad</option>
-                                        <option value="chile">Chile</option>
-                                        <option value="china">China</option>
-                                        <option value="colombia">Colombia</option>
-                                        <option value="comoros">Comoros</option>
-                                        <option value="congo-brazzaville">
-                                            Congo (Brazzaville)
-                                        </option>
-                                        <option value="congo-kinshasa">
-                                            Congo (Kinshasa)
-                                        </option>
-                                        <option value="costa-rica">Costa Rica</option>
-                                        <option value="croatia">Croatia</option>
-                                        <option value="cuba">Cuba</option>
-                                        <option value="cyprus">Cyprus</option>
-                                        <option value="czech-republic">
-                                            Czech Republic
-                                        </option>
-                                        <option value="denmark">Denmark</option>
-                                        <option value="djibouti">Djibouti</option>
-                                        <option value="dominica">Dominica</option>
-                                        <option value="dominican-republic">
-                                            Dominican Republic
-                                        </option>
-                                        <option value="east-timor">East Timor</option>
-                                        <option value="ecuador">Ecuador</option>
-                                        <option value="egypt">Egypt</option>
-                                        <option value="el-salvador">El Salvador</option>
-                                        <option value="equatorial-guinea">
-                                            Equatorial Guinea
-                                        </option>
-                                        <option value="eritrea">Eritrea</option>
-                                        <option value="estonia">Estonia</option>
-                                        <option value="eswatini">Eswatini</option>
-                                        <option value="ethiopia">Ethiopia</option>
-                                        <option value="fiji">Fiji</option>
-                                        <option value="finland">Finland</option>
-                                        <option value="france">France</option>
-                                        <option value="gabon">Gabon</option>
-                                        <option value="gambia">Gambia</option>
-                                        <option value="georgia">Georgia</option>
-                                        <option value="germany">Germany</option>
-                                        <option value="ghana">Ghana</option>
-                                        <option value="greece">Greece</option>
-                                        <option value="grenada">Grenada</option>
-                                        <option value="guatemala">Guatemala</option>
-                                        <option value="guinea">Guinea</option>
-                                        <option value="guinea-bissau">Guinea-Bissau</option>
-                                        <option value="guyana">Guyana</option>
-                                        <option value="haiti">Haiti</option>
-                                        <option value="honduras">Honduras</option>
-                                        <option value="hungary">Hungary</option>
-                                        <option value="iceland">Iceland</option>
-                                        <option value="india">India</option>
-                                        <option value="indonesia">Indonesia</option>
-                                        <option value="iran">Iran</option>
-                                        <option value="iraq">Iraq</option>
-                                        <option value="ireland">Ireland</option>
-                                        <option value="israel">Israel</option>
-                                        <option value="italy">Italy</option>
-                                        <option value="ivory-coast">Ivory Coast</option>
-                                        <option value="jamaica">Jamaica</option>
-                                        <option value="japan">Japan</option>
-                                        <option value="jordan">Jordan</option>
-                                        <option value="kazakhstan">Kazakhstan</option>
-                                        <option value="kenya">Kenya</option>
-                                        <option value="kiribati">Kiribati</option>
-                                        <option value="kosovo">Kosovo</option>
-                                        <option value="kuwait">Kuwait</option>
-                                        <option value="kyrgyzstan">Kyrgyzstan</option>
-                                        <option value="laos">Laos</option>
-                                        <option value="latvia">Latvia</option>
-                                        <option value="lebanon">Lebanon</option>
-                                        <option value="lesotho">Lesotho</option>
-                                        <option value="liberia">Liberia</option>
-                                        <option value="libya">Libya</option>
-                                        <option value="liechtenstein">Liechtenstein</option>
-                                        <option value="lithuania">Lithuania</option>
-                                        <option value="luxembourg">Luxembourg</option>
-                                        <option value="north-macedonia">North Macedonia</option>
-                                        <option value="madagascar">Madagascar</option>
-                                        <option value="malawi">Malawi</option>
-                                        <option value="malaysia">Malaysia</option>
-                                        <option value="maldives">Maldives</option>
-                                        <option value="mali">Mali</option>
-                                        <option value="malta">Malta</option>
-                                        <option value="marshall-islands">Marshall Islands</option>
-                                        <option value="mauritania">Mauritania</option>
-                                        <option value="mauritius">Mauritius</option>
-                                        <option value="mexico">Mexico</option>
-                                        <option value="micronesia">Micronesia</option>
-                                        <option value="moldova">Moldova</option>
-                                        <option value="monaco">Monaco</option>
-                                        <option value="mongolia">Mongolia</option>
-                                        <option value="montenegro">Montenegro</option>
-                                        <option value="morocco">Morocco</option>
-                                        <option value="mozambique">Mozambique</option>
-                                        <option value="myanmar">Myanmar</option>
-                                        <option value="namibia">Namibia</option>
-                                        <option value="nauru">Nauru</option>
-                                        <option value="nepal">Nepal</option>
-                                        <option value="netherlands">Netherlands</option>
-                                        <option value="new-zealand">New Zealand</option>
-                                        <option value="nicaragua">Nicaragua</option>
-                                        <option value="niger">Niger</option>
-                                        <option value="nigeria">Nigeria</option>
-                                        <option value="north-korea">North Korea</option>
-                                        <option value="norway">Norway</option>
-                                        <option value="oman">Oman</option>
-                                        <option value="pakistan">Pakistan</option>
-                                        <option value="palau">Palau</option>
-                                        <option value="palestine">Palestine</option>
-                                        <option value="panama">Panama</option>
-                                        <option value="papua-new-guinea">Papua New Guinea</option>
-                                        <option value="paraguay">Paraguay</option>
-                                        <option value="peru">Peru</option>
-                                        <option value="philippines">Philippines</option>
-                                        <option value="poland">Poland</option>
-                                </div>
+                            <div class="col-md-12 mt-3">
+                                <label for="country" class="form-label">Country <span class="text-danger">*</span></label>
+                                <select name="country" class="form-select" aria-label="Default select example" id="country" required>
+                                    <option value="">Select your country</option>
+                                    <option value="afghanistan">Afghanistan</option>
+                                    <option value="albania">Albania</option>
+                                    <option value="algeria">Algeria</option>
+                                    <option value="andorra">Andorra</option>
+                                    <option value="angola">Angola</option>
+                                    <option value="antigua-and-barbuda">Antigua and Barbuda</option>
+                                    <option value="argentina">Argentina</option>
+                                    <option value="armenia">Armenia</option>
+                                    <option value="australia">Australia</option>
+                                    <option value="austria">Austria</option>
+                                    <option value="azerbaijan">Azerbaijan</option>
+                                    <option value="bahamas">Bahamas</option>
+                                    <option value="bahrain">Bahrain</option>
+                                    <option value="bangladesh">Bangladesh</option>
+                                    <option value="barbados">Barbados</option>
+                                    <option value="belarus">Belarus</option>
+                                    <option value="belgium">Belgium</option>
+                                    <option value="belize">Belize</option>
+                                    <option value="benin">Benin</option>
+                                    <option value="bhutan">Bhutan</option>
+                                    <option value="bolivia">Bolivia</option>
+                                    <option value="bosnia-and-herzegovina">Bosnia and Herzegovina</option>
+                                    <option value="botswana">Botswana</option>
+                                    <option value="brazil">Brazil</option>
+                                    <option value="brunei">Brunei</option>
+                                    <option value="bulgaria">Bulgaria</option>
+                                    <option value="burkina-faso">Burkina Faso</option>
+                                    <option value="burundi">Burundi</option>
+                                    <option value="cabo-verde">Cabo Verde</option>
+                                    <option value="cambodia">Cambodia</option>
+                                    <option value="cameroon">Cameroon</option>
+                                    <option value="canada">Canada</option>
+                                    <option value="central-african-republic">Central African Republic</option>
+                                    <option value="chad">Chad</option>
+                                    <option value="chile">Chile</option>
+                                    <option value="china">China</option>
+                                    <option value="colombia">Colombia</option>
+                                    <option value="comoros">Comoros</option>
+                                    <option value="congo-brazzaville">Congo (Brazzaville)</option>
+                                    <option value="congo-kinshasa">Congo (Kinshasa)</option>
+                                    <option value="costa-rica">Costa Rica</option>
+                                    <option value="croatia">Croatia</option>
+                                    <option value="cuba">Cuba</option>
+                                    <option value="cyprus">Cyprus</option>
+                                    <option value="czech-republic">Czech Republic</option>
+                                    <option value="denmark">Denmark</option>
+                                    <option value="djibouti">Djibouti</option>
+                                    <option value="dominica">Dominica</option>
+                                    <option value="dominican-republic">Dominican Republic</option>
+                                    <option value="east-timor">East Timor</option>
+                                    <option value="ecuador">Ecuador</option>
+                                    <option value="egypt">Egypt</option>
+                                    <option value="el-salvador">El Salvador</option>
+                                    <option value="equatorial-guinea">Equatorial Guinea</option>
+                                    <option value="eritrea">Eritrea</option>
+                                    <option value="estonia">Estonia</option>
+                                    <option value="eswatini">Eswatini</option>
+                                    <option value="ethiopia">Ethiopia</option>
+                                    <option value="fiji">Fiji</option>
+                                    <option value="finland">Finland</option>
+                                    <option value="france">France</option>
+                                    <option value="gabon">Gabon</option>
+                                    <option value="gambia">Gambia</option>
+                                    <option value="georgia">Georgia</option>
+                                    <option value="germany">Germany</option>
+                                    <option value="ghana">Ghana</option>
+                                    <option value="greece">Greece</option>
+                                    <option value="grenada">Grenada</option>
+                                    <option value="guatemala">Guatemala</option>
+                                    <option value="guinea">Guinea</option>
+                                    <option value="guinea-bissau">Guinea-Bissau</option>
+                                    <option value="guyana">Guyana</option>
+                                    <option value="haiti">Haiti</option>
+                                    <option value="honduras">Honduras</option>
+                                    <option value="hungary">Hungary</option>
+                                    <option value="iceland">Iceland</option>
+                                    <option value="india">India</option>
+                                    <option value="indonesia">Indonesia</option>
+                                    <option value="iran">Iran</option>
+                                    <option value="iraq">Iraq</option>
+                                    <option value="ireland">Ireland</option>
+                                    <option value="israel">Israel</option>
+                                    <option value="italy">Italy</option>
+                                    <option value="ivory-coast">Ivory Coast</option>
+                                    <option value="jamaica">Jamaica</option>
+                                    <option value="japan">Japan</option>
+                                    <option value="jordan">Jordan</option>
+                                    <option value="kazakhstan">Kazakhstan</option>
+                                    <option value="kenya">Kenya</option>
+                                    <option value="kiribati">Kiribati</option>
+                                    <option value="kosovo">Kosovo</option>
+                                    <option value="kuwait">Kuwait</option>
+                                    <option value="kyrgyzstan">Kyrgyzstan</option>
+                                    <option value="laos">Laos</option>
+                                    <option value="latvia">Latvia</option>
+                                    <option value="lebanon">Lebanon</option>
+                                    <option value="lesotho">Lesotho</option>
+                                    <option value="liberia">Liberia</option>
+                                    <option value="libya">Libya</option>
+                                    <option value="liechtenstein">Liechtenstein</option>
+                                    <option value="lithuania">Lithuania</option>
+                                    <option value="luxembourg">Luxembourg</option>
+                                    <option value="north-macedonia">North Macedonia</option>
+                                    <option value="madagascar">Madagascar</option>
+                                    <option value="malawi">Malawi</option>
+                                    <option value="malaysia">Malaysia</option>
+                                    <option value="maldives">Maldives</option>
+                                    <option value="mali">Mali</option>
+                                    <option value="malta">Malta</option>
+                                    <option value="marshall-islands">Marshall Islands</option>
+                                    <option value="mauritania">Mauritania</option>
+                                    <option value="mauritius">Mauritius</option>
+                                    <option value="mexico">Mexico</option>
+                                    <option value="micronesia">Micronesia</option>
+                                    <option value="moldova">Moldova</option>
+                                    <option value="monaco">Monaco</option>
+                                    <option value="mongolia">Mongolia</option>
+                                    <option value="montenegro">Montenegro</option>
+                                    <option value="morocco">Morocco</option>
+                                    <option value="mozambique">Mozambique</option>
+                                    <option value="myanmar">Myanmar</option>
+                                    <option value="namibia">Namibia</option>
+                                    <option value="nauru">Nauru</option>
+                                    <option value="nepal">Nepal</option>
+                                    <option value="netherlands">Netherlands</option>
+                                    <option value="new-zealand">New Zealand</option>
+                                    <option value="nicaragua">Nicaragua</option>
+                                    <option value="niger">Niger</option>
+                                    <option value="nigeria">Nigeria</option>
+                                    <option value="north-korea">North Korea</option>
+                                    <option value="norway">Norway</option>
+                                    <option value="oman">Oman</option>
+                                    <option value="pakistan">Pakistan</option>
+                                    <option value="palau">Palau</option>
+                                    <option value="palestine">Palestine</option>
+                                    <option value="panama">Panama</option>
+                                    <option value="papua-new-guinea">Papua New Guinea</option>
+                                    <option value="paraguay">Paraguay</option>
+                                    <option value="peru">Peru</option>
+                                    <option value="philippines">Philippines</option>
+                                    <option value="poland">Poland</option>
+                                </select>
+                                <div class="invalid-feedback">Please select your country.</div>
                             </div>
-
+                            <div class="col-md-6 mt-3">
+                                <label for="county" class="form-label">County (optional)</label>
+                                <input type="text" class="form-control" id="county" name="county">
+                            </div>
                             <!-- Street Address -->
-                            <div class="col-12">
+                            <div class="col-md-12 mt-3">
                                 <label for="address" class="form-label">Street address <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control mb-3" id="address" name="address" placeholder="House number and street name" required>
                                 <input type="text" class="form-control" id="address2" name="address2" placeholder="Apartment, suite, unit, etc. (optional)">
@@ -356,48 +344,41 @@ $db = $database->conn;
                             </div>
 
                             <!-- Town/City -->
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-3">
                                 <label for="city" class="form-label">Town / City <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="city" name="city" required>
                                 <div class="invalid-feedback">Please enter your town/city.</div>
                             </div>
 
-                            <!-- County -->
-                            <div class="col-md-6">
-                                <label for="county" class="form-label">County (optional)</label>
-                                <input type="text" class="form-control" id="county" name="county">
-                            </div>
-
                             <!-- Postcode -->
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-3">
                                 <label for="postcode" class="form-label">Postcode <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="postcode" name="postcode" required>
                                 <div class="invalid-feedback">Please enter your postcode.</div>
                             </div>
 
                             <!-- Phone -->
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-3">
                                 <label for="phone" class="form-label">Phone <span class="text-danger">*</span></label>
                                 <input type="tel" class="form-control" id="phone" name="phone" required>
                                 <div class="invalid-feedback">Please enter your phone number.</div>
                             </div>
 
                             <!-- Email -->
-                            <div class="col-12">
+                            <div class="col-12 mt-3">
                                 <label for="email" class="form-label">Email address <span class="text-danger">*</span></label>
                                 <input type="email" class="form-control" id="email" name="email" required>
                                 <div class="invalid-feedback">Please enter a valid email address.</div>
                             </div>
 
                             <!-- Order Notes -->
-                            <div class="col-12">
+                            <div class="col-12 mt-3">
                                 <label for="notes" class="form-label">Order notes (optional)</label>
                                 <textarea class="form-control" id="notes" name="notes" rows="4" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                             </div>
                         </div>
 
                     </div>
-                    <!-- aside filter -->
                     <div class="col-md-5">
                         <aside>
                             <div class="p-4 border border-muted border-5">
@@ -434,102 +415,14 @@ $db = $database->conn;
                                         <span>£<?php echo number_format($subtotal, 2); ?></span>
                                     </div>
                                     <hr class="my-3">
-                                    <div class="d-flex justify-content-between mb-3">
-                                        <strong>Shipping:</strong>
-                                        <span class="text-muted">Enter your address to view shipping options.</span>
-                                    </div>
-                                    <hr class="my-3">
                                     <div class="d-flex justify-content-between mb-4">
                                         <strong>Total:</strong>
                                         <span class="price fw-bold fs-4" style="line-height: 25px;">£<?php echo number_format($subtotal, 2); ?></span>
                                     </div>
 
-                                    <!-- Payment Methods -->
-                                    <div class="accordion" id="paymentAccordion">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#bankTransfer" aria-expanded="true" aria-controls="bankTransfer" onclick="document.getElementById('bank-transfer').checked = true;">
-                                                    Direct bank transfer
-                                                </button>
-                                            </h2>
-                                            <div id="bankTransfer" class="accordion-collapse collapse show" data-bs-parent="#paymentAccordion">
-                                                <div class="accordion-body">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="payment" id="bank-transfer" checked>
-                                                        <label class="form-check-label" for="bank-transfer">
-                                                            Direct bank transfer
-                                                        </label>
-                                                    </div>
-                                                    <div class="payment-description text-muted small mt-2">
-                                                        Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <h2 class="text-muted">Cash On Delivery</h2><br>
+                                    <p><strong class="text-danger">Note:</strong> Please double-check your delivery address and phone number before confirming the order to avoid delays.</p>
 
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#checkPayment" aria-expanded="false" aria-controls="checkPayment" onclick="document.getElementById('check').checked = true;">
-                                                    Check payments
-                                                </button>
-                                            </h2>
-                                            <div id="checkPayment" class="accordion-collapse collapse" data-bs-parent="#paymentAccordion">
-                                                <div class="accordion-body">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="payment" id="check">
-                                                        <label class="form-check-label" for="check">
-                                                            Check payments
-                                                        </label>
-                                                    </div>
-                                                    <div class="payment-description text-muted small mt-2">
-                                                        Please send a check to our office address. Your order will be processed once the check is cleared.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cashDelivery" aria-expanded="false" aria-controls="cashDelivery" onclick="document.getElementById('cod').checked = true;">
-                                                    Cash on delivery
-                                                </button>
-                                            </h2>
-                                            <div id="cashDelivery" class="accordion-collapse collapse" data-bs-parent="#paymentAccordion">
-                                                <div class="accordion-body">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="payment" id="cod">
-                                                        <label class="form-check-label" for="cod">
-                                                            Cash on delivery
-                                                        </label>
-                                                    </div>
-                                                    <div class="payment-description text-muted small mt-2">
-                                                        Pay with cash upon delivery. Available for selected locations only.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#paypalPayment" aria-expanded="false" aria-controls="paypalPayment" onclick="document.getElementById('paypal').checked = true;">
-                                                    PayPal
-                                                </button>
-                                            </h2>
-                                            <div id="paypalPayment" class="accordion-collapse collapse" data-bs-parent="#paymentAccordion">
-                                                <div class="accordion-body">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="payment" id="paypal">
-                                                        <label class="form-check-label" for="paypal">
-                                                            <img src="https://imgs.search.brave.com/W9VWE9rWDe1JhgrU52DJ1gri_YWldH9FH-UeUYqFZMk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy9i/L2I1L1BheVBhbC5z/dmc" alt="PayPal acceptance mark" height="20">
-                                                        </label>
-                                                    </div>
-                                                    <div class="payment-description text-muted small mt-2">
-                                                        Pay via PayPal; you can pay with your credit card if you don't have a PayPal account.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <div class="privacy-notice text-muted small mt-4">
                                         Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.
@@ -541,8 +434,10 @@ $db = $database->conn;
                         </aside>
                     </div>
                 </div>
-            </form>
-
+                <!-- aside Checkout -->
+              
+        </div>
+        </form>
         </div>
         </div>
     </main>
@@ -587,10 +482,14 @@ $db = $database->conn;
                         } else {
                             $('#cart-items').html('<p style="text-align: center;">Your cart is empty.</p>');
                             $('#empty-message').show();
+                            // Show empty toast
+                            $('#empty-toast').toast('show');
                         }
                     },
-                    error: function(xhr, status, error) {
-                        console.error('Internal Server Error');
+                    error: function(error) {
+                        $('#cart-items').html('<p style="text-align: center;">Internal Server Error.</p>');
+                            $('#empty-message').show();
+                            $('#empty-toast').toast('show');
                     }
                 });
             }
@@ -628,10 +527,6 @@ $db = $database->conn;
                     formData.forEach((value, key) => {
                         formDataObj[key] = value;
                     });
-
-                    // Here you can send the formDataObj to your server
-                    console.log('Form data:', formDataObj);
-                    // TODO: Add AJAX call to submit form data
                 }
 
                 form.classList.add('was-validated');
@@ -678,19 +573,15 @@ $db = $database->conn;
                 e.preventDefault();
 
                 // Clear previous error messages
-                clearErrors();
+                const errorDiv = document.getElementById('error-message');
+                errorDiv.textContent = '';
+                errorDiv.style.display = 'none';
 
                 // Validate form
                 if (!validateForm()) {
                     return false;
                 }
 
-                // Get selected payment method
-                const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
-
-                // Get form data
-                const formData = new FormData(this);
-                formData.append('payment', paymentMethod);
 
                 // Show loading state
                 const submitBtn = document.querySelector('button[type="submit"]');
@@ -699,78 +590,78 @@ $db = $database->conn;
                 submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
 
                 // Submit form via AJAX
-                fetch('../php/checkout.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        // Show success alert
-                        Swal.fire({
-                            title: 'Order Placed Successfully!',
-                            text: 'Thank you for your order. You will be redirected to the order confirmation page.',
-                            icon: 'success',
-                            timer: 2000,
-                            showConfirmButton: false
-                        }).then(() => {
-                            // Update all cart count elements
-                            document.querySelectorAll('.cart-count, #cart-count').forEach(el => {
-                                el.textContent = '0';
+                fetch('./php/checkout.php', {
+                        method: 'POST',
+                        body: new FormData(this)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            // Show success alert
+                            Swal.fire({
+                                title: 'Order Placed Successfully!',
+                                text: 'Thank you for your order. You will be redirected to the order confirmation page.',
+                                icon: 'success',
+                                timer: 2000,
+                                showConfirmButton: false
+                            }).then(() => {
+                                // Update all cart count elements
+                                document.querySelectorAll('.cart-count, #cart-count').forEach(el => {
+                                    el.textContent = '0';
+                                });
+
+                                // Clear cart slider if it exists
+                                if (document.getElementById('cartItems')) {
+                                    document.getElementById('cartItems').innerHTML = '';
+                                }
+
+                                // Update cart total
+                                document.querySelectorAll('.cart-total').forEach(el => {
+                                    el.textContent = '£0.00';
+                                });
+
+                                // Clear the checkout form
+                                document.getElementById('checkout-form').reset();
+
+                                // Clear cart session
+                                fetch('../php/clear-cart.php')
+                                    .then(response => response.json())
+                                    // .catch(error => console.error('Error clearing cart:', error));
+
+                                // Redirect to order confirmation page
+                                window.location.href = 'order-confirmation.php?order_id=' + data.order_id;
                             });
-
-                            // Clear cart slider if it exists
-                            if (document.getElementById('cartItems')) {
-                                document.getElementById('cartItems').innerHTML = '';
-                            }
-                            
-                            // Update cart total
-                            document.querySelectorAll('.cart-total').forEach(el => {
-                                el.textContent = '£0.00';
+                        } else {
+                            // Show error message
+                            errorDiv.textContent = data.message;
+                            errorDiv.style.display = 'block';
+                            errorDiv.scrollIntoView({
+                                behavior: 'smooth'
                             });
-
-                            // Clear the checkout form
-                            document.getElementById('checkout-form').reset();
-
-                            // Clear cart session
-                            fetch('../php/clear-cart.php')
-                                .then(response => response.json())
-                                .then(data => {
-                                    console.log('Cart cleared:', data);
-                                })
-                                .catch(error => console.error('Error clearing cart:', error));
-
-                            // Redirect to order confirmation page
-                            window.location.href = 'order-confirmation.php?order_id=' + data.order_id;
-                        });
-                    } else {
-                        // Show error message
-                        Swal.fire({
-                            title: 'Error',
-                            text: data.message,
-                            icon: 'error'
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = originalBtnText;
+                        }
+                    })
+                    .catch(error => {
+                        errorDiv.textContent = 'An error occurred while processing your order. Please try again.';
+                        errorDiv.style.display = 'block';
+                        errorDiv.scrollIntoView({
+                            behavior: 'smooth'
                         });
                         submitBtn.disabled = false;
                         submitBtn.innerHTML = originalBtnText;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'An error occurred while processing your order. Please try again.',
-                        icon: 'error'
                     });
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalBtnText;
-                });
             });
 
             function showError(message) {
                 const errorDiv = document.getElementById('error-message');
-                errorDiv.textContent = message;
-                errorDiv.style.display = 'block';
-                errorDiv.scrollIntoView({ behavior: 'smooth' });
+                if (errorDiv) {
+                    errorDiv.textContent = message;
+                    errorDiv.style.display = 'block';
+                    errorDiv.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             }
 
             function clearErrors() {
@@ -779,28 +670,19 @@ $db = $database->conn;
                 errorDiv.style.display = 'none';
             }
         });
-    </script>
-    <script>
+
+
         $(document).ready(function() {
             $('#checkout-form').on('submit', function(e) {
                 e.preventDefault();
 
-                // Get the country value
-                const countryValue = $('#country').val();
-                if (!countryValue) {
-                    alert('Please select a country');
-                    return false;
-                }
-
                 var formData = $(this).serialize();
-                console.log("Form data being sent:", formData);
 
                 $.ajax({
                     url: './php/checkout.php',
                     type: 'POST',
                     data: formData,
                     success: function(response) {
-                        console.log(response);
                         if (response.includes('successfully')) {
                             $('#response').html('<div class="alert alert-success">' + response + '</div>');
                             // Optional: redirect or reset form
@@ -816,8 +698,7 @@ $db = $database->conn;
                 });
             });
         });
-    </script>
-    <script>
+
         $(document).ready(function() {
             $('#checkout-form').on('submit', function(e) {
                 e.preventDefault();
@@ -835,7 +716,7 @@ $db = $database->conn;
 
                 // Submit form via AJAX
                 $.ajax({
-                    url: '../php/checkout.php',
+                    url: './php/checkout.php',
                     type: 'POST',
                     data: formData,
                     processData: false,

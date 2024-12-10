@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-
 // Include necessary configuration and class files
 require_once './admin/config/config.php';
 require_once './admin/php/ProductController.php';
@@ -21,7 +20,11 @@ $categoryData = new CategoryData($dbConnection);
 // Fetch categories
 $categories = $categoryData->getCategories();
 
-
+// Include the search.php logic to display results
+if (isset($_GET['query'])) {
+    $searchQuery = htmlspecialchars($_GET['query']);
+    require_once './php/search.php';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,13 +76,11 @@ $categories = $categoryData->getCategories();
     </div>
     <!-- header -->
     <?php include  './includes/header.php'; ?>
-
     <!-- navbar -->
     <?php include  './includes/nav.php'; ?>
     <!-- cartSlider -->
     <?php include  './includes/cartSlider.php'; ?>
     <!-- Hero section -->
-
     <section class="op_hero_section" style="margin-bottom: 15vh;background-image: url(./assets/shop/images/breadcrumb1.jpg);">
         <div class="container-fluid">
             <h1 class="opht d-flex justify-content-center text-center">Shop</h1>
@@ -345,6 +346,12 @@ $categories = $categoryData->getCategories();
             updateCartCount(); // Update the cart count on page load
         });
     </script>
+    <form action="search.php" method="GET" class="d-flex">
+        <input type="text" name="query" class="form-control" placeholder="Search..." required>
+        <button type="submit" class="btn btn-light">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
 </body>
 
 </html>

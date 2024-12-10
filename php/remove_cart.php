@@ -1,7 +1,7 @@
 <?php
 error_reporting(0); // Disable error reporting for production
 header('Content-Type: application/json');
-require_once '../config/config.php';
+require_once '../admin/config/config.php';
 
 $response = ['status' => 'error', 'message' => 'Invalid request'];
 $database = new Database();

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../config/config.php';
+require_once '../admin/config/config.php';
 
 $response = ['status' => 'error', 'message' => 'No items found'];
 

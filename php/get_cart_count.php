@@ -1,5 +1,5 @@
 <?php
-require_once '../config/config.php';
+require_once '../admin/config/config.php';
 require_once 'Cart.php';
 
 $database = new Database();

@@ -1,13 +1,9 @@
 <?php
 session_start();
 ob_clean();
-// Include necessary configuration and class files
-require_once './admin/php/ProductController.php'; // Adjusted path to ProductController
-
-
+require_once './admin/php/ProductController.php';
 // Pass the database connection to the ProductController
 $productController = new ProductController($dbConnection);
-
 // Get 6 products
 $products = $productController->getLimitProducts(6);
 ?>

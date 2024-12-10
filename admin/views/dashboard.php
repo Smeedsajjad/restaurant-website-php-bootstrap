@@ -13,7 +13,14 @@ $admin = new Admin($dbConnection);
 
 // Set the session timeout duration in seconds (e.g., 1800 for 30 minutes)
 $sessionTimeout = 86400;
-
+// Fetch statistics
+$totalUsers = $admin->getTotalUsers();
+$ordersToday = $admin->getOrdersToday();
+$revenue = $admin->getRevenueToday();
+$totalQuantity = $admin->getTotalQuantity();
+// Fetch monthly orders
+$monthlyOrders = $admin->getMonthlyOrders(); // Fetch orders by category
+$ordersByCategory = $admin->getOrdersByCategory();
 // Check if the user is logged in
 if (!isset($_SESSION['admin_id'])) {
     header("Location: index.php?page=login"); // Redirect to login if not logged in
@@ -124,7 +131,8 @@ $_SESSION['last_activity'] = time();
             font-size: 14px;
             color: #aaa;
         }
-        .chart-container{
+
+        .chart-container {
             background: var(--navbg)
         }
     </style>
@@ -146,28 +154,51 @@ $_SESSION['last_activity'] = time();
         </h2>
 
         <!-- Statistics Cards -->
-        <section class="stats-cards ">
+        <section class="stats-cards">
             <div class="card">
                 <h3>Total Users</h3>
-                <div class="number">1,245</div>
+                <div class="number"><?php echo number_format($totalUsers); ?></div>
             </div>
             <div class="card">
                 <h3>Orders Today</h3>
-                <div class="number">348</div>
+                <div class="number"><?php echo number_format($ordersToday); ?></div>
             </div>
             <div class="card">
                 <h3>Revenue</h3>
-                <div class="number">$12,400</div>
+                <div class="number">$<?php echo number_format($revenue, 2); ?></div>
             </div>
             <div class="card">
-                <h3>New Messages</h3>
-                <div class="number">15</div>
+                <h3>Total Orders</h3>
+                <div class="number"><?php echo number_format($totalQuantity); ?></div>
             </div>
         </section>
 
         <!-- Chart Section -->
         <section class="chart-container">
             <canvas id="salesChart"></canvas>
+            <script>
+                const ctx = document.getElementById('salesChart').getContext('2d');
+                const salesChart = new Chart(ctx, {
+                    type: 'bar', // You can change this to 'line' or other types
+                    data: {
+                        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                        datasets: [{
+                            label: 'Orders This Year',
+                            data: [<?php echo implode(',', $monthlyOrders); ?>], // Insert monthly order data here
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
         </section>
     </main>
 
@@ -175,47 +206,8 @@ $_SESSION['last_activity'] = time();
         <p>&copy; 2024 Admin Dashboard. All rights reserved.</p>
     </footer>
 
-    <script>
-        // Chart.js Configuration
-        const ctx = document.getElementById('salesChart').getContext('2d');
-        const salesChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-                datasets: [{
-                    label: 'Sales Over Time',
-                    data: [300, 400, 200, 500, 700, 600, 800],
-                    backgroundColor: 'rgba(97, 51, 189, 0.2)',
-                    borderColor: '#0d6dfc',
-                    borderWidth: 2,
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: true
-                    }
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Months'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Sales ($)'
-                        }
-                    }
-                }
-            }
-        });
-    </script>
-        <script src="assets/js/nav.js"></script>
+
+    <script src="assets/js/nav.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS -->

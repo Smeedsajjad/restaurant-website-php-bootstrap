@@ -154,14 +154,13 @@ class ProductController
     }
 
     // Search for products by name, description, or tagline
-    public function searchProducts($searchTerm)
+    public function searchProducts($query)
     {
-        $searchTerm = "%$searchTerm%";
         $stmt = $this->connection->prepare("SELECT * FROM products WHERE name LIKE ? OR `desc` LIKE ? OR tagline LIKE ?");
+        $searchTerm = "%" . $query . "%";
         $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
         $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getCartProducts($userId)
@@ -174,7 +173,8 @@ class ProductController
         // Fetch all cart products
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getProductsLoadMore($offset, $limit) {
+    public function getProductsLoadMore($offset, $limit)
+    {
         $query = "SELECT * FROM products LIMIT ?, ?";
         $stmt = $this->connection->prepare($query);
         $stmt->bind_param("ii", $offset, $limit);

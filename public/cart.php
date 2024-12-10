@@ -76,7 +76,7 @@
     <main>
         <?php
         // Include necessary configuration and class files
-        require_once './config/config.php';
+        require_once './admin/config/config.php';
         require_once './php/ProductController.php';
 
         // Create a new database connection

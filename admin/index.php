@@ -19,7 +19,7 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 if ($id > 0) {
     switch ($page) {
         case 'edit-category':
-            $stmt = $conn->prepare("SELECT id FROM categories WHERE id = ?");
+            $stmt = $dbConnection->prepare("SELECT id FROM categories WHERE id = ?");
             $stmt->bind_param("i", $id);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -27,7 +27,7 @@ if ($id > 0) {
             break;
 
         case 'edit-products':
-            $stmt = $conn->prepare("SELECT id FROM products WHERE id = ?");
+            $stmt = $dbConnection->prepare("SELECT id FROM products WHERE id = ?");
             $stmt->bind_param("i", $id);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -35,7 +35,7 @@ if ($id > 0) {
             break;
 
         case 'order-view':
-            $stmt = $conn->prepare("SELECT id FROM orders WHERE id = ?");
+            $stmt = $dbConnection->prepare("SELECT id FROM orders WHERE id = ?");
             $stmt->bind_param("i", $id);
             $stmt->execute();
             $result = $stmt->get_result();
